@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public Vector2 input;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+    }
+}
