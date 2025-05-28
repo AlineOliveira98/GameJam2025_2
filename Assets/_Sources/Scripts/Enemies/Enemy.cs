@@ -6,37 +6,21 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private float rangeAttack = 1f;
+    [Header("Patrol")]
     [SerializeField] private float rangeFollow = 3f;
+    [SerializeField] private float stoppedTime = 2f;
     [SerializeField][Min(3)] private float rangeToFindNewPointPatrol = 5f;
 
+    [Header("Attack")]
     [SerializeField] private float damage;
     [SerializeField] private float attackRate;
-    [SerializeField] private float delayPatrol = 2f;
+    [SerializeField] private float rangeAttack = 1f;
 
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
 
-    public enum EnemyState {Patrolling, Following, Attacking}
-
-    [Header("Debug")]
-    [SerializeField] private EnemyState state;
-    [SerializeField] private GameObject test;
-    [SerializeField] private GameObject test2;
-
     private Transform targetFind;
-    private Vector2 navMeshTarget;
-
-    private Vector2 NavMeshTarget
-    {
-        get { return navMeshTarget; }
-        set
-        {
-            navMeshTarget = value;
-            Debug.Log($"[{index}] Setting Target: {value}");
-        }
-    }
+    private Vector2 NavMeshTarget;
 
     [SerializeField] private bool isWaitingNewTarget = false;
 
@@ -77,19 +61,15 @@ public class Enemy : MonoBehaviour
         {
             WaitAndSetNewPatrolPoint();
         }
-
-        state = EnemyState.Patrolling;
     }
 
     private async void WaitAndSetNewPatrolPoint()
     {
-        Debug.Log($"Waiting {index}");
-
         agent.isStopped = true;
 
         isWaitingNewTarget = true;
         GetRandomPoint();
-        await Task.Delay((int)(delayPatrol * 1000));
+        await Task.Delay((int)(stoppedTime * 1000));
         agent.isStopped = false;
 
         isWaitingNewTarget = false;
@@ -100,7 +80,6 @@ public class Enemy : MonoBehaviour
     private void FollowTargetFounded()
     {
         NavMeshTarget = targetFind.position;
-        state = EnemyState.Following;
     }
 
     private void LookingForTarget()
@@ -123,8 +102,6 @@ public class Enemy : MonoBehaviour
         {
             damageable.TakeDamage(damage);
         }
-
-        state = EnemyState.Attacking;
     }
 
     private bool IsInRangToAttack()
