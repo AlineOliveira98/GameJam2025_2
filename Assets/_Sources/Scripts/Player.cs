@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Vector2 input;
+
+    public bool IsDead { get; set; }
 
     private void Awake()
     {
@@ -13,5 +15,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+    }
+    
+    public void TakeDamage(float damage)
+    {
+        
     }
 }
