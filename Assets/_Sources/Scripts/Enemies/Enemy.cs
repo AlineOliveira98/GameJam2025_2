@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour
         if (!targetFind)
         {
             Patrolling();
-            LookingForTarget();
         }
         else if (IsInsideRange(rangeAttack))
         {
@@ -50,6 +49,7 @@ public class Enemy : MonoBehaviour
         }
 
         MoveToNavMeshTarget();
+        LookingForTarget();
     }
 
     private void Patrolling()
@@ -92,9 +92,18 @@ public class Enemy : MonoBehaviour
 
     private void LookingForTarget()
     {
-        var target = Physics2D.OverlapCircle(transform.position, rangeToEnterChase, 1 << 6 | 1 << 7);
+        var player = Physics2D.OverlapCircle(transform.position, rangeToEnterChase, 1 << 6);
 
-        if (target != null) targetFind = target.transform;
+        if (player != null)
+        {
+            targetFind = player.transform;
+            return;
+        }
+
+        var npc = Physics2D.OverlapCircle(transform.position, rangeToEnterChase, 1 << 7);
+
+        if (npc != null)
+            targetFind = npc.transform;
     }
 
     private void MoveToNavMeshTarget()
