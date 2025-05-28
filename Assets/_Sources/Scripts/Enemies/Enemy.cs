@@ -7,9 +7,11 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [Header("Patrol")]
-    [SerializeField] private float rangeFollow = 3f;
+    [SerializeField][Min(3)] private float rangePatrol = 5f;
+    [SerializeField] private float rangeToEnterChase = 3f;
+    [SerializeField] private float rangeToOutChase = 4f;
     [SerializeField] private float stoppedTime = 2f;
-    [SerializeField][Min(3)] private float rangeToFindNewPointPatrol = 5f;
+
 
     [Header("Attack")]
     [SerializeField] private float damage;
@@ -47,7 +49,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            FollowTargetFounded();
+            Chase();
         }
 
         MoveToNavMeshTarget();
@@ -77,14 +79,26 @@ public class Enemy : MonoBehaviour
         index++;
     }
 
-    private void FollowTargetFounded()
+    private async void Chase()
     {
         NavMeshTarget = targetFind.position;
+
+        var srqDist = (transform.position - targetFind.position).sqrMagnitude;
+
+        if (srqDist > rangeToOutChase * rangeToOutChase)
+        {
+            agent.isStopped = true;
+            targetFind = null;
+            GetRandomPoint();
+
+            await Task.Delay((int)(stoppedTime * 1000));
+            agent.isStopped = false;
+        }
     }
 
     private void LookingForTarget()
     {
-        var target = Physics2D.OverlapCircle(transform.position, rangeFollow, 1 << 6 | 1 << 7);
+        var target = Physics2D.OverlapCircle(transform.position, rangeToEnterChase, 1 << 6 | 1 << 7);
 
         if (target != null) targetFind = target.transform;
     }
@@ -117,7 +131,7 @@ public class Enemy : MonoBehaviour
 
         while (true)
         {
-            Vector2 randomPoint = (Vector2)transform.position + Random.insideUnitCircle * rangeToFindNewPointPatrol;
+            Vector2 randomPoint = (Vector2)transform.position + Random.insideUnitCircle * rangePatrol;
             isInsideNavMesh = NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas);
 
             if (isInsideNavMesh)
@@ -134,9 +148,12 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, rangeAttack);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, rangeFollow);
+        Gizmos.DrawWireSphere(transform.position, rangeToEnterChase);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, rangeToOutChase);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, rangeToFindNewPointPatrol);
+        Gizmos.DrawWireSphere(transform.position, rangePatrol);
     }
 }
