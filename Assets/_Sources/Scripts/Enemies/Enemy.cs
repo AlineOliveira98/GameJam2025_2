@@ -120,6 +120,12 @@ public class Enemy : MonoBehaviour
             if (targetFind.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(damage);
+
+                if (damageable.IsDead)
+                {
+                    targetFind = null;
+                    agent.isStopped = false;
+                }
             }
 
             lastAttackTime = Time.time;

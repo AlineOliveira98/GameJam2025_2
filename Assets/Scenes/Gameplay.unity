@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &252508513
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1065,7 +1065,6 @@ MonoBehaviour:
   attackRate: 1
   rangeAttack: 1
   agent: {fileID: 1163606760}
-  isWaitingNewTarget: 0
 --- !u!4 &1163606759
 Transform:
   m_ObjectHideFlags: 0
