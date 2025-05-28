@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+//TODO: Maybe creates a EnemyPatrol if gets too big
 public class Enemy : MonoBehaviour
 {
     [Header("Patrol")]
@@ -12,28 +13,24 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float rangeToOutChase = 4f;
     [SerializeField] private float stoppedTime = 2f;
 
-
     [Header("Attack")]
     [SerializeField] private float damage;
     [SerializeField] private float attackRate;
     [SerializeField] private float rangeAttack = 1f;
+
 
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
 
     private Transform targetFind;
     private Vector2 NavMeshTarget;
-
-    [SerializeField] private bool isWaitingNewTarget = false;
-
-    private int index;
+    private bool isWaitingNewTarget = false;
+    private float lastAttackTime = -Mathf.Infinity;
 
     void Start()
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-
-        index = 1;
     }
 
     void Update()
@@ -41,9 +38,9 @@ public class Enemy : MonoBehaviour
         if (!targetFind)
         {
             Patrolling();
-            LookingForTarget(); 
+            LookingForTarget();
         }
-        else if (IsInRangToAttack())
+        else if (IsInsideRange(rangeAttack))
         {
             AttackTarget();
         }
@@ -70,26 +67,23 @@ public class Enemy : MonoBehaviour
         agent.isStopped = true;
 
         isWaitingNewTarget = true;
-        GetRandomPoint();
+        UpdateRandomPoint();
         await Task.Delay((int)(stoppedTime * 1000));
         agent.isStopped = false;
 
         isWaitingNewTarget = false;
-
-        index++;
     }
 
     private async void Chase()
     {
+        agent.isStopped = false;
         NavMeshTarget = targetFind.position;
 
-        var srqDist = (transform.position - targetFind.position).sqrMagnitude;
-
-        if (srqDist > rangeToOutChase * rangeToOutChase)
+        if (!IsInsideRange(rangeToOutChase))
         {
             agent.isStopped = true;
             targetFind = null;
-            GetRandomPoint();
+            UpdateRandomPoint();
 
             await Task.Delay((int)(stoppedTime * 1000));
             agent.isStopped = false;
@@ -112,20 +106,25 @@ public class Enemy : MonoBehaviour
     {
         if (!agent.isStopped) agent.isStopped = true;
 
-        if (targetFind.TryGetComponent(out IDamageable damageable))
+        if (Time.time >= lastAttackTime + attackRate)
         {
-            damageable.TakeDamage(damage);
+            if (targetFind.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage(damage);
+            }
+
+            lastAttackTime = Time.time;
         }
     }
 
-    private bool IsInRangToAttack()
+    private bool IsInsideRange(float range)
     {
-        var distance = Vector2.Distance(transform.position, targetFind.position);
+        var srqDist = (transform.position - targetFind.position).sqrMagnitude;
 
-        return distance <= rangeAttack;
+        return srqDist <= range * range;
     }
 
-    private void GetRandomPoint()
+    private void UpdateRandomPoint()
     {
         bool isInsideNavMesh;
 
