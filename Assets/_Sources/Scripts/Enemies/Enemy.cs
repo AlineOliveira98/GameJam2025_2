@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,10 +9,11 @@ public class Enemy : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float rangeAttack = 1f;
     [SerializeField] private float rangeFollow = 3f;
-    [SerializeField] private float rangeToFindNewPointPatrol = 5f;
+    [SerializeField][Min(3)] private float rangeToFindNewPointPatrol = 5f;
 
     [SerializeField] private float damage;
     [SerializeField] private float attackRate;
+    [SerializeField] private float delayPatrol = 2f;
 
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
@@ -18,17 +22,32 @@ public class Enemy : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private EnemyState state;
+    [SerializeField] private GameObject test;
+    [SerializeField] private GameObject test2;
 
     private Transform targetFind;
     private Vector2 navMeshTarget;
+
+    private Vector2 NavMeshTarget
+    {
+        get { return navMeshTarget; }
+        set
+        {
+            navMeshTarget = value;
+            Debug.Log($"[{index}] Setting Target: {value}");
+        }
+    }
+
+    [SerializeField] private bool isWaitingNewTarget = false;
+
+    private int index;
 
     void Start()
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        navMeshTarget = GetRandomPoint();
-        state = EnemyState.Patrolling;
+        index = 1;
     }
 
     void Update()
@@ -52,17 +71,35 @@ public class Enemy : MonoBehaviour
 
     private void Patrolling()
     {
+        if (isWaitingNewTarget) return;
+
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            navMeshTarget = GetRandomPoint();
+            WaitAndSetNewPatrolPoint();
         }
 
         state = EnemyState.Patrolling;
     }
 
+    private async void WaitAndSetNewPatrolPoint()
+    {
+        Debug.Log($"Waiting {index}");
+
+        agent.isStopped = true;
+
+        isWaitingNewTarget = true;
+        GetRandomPoint();
+        await Task.Delay((int)(delayPatrol * 1000));
+        agent.isStopped = false;
+
+        isWaitingNewTarget = false;
+
+        index++;
+    }
+
     private void FollowTargetFounded()
     {
-        navMeshTarget = targetFind.position;
+        NavMeshTarget = targetFind.position;
         state = EnemyState.Following;
     }
 
@@ -75,7 +112,7 @@ public class Enemy : MonoBehaviour
 
     private void MoveToNavMeshTarget()
     {
-        agent.SetDestination(navMeshTarget);
+        agent.SetDestination(NavMeshTarget);
     }
 
     private void AttackTarget()
@@ -97,18 +134,21 @@ public class Enemy : MonoBehaviour
         return distance <= rangeAttack;
     }
 
-    private Vector2 GetRandomPoint()
+    private void GetRandomPoint()
     {
-        Vector2 randomPoint = (Vector2)transform.position + Random.insideUnitCircle * rangeToFindNewPointPatrol;
+        bool isInsideNavMesh;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+        while (true)
         {
-            return hit.position;
-        }
+            Vector2 randomPoint = (Vector2)transform.position + Random.insideUnitCircle * rangeToFindNewPointPatrol;
+            isInsideNavMesh = NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas);
 
-        Debug.Log("No patrol points found");
-        return Vector2.zero;
+            if (isInsideNavMesh)
+            {
+                NavMeshTarget = hit.position;
+                break;
+            }
+        }
     }
 
     void OnDrawGizmos()

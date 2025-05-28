@@ -929,7 +929,7 @@ MonoBehaviour:
   rangeToFindNewPointPatrol: 5
   damage: 0
   attackRate: 0
-  dalayPatrol: 5
+  delayPatrol: 2
   agent: {fileID: 1163606760}
   state: 0
 --- !u!4 &1163606759
