@@ -88,7 +88,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -102,7 +102,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,7 +126,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -147,6 +147,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -154,10 +180,10 @@ TextureImporter:
       name: skeleton_death_strip10_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 23
-        width: 15
-        height: 18
+        x: 42
+        y: 24
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +202,10 @@ TextureImporter:
       name: skeleton_death_strip10_1
       rect:
         serializedVersion: 2
-        x: 138
-        y: 23
-        width: 13
-        height: 16
+        x: 139
+        y: 24
+        width: 11
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,9 +225,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 234
-        y: 32
+        y: 24
         width: 13
-        height: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -220,10 +246,10 @@ TextureImporter:
       name: skeleton_death_strip10_3
       rect:
         serializedVersion: 2
-        x: 330
-        y: 35
-        width: 13
-        height: 12
+        x: 329
+        y: 22
+        width: 15
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,10 +268,10 @@ TextureImporter:
       name: skeleton_death_strip10_4
       rect:
         serializedVersion: 2
-        x: 426
-        y: 36
-        width: 13
-        height: 11
+        x: 425
+        y: 24
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -264,10 +290,10 @@ TextureImporter:
       name: skeleton_death_strip10_5
       rect:
         serializedVersion: 2
-        x: 522
-        y: 35
-        width: 13
-        height: 11
+        x: 520
+        y: 23
+        width: 17
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,10 +312,10 @@ TextureImporter:
       name: skeleton_death_strip10_6
       rect:
         serializedVersion: 2
-        x: 618
-        y: 28
-        width: 13
-        height: 12
+        x: 619
+        y: 29
+        width: 11
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -305,145 +331,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: skeleton_death_strip10_7
-      rect:
-        serializedVersion: 2
-        x: 810
-        y: 24
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f1f02d48a03282560800000000000000
-      internalID: 7289114524984151839
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_death_strip10_8
-      rect:
-        serializedVersion: 2
-        x: 233
-        y: 24
-        width: 15
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cfff337325b0b41c0800000000000000
-      internalID: -4518505353394782212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_death_strip10_9
-      rect:
-        serializedVersion: 2
-        x: 328
-        y: 24
-        width: 7
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: efcec1f09799692f0800000000000000
-      internalID: -966416324800746242
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_death_strip10_10
-      rect:
-        serializedVersion: 2
-        x: 334
-        y: 28
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 80815a5b54bd61330800000000000000
-      internalID: 3681370837868681224
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_death_strip10_11
-      rect:
-        serializedVersion: 2
-        x: 339
-        y: 28
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 667c9d4a947434510800000000000000
-      internalID: 1532146679860021094
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_death_strip10_12
-      rect:
-        serializedVersion: 2
-        x: 424
-        y: 26
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 09ebae707660830b0800000000000000
-      internalID: -5748837884754215280
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: skeleton_death_strip10_13
       rect:
         serializedVersion: 2
-        x: 431
-        y: 26
-        width: 10
-        height: 7
+        x: 714
+        y: 24
+        width: 13
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -462,10 +356,10 @@ TextureImporter:
       name: skeleton_death_strip10_14
       rect:
         serializedVersion: 2
-        x: 520
-        y: 23
-        width: 6
-        height: 6
+        x: 811
+        y: 25
+        width: 11
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -484,10 +378,10 @@ TextureImporter:
       name: skeleton_death_strip10_15
       rect:
         serializedVersion: 2
-        x: 531
-        y: 23
-        width: 6
-        height: 6
+        x: 907
+        y: 24
+        width: 11
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -502,55 +396,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: skeleton_death_strip10_16
-      rect:
-        serializedVersion: 2
-        x: 713
-        y: 23
-        width: 15
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 375f3c3395de2aa50800000000000000
-      internalID: 6531043377016993139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_death_strip10_17
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 23
-        width: 13
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 311db50fce37301b0800000000000000
-      internalID: -5691578042584149741
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c143c0eef262d4242a81775469d3d241
     internalID: 0
     vertices: []
     indices: 
@@ -559,7 +409,25 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      skeleton_death_strip10_0: 922987080602139399
+      skeleton_death_strip10_1: 9147915205316511220
+      skeleton_death_strip10_10: 3681370837868681224
+      skeleton_death_strip10_11: 1532146679860021094
+      skeleton_death_strip10_12: -5748837884754215280
+      skeleton_death_strip10_13: -6720223243309052640
+      skeleton_death_strip10_14: -9151039402404107374
+      skeleton_death_strip10_15: 2104651422374443286
+      skeleton_death_strip10_16: 6531043377016993139
+      skeleton_death_strip10_17: -5691578042584149741
+      skeleton_death_strip10_2: -4514700463236701265
+      skeleton_death_strip10_3: 6766152672767127851
+      skeleton_death_strip10_4: 5283608038197581632
+      skeleton_death_strip10_5: 4968264875932061778
+      skeleton_death_strip10_6: -203095250607737352
+      skeleton_death_strip10_7: 7289114524984151839
+      skeleton_death_strip10_8: -4518505353394782212
+      skeleton_death_strip10_9: -966416324800746242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
