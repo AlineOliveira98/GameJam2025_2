@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
-    [HideInInspector] public Rigidbody2D rb;
-    [HideInInspector] public Vector2 input;
+    public Rigidbody2D rb { get; private set; }
+    public Vector2 input { get; private set; }
 
     public bool IsDead { get; set; }
 
