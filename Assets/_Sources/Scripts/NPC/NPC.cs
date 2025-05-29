@@ -8,6 +8,8 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     {
         Debug.Log("NPC Collected");
         gameObject.SetActive(false);
+
+        GameController.Instance.SaveVictim();
     }
 
     public void TakeDamage(float damage)
@@ -15,5 +17,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         IsDead = true;
         gameObject.SetActive(false);
         Debug.Log("NPC Dead");
+
+        GameController.Instance.KillVictim();
     }
 }
