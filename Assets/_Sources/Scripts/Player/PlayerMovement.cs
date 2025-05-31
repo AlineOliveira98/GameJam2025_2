@@ -13,8 +13,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerVisual visual;
 
     private Vector2 target;
+    private Vector2 lastDirection = Vector2.down;
     private Player player;
     private Camera mainCamera;
+
 
     private void Awake()
     {
@@ -23,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        agent.speed = moveSpeed;
     }
 
     private void Update()
@@ -42,7 +46,10 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movement = player.input * moveSpeed;
         player.rb.linearVelocity = movement;
 
-        visual.SetDirection(player.input);
+        if (player.input != Vector2.zero)
+            lastDirection = player.input.normalized;
+
+        visual.SetDirection(lastDirection);
         visual.SetRunning(player.rb.linearVelocity != Vector2.zero);
     }
 
@@ -61,13 +68,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 target = hit.position;
                 agent.SetDestination(target);
+
+                lastDirection = (target - (Vector2) transform.position).normalized;
             }
         }
 
         if (target == Vector2.zero) return;
 
-        var dir = (target - (Vector2) transform.position).normalized;
         bool isRunning = !agent.pathPending && (agent.remainingDistance > agent.stoppingDistance);
+        var dir = isRunning ? (target - (Vector2) transform.position).normalized : lastDirection;
 
         visual.SetDirection(dir);
         visual.SetRunning(isRunning);        
