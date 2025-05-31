@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3169685439965663753}
   - component: {fileID: 5560345831506206889}
+  - component: {fileID: 8107562210589321412}
+  - component: {fileID: 4595326926510880819}
   - component: {fileID: 3427367718935321321}
   m_Layer: 0
   m_Name: Enemy
@@ -46,14 +48,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74147fae1835534ab611a70860a70bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangePatrol: 10
-  rangeToEnterChase: 7.12
-  rangeToOutChase: 10
-  stoppedTime: 5
-  damage: 0
+  damage: 1
   attackRate: 1
+  patrol: {fileID: 4595326926510880819}
+--- !u!114 &8107562210589321412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134065076444327138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e063b75df96096489a1da5270a65042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 5916607655494020041}
+  sprite: {fileID: 3322351811216972390}
+  directionView: {x: 0, y: 0}
+  lastDirection: {x: 0, y: 0}
+--- !u!114 &4595326926510880819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134065076444327138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512f4ded0b7ff5f4f8aa44a63ee3dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangePatrol: 10
+  rangeToEnterChase: 8
+  rangeToOutChase: 10
   rangeAttack: 1
+  stoppedTime: 2
   agent: {fileID: 3427367718935321321}
+  visual: {fileID: 8107562210589321412}
 --- !u!195 &3427367718935321321
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -132,7 +164,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,8 +182,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -22649671
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -4030792056451597264, guid: 7d6d85b4779cc334aba2ee5d32d22d19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
