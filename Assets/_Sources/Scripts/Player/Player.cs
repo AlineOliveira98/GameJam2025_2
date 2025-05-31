@@ -1,7 +1,10 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
+    [SerializeField] private TargetIndicator targetIndicator;
     public Rigidbody2D rb { get; private set; }
     public Vector2 input { get; private set; }
 
@@ -10,6 +13,18 @@ public class Player : MonoBehaviour, IDamageable
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        PointerTest();
+    }
+
+    private async Task PointerTest()
+    {
+        await Task.Delay(3 * 1000);
+        var npc = FindAnyObjectByType<NPC>();
+        targetIndicator.SetTarget(npc.transform);
     }
 
     void Update()

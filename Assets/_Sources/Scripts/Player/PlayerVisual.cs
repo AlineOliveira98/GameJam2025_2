@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class PlayerVisual : MonoBehaviour
 {
-    [SerializeField] private Player player;
     [SerializeField] private Animator anim;
 
-    void Update()
+    public void SetDirection(Vector2 dir)
     {
-        anim.SetFloat("Horizontal", player.input.x);
-        anim.SetFloat("Vertical", player.input.y);
+        anim.SetFloat("Horizontal", dir.x);
+        anim.SetFloat("Vertical", dir.y);
+    }
 
-        anim.SetBool("IsRunning", player.rb.linearVelocity != Vector2.zero);
+    public void SetRunning(bool isRunning)
+    {
+        anim.SetBool("IsRunning", isRunning);
     }
 }
