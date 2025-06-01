@@ -1,16 +1,12 @@
+using System;
 using UnityEngine;
 
-public class DialogueService : MonoBehaviour
+public class DialogueService
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public static Action<DialogueSO> OnDialogueStarted;
 
-    // Update is called once per frame
-    void Update()
+    public static void StartDialogue(DialogueSO dialogue)
     {
-        
+        OnDialogueStarted?.Invoke(dialogue);
     }
 }

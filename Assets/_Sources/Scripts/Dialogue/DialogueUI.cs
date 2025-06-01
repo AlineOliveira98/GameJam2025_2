@@ -7,17 +7,23 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI characterName;
     [SerializeField] private TextMeshProUGUI lineText;
     [SerializeField] private Image characterIcon;
+    [SerializeField] private Canvas canvas;
 
     [Header("Options")]
     [SerializeField] private GameObject optionsContainer;
     [SerializeField] private TextMeshProUGUI[] optionsText;
 
-    private DialogueSO currentDialogue;
+    [SerializeField] private DialogueSO currentDialogue;
     private int currentLine;
 
-    void Start()
+    void OnEnable()
     {
-        
+        DialogueService.OnDialogueStarted += StartDialogue;
+    }
+
+    void OnDisable()
+    {
+        DialogueService.OnDialogueStarted -= StartDialogue;
     }
 
     public void StartDialogue(DialogueSO dialogueSO)
@@ -25,11 +31,13 @@ public class DialogueUI : MonoBehaviour
         currentDialogue = dialogueSO;
         currentLine = 0;
         ShowLine();
+
+        canvas.enabled = true;
     }
 
     private void ShowLine()
     {
-        if (currentLine >= currentDialogue.dialogue.Length - 1) return;
+        if (currentLine >= currentDialogue.dialogue.Length) return;
 
         var line = currentDialogue.dialogue[currentLine];
 
@@ -50,8 +58,16 @@ public class DialogueUI : MonoBehaviour
             for (int i = 0; i < line.options.Length; i++)
             {
                 optionsText[i].text = line.options[i];
+                var optionButton = optionsText[i].GetComponentInParent<Button>();
+                optionButton.onClick.RemoveAllListeners();
+                optionButton.onClick.AddListener(() => SelectOption(i));
             }
         }
+    }
+
+    private void SelectOption(int option)
+    {
+        canvas.enabled = false;
     }
 
     public void NextLine()
@@ -62,6 +78,6 @@ public class DialogueUI : MonoBehaviour
 
     public void SkipDialogue()
     {
-        gameObject.SetActive(false);
+        canvas.enabled = false;
     }
 }
