@@ -8,6 +8,10 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lineText;
     [SerializeField] private Image characterIcon;
 
+    [Header("Options")]
+    [SerializeField] private GameObject optionsContainer;
+    [SerializeField] private TextMeshProUGUI[] optionsText;
+
     private DialogueSO currentDialogue;
     private int currentLine;
 
@@ -27,10 +31,27 @@ public class DialogueUI : MonoBehaviour
     {
         if (currentLine >= currentDialogue.dialogue.Length - 1) return;
 
-        characterName.text = currentDialogue.dialogue[currentLine].character.characterName;
-        characterIcon.sprite = currentDialogue.dialogue[currentLine].character.characterIcon;
+        var line = currentDialogue.dialogue[currentLine];
 
-        lineText.text = currentDialogue.dialogue[currentLine].dialogue;
+        characterName.text = line.character.characterName;
+        characterIcon.sprite = line.character.characterIcon;
+
+        lineText.text = line.dialogue;
+
+        optionsContainer.SetActive(line.options.Length > 0);
+
+        if (line.options.Length > 0)
+        {
+            ShowOptions();
+        }
+
+        void ShowOptions()
+        {
+            for (int i = 0; i < line.options.Length; i++)
+            {
+                optionsText[i].text = line.options[i];
+            }
+        }
     }
 
     public void NextLine()

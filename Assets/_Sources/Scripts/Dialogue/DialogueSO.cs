@@ -13,4 +13,5 @@ public class DialogueItem
 {
     public CharacterSO character;
     [TextArea] public string dialogue;
+    public string[] options;
 }

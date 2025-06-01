@@ -14,14 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - character: {fileID: 11400000, guid: 610bb9b6ef1ff10428bd84b2a2537720, type: 2}
-    dialogue: Dialogue 1
+    dialogue: Hello World
+    options: []
   - character: {fileID: 11400000, guid: 610bb9b6ef1ff10428bd84b2a2537720, type: 2}
     dialogue: Dialogue 2
+    options: []
   - character: {fileID: 11400000, guid: f0adad0b03bb93a468b5fc1001eb144a, type: 2}
     dialogue: Dialogue 3
+    options: []
   - character: {fileID: 11400000, guid: 610bb9b6ef1ff10428bd84b2a2537720, type: 2}
     dialogue: Dialogue 4
+    options: []
   - character: {fileID: 11400000, guid: 610bb9b6ef1ff10428bd84b2a2537720, type: 2}
     dialogue: Dialogue 5
+    options: []
   - character: {fileID: 11400000, guid: 610bb9b6ef1ff10428bd84b2a2537720, type: 2}
-    dialogue: Dialogue 6
+    dialogue: "Quem voc\xEA deseja salvar?"
+    options:
+    - "Salvar sua m\xE3e"
+    - Salvar namorada(o)
