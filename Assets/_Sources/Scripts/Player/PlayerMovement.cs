@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Player))]
 public class PlayerMovement : MonoBehaviour
@@ -59,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            
             var mousePos = Input.mousePosition;
             var worldPos = mainCamera.ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
