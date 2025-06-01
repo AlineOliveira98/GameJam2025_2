@@ -8,6 +8,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lineText;
     [SerializeField] private Image characterIcon;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button closeButton;
 
     [Header("Options")]
     [SerializeField] private GameObject optionsContainer;
@@ -32,6 +34,9 @@ public class DialogueUI : MonoBehaviour
         currentLine = 0;
         ShowLine();
 
+        nextButton.gameObject.SetActive(true);
+        closeButton.gameObject.SetActive(false);
+
         canvas.enabled = true;
     }
 
@@ -47,10 +52,17 @@ public class DialogueUI : MonoBehaviour
         lineText.text = line.dialogue;
 
         optionsContainer.SetActive(line.options.Length > 0);
+        
+        if (currentLine >= currentDialogue.dialogue.Length - 1)
+        {
+            nextButton.gameObject.SetActive(false);
+            closeButton.gameObject.SetActive(true);
+        }
 
         if (line.options.Length > 0)
         {
             ShowOptions();
+            closeButton.gameObject.SetActive(false);
         }
 
         void ShowOptions()
@@ -68,6 +80,7 @@ public class DialogueUI : MonoBehaviour
     private void SelectOption(int option)
     {
         canvas.enabled = false;
+        DialogueService.FinishDialogue();
     }
 
     public void NextLine()
@@ -76,8 +89,9 @@ public class DialogueUI : MonoBehaviour
         ShowLine();
     }
 
-    public void SkipDialogue()
+    public void CloseDialogue()
     {
         canvas.enabled = false;
+        DialogueService.FinishDialogue();
     }
 }

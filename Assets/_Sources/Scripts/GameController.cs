@@ -29,7 +29,10 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        if(startDialogue != null) DialogueService.StartDialogue(startDialogue);
+        if (startDialogue != null)
+        {
+            DialogueService.StartDialogue(startDialogue);
+        }
     }
 
     public void SaveVictim()

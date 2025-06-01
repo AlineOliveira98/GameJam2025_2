@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5178295043931465791}
   - component: {fileID: 1235351638817175376}
   m_Layer: 5
-  m_Name: Skip Button
+  m_Name: Close Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -226, y: 33.78}
+  m_AnchoredPosition: {x: -80.4646, y: 33.78}
   m_SizeDelta: {x: 132.9292, y: 48.0471}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &801701908789758456
@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 37488453048509099}
         m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: SkipDialogue
+        m_MethodName: CloseDialogue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1921,6 +1921,8 @@ MonoBehaviour:
   lineText: {fileID: 1897787511706072783}
   characterIcon: {fileID: 3689319887955955176}
   canvas: {fileID: 359413255391473870}
+  nextButton: {fileID: 6522870548060331684}
+  closeButton: {fileID: 1235351638817175376}
   optionsContainer: {fileID: 2093654489299519778}
   optionsText:
   - {fileID: 1579255385089113405}
