@@ -15,18 +15,6 @@ public class Player : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        PointerTest();
-    }
-
-    private async Task PointerTest()
-    {
-        await Task.Delay(3 * 1000);
-        var npc = FindAnyObjectByType<NPC>();
-        targetIndicator.SetTarget(npc.transform);
-    }
-
     void Update()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;

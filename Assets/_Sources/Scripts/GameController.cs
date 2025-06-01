@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
 
+    [SerializeField] private DialogueSO startDialogue;
+
     private int victimsTotalNumber;
     private int deadVictims;
     private int victimsSaved;
@@ -27,7 +29,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        
+        if(startDialogue != null) DialogueService.StartDialogue(startDialogue);
     }
 
     public void SaveVictim()
