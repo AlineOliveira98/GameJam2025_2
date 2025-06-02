@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class YggDrasil : MonoBehaviour
+public class YggDrasil : Interactable
 {
     [SerializeField] private GameObject[] stages;
 
@@ -18,12 +18,22 @@ public class YggDrasil : MonoBehaviour
         currentStage = 0;
     }
 
+    public override void Interact()
+    {
+        Watering();
+    }
+
+    private void Watering()
+    {
+        Grow();
+    }
+
     private void Grow()
     {
-        if (currentStage >= stages.Length-1) return;
+        if (currentStage >= stages.Length - 1) return;
 
         stages[currentStage].SetActive(false);
-        stages[currentStage+1].SetActive(true);
+        stages[currentStage + 1].SetActive(true);
         currentStage++;
     }
 }

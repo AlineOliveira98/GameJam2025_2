@@ -72,7 +72,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     {
         gameObject.SetActive(false);
 
-        GameController.Instance.SaveVictim();
+        GameController.Instance.SaveAnimal();
     }
 
     public void TakeDamage(float damage)
@@ -80,7 +80,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         IsDead = true;
         gameObject.SetActive(false);
 
-        GameController.Instance.KillVictim();
+        GameController.Instance.KillAnimal();
     }
 
     private void OnDrawGizmosSelected()

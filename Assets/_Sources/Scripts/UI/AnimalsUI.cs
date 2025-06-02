@@ -22,6 +22,6 @@ public class AnimalsUI : MonoBehaviour
 
     private void UpdateVictimsCount()
     {
-        victimsCount.text = GameController.Instance.VictimsCurrentNumber.ToString();
+        victimsCount.text = GameController.Instance.AnimalsCurrentNumber.ToString();
     }
 }

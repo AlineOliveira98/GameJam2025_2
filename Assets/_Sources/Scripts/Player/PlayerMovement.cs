@@ -91,14 +91,16 @@ public class PlayerMovement : MonoBehaviour
                 target = hit.position;
                 agent.SetDestination(target);
 
-                lastDirection = (target - (Vector2) transform.position).normalized;
+                lastDirection = ((Vector2)agent.velocity).normalized;
             }
         }
 
         if (target == Vector2.zero) return;
 
         bool isRunning = !agent.pathPending && (agent.remainingDistance > agent.stoppingDistance);
-        var dir = isRunning ? (target - (Vector2) transform.position).normalized : lastDirection;
+        var dir = isRunning
+            ? ((Vector2)agent.velocity).normalized 
+            : lastDirection;
 
         visual.SetDirection(dir);
         visual.SetRunning(isRunning);        
