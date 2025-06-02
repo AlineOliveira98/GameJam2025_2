@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     private int victimsSaved;
 
     public int VictimsCurrentNumber { get; private set; }
+    public Player Player { get; private set; }
 
     public static Action OnLivingVictimsChanged;
 
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour
     {
         Instance = this;
 
+        Player = FindAnyObjectByType<Player>();
         victimsTotalNumber = FindObjectsByType<NPC>(FindObjectsSortMode.None).Count();
 
         deadVictims = 0;

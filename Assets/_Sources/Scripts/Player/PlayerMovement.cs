@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Player player;
     private Camera mainCamera;
 
-    public bool MovementLocked;
+    private bool movementLocked;
 
     void OnEnable()
     {
@@ -32,8 +32,8 @@ public class PlayerMovement : MonoBehaviour
         DialogueService.OnDialogueFinished -= Unlock;
     }
 
-    private void Lock(DialogueSO dialogueSO) => MovementLocked = true;
-    private void Unlock() => MovementLocked = false;
+    private void Lock(DialogueSO dialogueSO) => movementLocked = true;
+    private void Unlock() => movementLocked = false;
 
     private void Awake()
     {
@@ -48,13 +48,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(MovementLocked) return;
+        if(movementLocked) return;
         MoveClick();
     }
 
     private void FixedUpdate()
     {
-        if(MovementLocked) return;
+        if(movementLocked) return;
         MoveInput();
     }
 
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!movementByClick) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             var mousePos = Input.mousePosition;
             var worldPos = mainCamera.ScreenToWorldPoint(mousePos);
