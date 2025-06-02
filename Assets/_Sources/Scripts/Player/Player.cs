@@ -2,19 +2,17 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour
 {
     [SerializeField] private TargetIndicator targetIndicator;
-    public Rigidbody2D rb { get; private set; }
-    public Vector2 input { get; private set; }
-
-    public bool IsDead { get; set; }
-
-    public float speedMultiplier { get; private set; } = 1f;
-    public bool IsInvincible { get; private set; } = false;
-
+    [SerializeField] private PlayerHealth health;
     [SerializeField] private float baseSpeed = 5f;
 
+    public Rigidbody2D rb { get; private set; }
+    public Vector2 input { get; private set; }
+    public PlayerHealth Health => health;
+
+    public float speedMultiplier { get; private set; } = 1f;
 
     private void Awake()
     {
@@ -24,22 +22,12 @@ public class Player : MonoBehaviour, IDamageable
     private void FixedUpdate()
     {
         rb.linearVelocity = input * (baseSpeed * speedMultiplier);
-
     }
-
 
     void Update()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
     }
-
-    public void TakeDamage(float damage)
-    {
-        if (IsDead || IsInvincible) return;
-
-        Debug.Log("Taking Damage");
-    }
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -55,12 +43,4 @@ public class Player : MonoBehaviour, IDamageable
         await Task.Delay(TimeSpan.FromSeconds(duration));
         speedMultiplier = 1f;
     }
-
-    public async void SetInvincibility(float duration)
-    {
-        IsInvincible = true;
-        await Task.Delay(TimeSpan.FromSeconds(duration));
-        IsInvincible = false;
-    }
-
 }

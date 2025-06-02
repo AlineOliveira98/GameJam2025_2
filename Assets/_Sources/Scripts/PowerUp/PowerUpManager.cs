@@ -20,10 +20,10 @@ public class PowerUpManager : MonoBehaviour
 
     private IEnumerator SuperSpeedRoutine(Player player, float multiplier, float duration)
     {
-        bool originalInvincible = player.IsDead; // Vamos usar como "pode tomar dano = false"
+        bool originalInvincible = player.Health.IsDead; // Vamos usar como "pode tomar dano = false"
         float originalSpeed = player.rb.linearVelocity.magnitude;
 
-        player.IsDead = false; // Simula invencibilidade
+        player.Health.IsDead = false; // Simula invencibilidade
 
         // Aplica multiplicador de velocidade
         player.rb.linearVelocity *= multiplier;
@@ -32,7 +32,7 @@ public class PowerUpManager : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
 
-        player.IsDead = originalInvincible;
+        player.Health.IsDead = originalInvincible;
         Debug.Log("PowerUp acabou.");
     }
 }

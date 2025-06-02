@@ -24,14 +24,17 @@ public class PlayerMovement : MonoBehaviour
     {
         DialogueService.OnDialogueStarted += Lock;
         DialogueService.OnDialogueFinished += Unlock;
+        PlayerHealth.OnPlayerDied += Lock;
     }
 
     void OnDisable()
     {
         DialogueService.OnDialogueStarted -= Lock;
         DialogueService.OnDialogueFinished -= Unlock;
+        PlayerHealth.OnPlayerDied -= Lock;
     }
 
+    private void Lock() => movementLocked = true;
     private void Lock(DialogueSO dialogueSO) => movementLocked = true;
     private void Unlock() => movementLocked = false;
 

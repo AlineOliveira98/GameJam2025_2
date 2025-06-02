@@ -7,10 +7,10 @@ public class SuperSpeedPowerUp : MonoBehaviour, ICollectable
 
     public void Collect()
     {
-        var player = GameObject.FindWithTag("Player")?.GetComponent<Player>();
+        var player = GameObject.FindWithTag("Player")?.GetComponent<PlayerHealth>();
         if (player == null)
         {
-            Debug.LogError("Player não encontrado!");
+            Debug.LogError("Player nï¿½o encontrado!");
             return;
         }
 
