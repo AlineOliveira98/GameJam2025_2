@@ -1,21 +1,41 @@
+using System;
 using UnityEngine;
 
 public class YggDrasil : Interactable
 {
-    [SerializeField] private GameObject[] stages;
+    [SerializeField] private TreeStage[] stages;
 
+    private int currentWater;
     private int currentStage;
+
+    private int waterCollected => GameController.Instance.AnimalsSaved;
+
+    public static Action OnTreeWatered;
 
     void Start()
     {
         for (int i = 0; i < stages.Length; i++)
         {
-            stages[i].SetActive(false);
+            stages[i].visual.SetActive(false);
         }
 
-        stages[0].SetActive(true);
+        stages[0].visual.SetActive(true);
 
         currentStage = 0;
+        currentWater = 0;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            GameController.Instance.SaveAnimal();
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Interact();
+        }
     }
 
     public override void Interact()
@@ -25,6 +45,15 @@ public class YggDrasil : Interactable
 
     private void Watering()
     {
+        if (currentWater >= waterCollected)
+        {
+            Debug.Log("No Water enught");
+            return;
+        }
+
+        currentWater++;
+        OnTreeWatered.Invoke();
+
         Grow();
     }
 
@@ -32,8 +61,18 @@ public class YggDrasil : Interactable
     {
         if (currentStage >= stages.Length - 1) return;
 
-        stages[currentStage].SetActive(false);
-        stages[currentStage + 1].SetActive(true);
+        Debug.Log($"{stages[currentStage + 1].amountToGrow} - {currentWater}");
+        if (stages[currentStage + 1].amountToGrow > currentWater) return;
+
+        stages[currentStage].visual.SetActive(false);
+        stages[currentStage + 1].visual.SetActive(true);
         currentStage++;
     }
+}
+
+[Serializable]
+public class TreeStage
+{
+    public int amountToGrow;
+    public GameObject visual;
 }

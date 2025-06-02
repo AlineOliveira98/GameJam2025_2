@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -11,14 +12,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private PlayerVisual visual;
 
     private Vector2 target;
     private Vector2 lastDirection = Vector2.down;
     private Player player;
     private Camera mainCamera;
-
     private bool movementLocked;
+
+    public float speedMultiplier { get; private set; } = 1f;
 
     void OnEnable()
     {
@@ -51,13 +52,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(movementLocked) return;
+        if (movementLocked) return;
         MoveClick();
     }
 
     private void FixedUpdate()
     {
-        if(movementLocked) return;
+        if (movementLocked) return;
         MoveInput();
     }
 
@@ -65,14 +66,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementByClick) return;
 
-        Vector2 movement = player.input * moveSpeed;
+        Vector2 movement = player.input * (moveSpeed * speedMultiplier); ;
         player.rb.linearVelocity = movement;
 
         if (player.input != Vector2.zero)
             lastDirection = player.input.normalized;
 
-        visual.SetDirection(lastDirection);
-        visual.SetRunning(player.rb.linearVelocity != Vector2.zero);
+        player.Visual.SetDirection(lastDirection);
+        player.Visual.SetRunning(player.rb.linearVelocity != Vector2.zero);
     }
 
     private void MoveClick()
@@ -99,10 +100,17 @@ public class PlayerMovement : MonoBehaviour
 
         bool isRunning = !agent.pathPending && (agent.remainingDistance > agent.stoppingDistance);
         var dir = isRunning
-            ? ((Vector2)agent.velocity).normalized 
+            ? ((Vector2)agent.velocity).normalized
             : lastDirection;
 
-        visual.SetDirection(dir);
-        visual.SetRunning(isRunning);        
+        player.Visual.SetDirection(dir);
+        player.Visual.SetRunning(isRunning);
+    }
+    
+    public async void SetSpeedMultiplier(float multiplier, float duration)
+    {
+        speedMultiplier = multiplier;
+        await Task.Delay(TimeSpan.FromSeconds(duration));
+        speedMultiplier = 1f;
     }
 }
