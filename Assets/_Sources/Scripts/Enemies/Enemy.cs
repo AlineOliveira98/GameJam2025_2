@@ -35,19 +35,19 @@ public class Enemy : MonoBehaviour
         }
 
         if (Time.time >= lastAttackTime + attackRate)
+        {
+            if (patrol.TargetFind.TryGetComponent(out IDamageable damageable))
             {
-                if (patrol.TargetFind.TryGetComponent(out IDamageable damageable))
+                damageable.TakeDamage(damage);
+
+                if (damageable.IsDead)
                 {
-                    damageable.TakeDamage(damage);
-
-                    if (damageable.IsDead)
-                    {
-                        patrol.StopAttack();
-                    }
+                    patrol.StopAttack();
                 }
-
-                lastAttackTime = Time.time;
             }
+
+            lastAttackTime = Time.time;
+        }
     }
 
 }
