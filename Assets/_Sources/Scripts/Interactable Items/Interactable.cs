@@ -17,11 +17,6 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return Physics2D.OverlapCircle(transform.position, interactionRadius, 1 << 6);
     }
 
-    public void HighLight(bool enable)
-    {
-        Cursor.SetCursor(enable ? highlightTexture : null, Vector2.zero, CursorMode.Auto);
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!PlayerIsClose()) return;
@@ -31,22 +26,27 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        HighLight(true);
+        SetCursor(highlightTexture);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        HighLight(false);
+        SetCursor(null);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Cursor.SetCursor(clickedTexture, Vector2.zero, CursorMode.Auto);
+        if(clickedTexture != null) SetCursor(clickedTexture);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Cursor.SetCursor(highlightTexture, Vector2.zero, CursorMode.Auto);
+        SetCursor(highlightTexture);
+    }
+
+    private void SetCursor(Texture2D texture)
+    {
+        Cursor.SetCursor(texture, Vector2.zero, CursorMode.Auto);
     }
     
     void OnDrawGizmosSelected()
