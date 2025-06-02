@@ -3,17 +3,18 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("Settings")]
+    [SerializeField] private float dashDistance;
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashCooldown;
-    [SerializeField] private float dashDuration;
 
     [Header("References")]
     [SerializeField] private Rigidbody2D rig;
-    [SerializeField] private EnemyVisual visual;
+    [SerializeField] private EnemyPatrol patrol;
 
-    private float dashTimer;
     private float cooldownTimer;
+    private Vector2 dashStartPos;
     public bool IsDashing { get; private set; }
+    public EnemyPatrol Patrol { get => patrol; }
 
     void Start()
     {
@@ -25,31 +26,31 @@ public class EnemyMovement : MonoBehaviour
         Dashing();
     }
 
-    public void Dash(Vector2 direction)
+    public void Dash()
     {
         if (IsDashing || cooldownTimer > 0f) return;
 
         IsDashing = true;
-        dashTimer = dashDuration;
+        dashStartPos = rig.position;
         cooldownTimer = dashCooldown;
+        Patrol.Agent.isStopped = true;
 
-        rig.linearVelocity = direction.normalized * dashSpeed;
+        var direction = ((Vector2)Patrol.TargetFind.position - rig.position).normalized;
 
-        if (visual != null) visual.SetDashing(true);
+        rig.linearVelocity = direction * dashSpeed;
     }
 
     private void Dashing()
     {
         if (IsDashing)
         {
-            dashTimer -= Time.deltaTime;
+            var dashedDistance = (dashStartPos - rig.position).sqrMagnitude;
 
-            if (dashTimer <= 0f)
+            if (dashedDistance >= dashDistance * dashDistance)
             {
                 IsDashing = false;
                 rig.linearVelocity = Vector2.zero;
-
-                if (visual != null) visual.SetDashing(false);
+                Patrol.Agent.isStopped = false;
             }
         }
         else

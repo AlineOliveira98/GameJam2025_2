@@ -20,10 +20,12 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private EnemyVisual visual;
 
     private Vector2 NavMeshTarget;
-    private bool isWaitingNewTarget = false;
 
     public bool IsAttacking { get; private set; }
+    public bool IsChasing { get; private set; }
+
     public Transform TargetFind { get; private set; }
+    public NavMeshAgent Agent => agent;
     
     void Start()
     {
@@ -53,7 +55,6 @@ public class EnemyPatrol : MonoBehaviour
     private void Patrolling()
     {
         if (waitToStartPatrol) return;
-        if (waitToStartPatrol) return;
 
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
@@ -65,12 +66,9 @@ public class EnemyPatrol : MonoBehaviour
     {
         agent.isStopped = true;
 
-        isWaitingNewTarget = true;
         UpdateRandomPoint();
         await Task.Delay((int)(stoppedTime * 1000));
         agent.isStopped = false;
-
-        isWaitingNewTarget = false;
     }
 
     private async void Chase()
