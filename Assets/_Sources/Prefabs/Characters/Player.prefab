@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetIndicator: {fileID: 6027024871912877256}
-  health: {fileID: 0}
+  health: {fileID: 1334123132971509616}
   baseSpeed: 5
 --- !u!114 &1334123132971509616
 MonoBehaviour:
