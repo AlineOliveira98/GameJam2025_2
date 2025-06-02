@@ -8,11 +8,11 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private DialogueSO startDialogue;
 
-    private int victimsTotalNumber;
-    private int deadVictims;
-    private int victimsSaved;
+    private int totalAnimals;
 
-    public int VictimsCurrentNumber { get; private set; }
+    public int AnimalsCurrentNumber { get; private set; }
+    public int AnimalsDied { get; private set; }
+    public int AnimalsSaved { get; private set; }
     public Player Player { get; private set; }
 
     public static Action OnLivingVictimsChanged;
@@ -22,11 +22,11 @@ public class GameController : MonoBehaviour
         Instance = this;
 
         Player = FindAnyObjectByType<Player>();
-        victimsTotalNumber = FindObjectsByType<NPC>(FindObjectsSortMode.None).Count();
+        totalAnimals = FindObjectsByType<NPC>(FindObjectsSortMode.None).Count();
 
-        deadVictims = 0;
-        victimsSaved = 0;
-        VictimsCurrentNumber = victimsTotalNumber;
+        AnimalsDied = 0;
+        AnimalsSaved = 0;
+        AnimalsCurrentNumber = totalAnimals;
     }
 
     void Start()
@@ -37,17 +37,22 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void SaveVictim()
+    public void SaveAnimal()
     {
-        victimsSaved++;
-        VictimsCurrentNumber--;
+        AnimalsSaved++;
+        AnimalsCurrentNumber--;
         OnLivingVictimsChanged?.Invoke();
     }
 
-    public void KillVictim()
+    public void KillAnimal()
     {
-        deadVictims++;
-        VictimsCurrentNumber--;
+        AnimalsDied++;
+        AnimalsCurrentNumber--;
         OnLivingVictimsChanged?.Invoke();
+    }
+
+    public void WateringTree()
+    {
+
     }
 }

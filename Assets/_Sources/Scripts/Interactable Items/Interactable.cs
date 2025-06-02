@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private float interactionRadius;
+    [SerializeField] private float interactionRadius = 2f;
     [SerializeField] private Texture2D highlightTexture;
     [SerializeField] private Texture2D clickedTexture;
 
