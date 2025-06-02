@@ -3,11 +3,18 @@ using UnityEngine.EventSystems;
 
 public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
+    [SerializeField] private float interactionRadius;
     [SerializeField] private Texture2D highlightTexture;
     [SerializeField] private Texture2D clickedTexture;
+
     public virtual void Interact()
     {
 
+    }
+
+    public bool PlayerIsClose()
+    {
+        return Physics2D.OverlapCircle(transform.position, interactionRadius, 1 << 6);
     }
 
     public void HighLight(bool enable)
@@ -17,6 +24,8 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!PlayerIsClose()) return;
+        
         Interact();
     }
 
@@ -38,5 +47,11 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerUp(PointerEventData eventData)
     {
         Cursor.SetCursor(highlightTexture, Vector2.zero, CursorMode.Auto);
+    }
+    
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
 }
