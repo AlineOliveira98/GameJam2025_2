@@ -25,19 +25,6 @@ public class YggDrasil : Interactable
         currentWater = 0;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GameController.Instance.SaveAnimal();
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Interact();
-        }
-    }
-
     public override void Interact()
     {
         Watering();

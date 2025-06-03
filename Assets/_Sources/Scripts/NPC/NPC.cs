@@ -10,6 +10,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     private Camera cam;
 
     public bool IsDead { get; set; }
+    public bool IsSaved { get; set; }
 
     void Start()
     {
@@ -18,6 +19,8 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
     void Update()
     {
+        if (IsDead || IsSaved) return;
+        
         CheckAreInDanger();
     }
 
@@ -70,17 +73,22 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
     public void Collect()
     {
+        if (IsDead || IsSaved) return;
+
+        IsSaved = true;
         gameObject.SetActive(false);
 
-        GameController.Instance.SaveAnimal();
+        GameController.Instance.SaveAnimal(this);
     }
 
     public void TakeDamage(float damage)
     {
+        if (IsDead || IsSaved) return;
+
         IsDead = true;
         gameObject.SetActive(false);
 
-        GameController.Instance.KillAnimal();
+        GameController.Instance.KillAnimal(this);
     }
 
     private void OnDrawGizmosSelected()

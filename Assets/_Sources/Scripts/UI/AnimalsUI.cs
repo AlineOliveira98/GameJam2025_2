@@ -7,12 +7,14 @@ public class AnimalsUI : MonoBehaviour
 
     void OnEnable()
     {
-        GameController.OnLivingVictimsChanged += UpdateVictimsCount;
+        GameController.OnAnimalSaved += UpdateVictimsCount;
+        GameController.OnAnimalDied += UpdateVictimsCount;
     }
 
     void OnDisable()
     {
-        GameController.OnLivingVictimsChanged -= UpdateVictimsCount;
+        GameController.OnAnimalSaved -= UpdateVictimsCount;
+        GameController.OnAnimalDied -= UpdateVictimsCount;
     }
 
     void Start()
@@ -20,7 +22,7 @@ public class AnimalsUI : MonoBehaviour
         UpdateVictimsCount();
     }
 
-    private void UpdateVictimsCount()
+    private void UpdateVictimsCount(NPC animal = null)
     {
         victimsCount.text = GameController.Instance.AnimalsCurrentNumber.ToString();
     }

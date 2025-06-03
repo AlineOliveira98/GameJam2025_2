@@ -15,7 +15,8 @@ public class GameController : MonoBehaviour
     public int AnimalsSaved { get; private set; }
     public Player Player { get; private set; }
 
-    public static Action OnLivingVictimsChanged;
+    public static Action<NPC> OnAnimalSaved;
+    public static Action<NPC> OnAnimalDied;
 
     void Awake()
     {
@@ -37,18 +38,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void SaveAnimal()
+    public void SaveAnimal(NPC animal)
     {
         AnimalsSaved++;
         AnimalsCurrentNumber--;
-        OnLivingVictimsChanged?.Invoke();
+        OnAnimalSaved?.Invoke(animal);
     }
 
-    public void KillAnimal()
+    public void KillAnimal(NPC animal)
     {
         AnimalsDied++;
         AnimalsCurrentNumber--;
-        OnLivingVictimsChanged?.Invoke();
+        OnAnimalDied?.Invoke(animal);
     }
 
     public void WateringTree()
