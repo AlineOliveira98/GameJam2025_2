@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerHealth health;
     [SerializeField] private PlayerVisual visual;
 
+    private Vector2 lastMoveDir;
+
+
     public Rigidbody2D rb { get; private set; }
     public Vector2 input { get; private set; }
     public PlayerHealth Health => health;
@@ -16,7 +19,11 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (visual == null)
+            visual = GetComponent<PlayerVisual>();
     }
+
 
     void OnEnable()
     {
@@ -36,7 +43,13 @@ public class Player : MonoBehaviour
     void Update()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        if (input != Vector2.zero)
+            lastMoveDir = input;
+
     }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {

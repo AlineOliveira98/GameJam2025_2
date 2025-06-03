@@ -1,10 +1,21 @@
+using System;
 using UnityEngine;
+using System.Threading.Tasks;
+
 
 public class NPC : MonoBehaviour, ICollectable, IDamageable
 {
     [SerializeField] private float rangeToAskHelp;
     [SerializeField] private float rateToAskHelp;
     [SerializeField] private GameObject[] helpBaloonsPrefab;
+
+    [SerializeField] private float dieAnimDuration = 1.5f;
+
+    [SerializeField] private Animator animator;
+
+
+
+
 
     private float lastCallHelp = -Mathf.Infinity;
     private Camera cam;
@@ -43,7 +54,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     {
         if (IsVisibleToCamera()) return;
 
-        int randomBallon = Random.Range(0, helpBaloonsPrefab.Length);
+        int randomBallon = UnityEngine.Random.Range(0, helpBaloonsPrefab.Length);
         Vector3 spawnPos = GetScreenEdgePosition();
         Instantiate(helpBaloonsPrefab[randomBallon], spawnPos, Quaternion.identity);
     }
@@ -81,16 +92,21 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         GameController.Instance.SaveAnimal(this);
     }
 
-    public void TakeDamage(float damage)
+    public async void TakeDamage(float damage)
     {
         if (IsDead || IsSaved) return;
 
         IsDead = true;
-        gameObject.SetActive(false);
 
+        if (animator != null)
+        {
+            animator.SetBool("IsDead", true);
+            await Task.Delay((int)(dieAnimDuration * 1000));
+        }
+
+        gameObject.SetActive(false);
         GameController.Instance.KillAnimal(this);
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

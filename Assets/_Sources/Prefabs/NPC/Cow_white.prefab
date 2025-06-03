@@ -53,6 +53,8 @@ MonoBehaviour:
   helpBaloonsPrefab:
   - {fileID: 8496901477487434059, guid: 208e8892623d1fc4dbeae25ba2e1a030, type: 3}
   - {fileID: 8496901477487434059, guid: 3e0c9abf3c20118438ab64f1cf1ef24d, type: 3}
+  dieAnimDuration: 1.5
+  animator: {fileID: 1902237200412567527}
 --- !u!212 &7960993897330362623
 SpriteRenderer:
   m_ObjectHideFlags: 0
