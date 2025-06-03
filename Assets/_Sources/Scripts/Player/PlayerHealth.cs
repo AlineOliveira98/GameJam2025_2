@@ -27,6 +27,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            TakeDamage(10);
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         if (!receiveDamage) return;
@@ -40,6 +48,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (currentHealth <= 0f)
         {
             IsDead = true;
+            GameController.Instance.GameOver();
             OnPlayerDied?.Invoke();
         }
     }

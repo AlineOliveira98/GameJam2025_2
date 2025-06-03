@@ -14,4 +14,9 @@ public class PlayerVisual : MonoBehaviour
     {
         anim.SetBool("IsRunning", isRunning);
     }
+
+    public void SetWatering()
+    {
+        anim.SetTrigger("IsWatering");
+    }
 }

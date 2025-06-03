@@ -6,28 +6,50 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private TargetIndicator targetIndicator;
     [SerializeField] private PlayerHealth health;
-    [SerializeField] private float baseSpeed = 5f;
+    [SerializeField] private PlayerVisual visual;
+
+    private Vector2 lastMoveDir;
+
 
     public Rigidbody2D rb { get; private set; }
     public Vector2 input { get; private set; }
     public PlayerHealth Health => health;
-
-    public float speedMultiplier { get; private set; } = 1f;
+    public PlayerVisual Visual => visual;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (visual == null)
+            visual = GetComponent<PlayerVisual>();
     }
 
-    private void FixedUpdate()
+
+    void OnEnable()
     {
-        rb.linearVelocity = input * (baseSpeed * speedMultiplier);
+        YggDrasil.OnTreeWatered += WateringAnimation;
+    }
+
+    void OnDisable()
+    {
+        YggDrasil.OnTreeWatered -= WateringAnimation;
+    }
+
+    private void WateringAnimation()
+    {
+        Visual.SetWatering();
     }
 
     void Update()
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        if (input != Vector2.zero)
+            lastMoveDir = input;
+
     }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,12 +57,5 @@ public class Player : MonoBehaviour
         {
             collectable.Collect();
         }
-    }
-
-    public async void SetSpeedMultiplier(float multiplier, float duration)
-    {
-        speedMultiplier = multiplier;
-        await Task.Delay(TimeSpan.FromSeconds(duration));
-        speedMultiplier = 1f;
     }
 }

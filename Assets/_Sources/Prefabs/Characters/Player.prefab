@@ -54,8 +54,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetIndicator: {fileID: 6027024871912877256}
-  health: {fileID: 0}
-  baseSpeed: 5
+  health: {fileID: 1334123132971509616}
+  visual: {fileID: 5678408292184958949}
 --- !u!114 &1334123132971509616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   movementByClick: 1
   moveSpeed: 5
   agent: {fileID: 4304010987872076643}
-  visual: {fileID: 5678408292184958949}
 --- !u!114 &2385255134740781878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +188,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 2
-  m_Acceleration: 100
+  m_Acceleration: 500
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0

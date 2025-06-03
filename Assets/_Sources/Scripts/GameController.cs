@@ -6,48 +6,61 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
 
-    [SerializeField] private DialogueSO startDialogue;
+    private int totalAnimals;
 
-    private int victimsTotalNumber;
-    private int deadVictims;
-    private int victimsSaved;
+    public static bool GameStarted { get; private set; }
+    public static bool GameIsOver { get; private set; }
 
-    public int VictimsCurrentNumber { get; private set; }
+    public int AnimalsCurrentNumber { get; private set; }
+    public int AnimalsDied { get; private set; }
+    public int AnimalsSaved { get; private set; }
     public Player Player { get; private set; }
 
-    public static Action OnLivingVictimsChanged;
+    public static Action<NPC> OnAnimalSaved;
+    public static Action<NPC> OnAnimalDied;
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+            Destroy(gameObject);
 
         Player = FindAnyObjectByType<Player>();
-        victimsTotalNumber = FindObjectsByType<NPC>(FindObjectsSortMode.None).Count();
+        totalAnimals = FindObjectsByType<NPC>(FindObjectsSortMode.None).Count();
 
-        deadVictims = 0;
-        victimsSaved = 0;
-        VictimsCurrentNumber = victimsTotalNumber;
+        AnimalsDied = 0;
+        AnimalsSaved = 0;
+        AnimalsCurrentNumber = totalAnimals;
+
+        GameStarted = false;
+        GameIsOver = false;
     }
 
-    void Start()
+    public void SaveAnimal(NPC animal)
     {
-        if (startDialogue != null)
-        {
-            DialogueService.StartDialogue(startDialogue);
-        }
+        AnimalsSaved++;
+        AnimalsCurrentNumber--;
+        OnAnimalSaved?.Invoke(animal);
     }
 
-    public void SaveVictim()
+    public void KillAnimal(NPC animal)
     {
-        victimsSaved++;
-        VictimsCurrentNumber--;
-        OnLivingVictimsChanged?.Invoke();
+        AnimalsDied++;
+        AnimalsCurrentNumber--;
+        OnAnimalDied?.Invoke(animal);
     }
 
-    public void KillVictim()
+    public void StartGameplay()
     {
-        deadVictims++;
-        VictimsCurrentNumber--;
-        OnLivingVictimsChanged?.Invoke();
+        GameStarted = true;
+    }
+
+    public void GameOver()
+    {
+        GameIsOver = true;
     }
 }
