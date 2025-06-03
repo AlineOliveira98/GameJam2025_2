@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Player))]
 public class PlayerMovement : MonoBehaviour
@@ -19,25 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
     private bool movementLocked;
 
+    private IDash dash;
+
     public float speedMultiplier { get; private set; } = 1f;
 
-    void OnEnable()
+    private void Start()
     {
-        DialogueService.OnDialogueStarted += Lock;
-        DialogueService.OnDialogueFinished += Unlock;
-        PlayerHealth.OnPlayerDied += Lock;
+        dash = new BasicDash(player.rb, 50f, 0.03f, 0.5f, agent);
     }
-
-    void OnDisable()
-    {
-        DialogueService.OnDialogueStarted -= Lock;
-        DialogueService.OnDialogueFinished -= Unlock;
-        PlayerHealth.OnPlayerDied -= Lock;
-    }
-
-    private void Lock() => movementLocked = true;
-    private void Lock(DialogueSO dialogueSO) => movementLocked = true;
-    private void Unlock() => movementLocked = false;
 
     private void Awake()
     {
@@ -46,14 +34,21 @@ public class PlayerMovement : MonoBehaviour
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-
         agent.speed = moveSpeed;
     }
 
     private void Update()
     {
         if (movementLocked) return;
+
         MoveClick();
+
+        if (!dash.CanDash) return;
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            dash.TryDash(lastDirection);
+        }
     }
 
     private void FixedUpdate()
@@ -65,20 +60,21 @@ public class PlayerMovement : MonoBehaviour
     private void MoveInput()
     {
         if (movementByClick) return;
+        if (!dash.CanDash) return;
 
-        Vector2 movement = player.input * (moveSpeed * speedMultiplier); ;
+        Vector2 movement = player.input * (moveSpeed * speedMultiplier);
         player.rb.linearVelocity = movement;
 
         if (player.input != Vector2.zero)
             lastDirection = player.input.normalized;
 
-        player.Visual.SetDirection(lastDirection);
-        player.Visual.SetRunning(player.rb.linearVelocity != Vector2.zero);
+        player.Visual?.SetDirection(lastDirection);
+        player.Visual?.SetRunning(player.rb.linearVelocity != Vector2.zero);
     }
 
     private void MoveClick()
     {
-        if (!movementByClick) return;
+        if (!movementByClick || agent == null || !agent.enabled || !dash.CanDash) return;
 
         if (Input.GetMouseButton(0))
         {
@@ -86,11 +82,14 @@ public class PlayerMovement : MonoBehaviour
             var worldPos = mainCamera.ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
 
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(worldPos, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(worldPos, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
                 target = hit.position;
                 agent.SetDestination(target);
+                if (dash is BasicDash basicDash)
+                {
+                    basicDash.SetDestinationAfterDash(target); // garante que o destino será reaplicado depois do dash
+                }
 
                 lastDirection = ((Vector2)agent.velocity).normalized;
             }
@@ -98,15 +97,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (target == Vector2.zero) return;
 
-        bool isRunning = !agent.pathPending && (agent.remainingDistance > agent.stoppingDistance);
+        bool isRunning = agent.enabled && !agent.pathPending && agent.remainingDistance > agent.stoppingDistance;
         var dir = isRunning
             ? ((Vector2)agent.velocity).normalized
             : lastDirection;
 
-        player.Visual.SetDirection(dir);
-        player.Visual.SetRunning(isRunning);
+        player.Visual?.SetDirection(dir);
+        player.Visual?.SetRunning(isRunning);
     }
-    
+
     public async void SetSpeedMultiplier(float multiplier, float duration)
     {
         speedMultiplier = multiplier;

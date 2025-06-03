@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1654823117099006915}
   - component: {fileID: -3798473620023196093}
+  - component: {fileID: 5791801409589664115}
   - component: {fileID: 6349251456677194195}
-  - component: {fileID: 5683526032551087787}
   - component: {fileID: -4575779166734546265}
   - component: {fileID: -8370812598758808613}
   m_Layer: 7
@@ -53,6 +53,25 @@ MonoBehaviour:
   helpBaloonsPrefab:
   - {fileID: 8496901477487434059, guid: 208e8892623d1fc4dbeae25ba2e1a030, type: 3}
   - {fileID: 8496901477487434059, guid: 3e0c9abf3c20118438ab64f1cf1ef24d, type: 3}
+  animationComponent: {fileID: 0}
+  dieClip: {fileID: 7400000, guid: 73aae11850db0e64b809e4984d2a0094, type: 2}
+  dieAnimDuration: 1.5
+--- !u!111 &5791801409589664115
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7519205157094598058}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!212 &6349251456677194195
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -108,28 +127,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5683526032551087787
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7519205157094598058}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 37d79c9c22546964e806594849c7a26d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &-4575779166734546265
 BoxCollider2D:
   m_ObjectHideFlags: 0
