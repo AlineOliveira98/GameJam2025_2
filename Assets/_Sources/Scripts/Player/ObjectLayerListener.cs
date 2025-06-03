@@ -9,7 +9,7 @@ public class ObjectLayerListener : MonoBehaviour
     [SerializeField] private int objectLayer;
     void Awake()
     {
-        objectLayer = gameObject.layer;
+        // objectLayer = gameObject.layer;
     }
 
     void OnEnable()
