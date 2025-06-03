@@ -6,9 +6,10 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
 
-    [SerializeField] private DialogueSO startDialogue;
-
     private int totalAnimals;
+
+    public static bool GameStarted { get; private set; }
+    public static bool GameIsOver { get; private set; }
 
     public int AnimalsCurrentNumber { get; private set; }
     public int AnimalsDied { get; private set; }
@@ -20,7 +21,13 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+            Destroy(gameObject);
 
         Player = FindAnyObjectByType<Player>();
         totalAnimals = FindObjectsByType<NPC>(FindObjectsSortMode.None).Count();
@@ -28,14 +35,9 @@ public class GameController : MonoBehaviour
         AnimalsDied = 0;
         AnimalsSaved = 0;
         AnimalsCurrentNumber = totalAnimals;
-    }
 
-    void Start()
-    {
-        if (startDialogue != null)
-        {
-            DialogueService.StartDialogue(startDialogue);
-        }
+        GameStarted = false;
+        GameIsOver = false;
     }
 
     public void SaveAnimal(NPC animal)
@@ -52,8 +54,13 @@ public class GameController : MonoBehaviour
         OnAnimalDied?.Invoke(animal);
     }
 
-    public void WateringTree()
+    public void StartGameplay()
     {
+        GameStarted = true;
+    }
 
+    public void GameOver()
+    {
+        GameIsOver = true;
     }
 }

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class AnimalsUI : MonoBehaviour
+public class GameplayUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI victimsCount;
 

@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool movementLocked;
 
     public float speedMultiplier { get; private set; } = 1f;
+    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
 
     void OnEnable()
     {
@@ -52,13 +53,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (movementLocked) return;
+        if (movementLocked || !CanMove) return;
         MoveClick();
     }
 
     private void FixedUpdate()
     {
-        if (movementLocked) return;
+        if (movementLocked || !CanMove) return;
         MoveInput();
     }
 

@@ -7,7 +7,6 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI characterName;
     [SerializeField] private TextMeshProUGUI lineText;
     [SerializeField] private Image characterIcon;
-    [SerializeField] private Canvas canvas;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button closeButton;
 
@@ -37,7 +36,7 @@ public class DialogueUI : MonoBehaviour
         nextButton.gameObject.SetActive(true);
         closeButton.gameObject.SetActive(false);
 
-        canvas.enabled = true;
+        UIController.Instance.OpenPanel(PanelType.Dialogue);
     }
 
     private void ShowLine()
@@ -79,7 +78,7 @@ public class DialogueUI : MonoBehaviour
 
     private void SelectOption(int option)
     {
-        canvas.enabled = false;
+        UIController.Instance.OpenPanel(PanelType.Gameplay);
         DialogueService.FinishDialogue();
     }
 
@@ -91,7 +90,7 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogue()
     {
-        canvas.enabled = false;
+        UIController.Instance.OpenPanel(PanelType.Gameplay);
         DialogueService.FinishDialogue();
     }
 }
