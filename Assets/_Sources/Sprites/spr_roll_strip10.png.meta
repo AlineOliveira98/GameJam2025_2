@@ -156,10 +156,10 @@ TextureImporter:
       name: spr_roll_strip10_0
       rect:
         serializedVersion: 2
-        x: 38
-        y: 24
-        width: 20
-        height: 18
+        x: 0
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,10 +178,10 @@ TextureImporter:
       name: spr_roll_strip10_1
       rect:
         serializedVersion: 2
-        x: 137
-        y: 24
-        width: 18
-        height: 16
+        x: 96
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,10 +200,10 @@ TextureImporter:
       name: spr_roll_strip10_2
       rect:
         serializedVersion: 2
-        x: 232
-        y: 24
-        width: 18
-        height: 17
+        x: 192
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,10 +222,10 @@ TextureImporter:
       name: spr_roll_strip10_3
       rect:
         serializedVersion: 2
-        x: 328
-        y: 24
-        width: 18
-        height: 17
+        x: 288
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,10 +244,10 @@ TextureImporter:
       name: spr_roll_strip10_4
       rect:
         serializedVersion: 2
-        x: 424
-        y: 24
-        width: 18
-        height: 17
+        x: 384
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,10 +266,10 @@ TextureImporter:
       name: spr_roll_strip10_5
       rect:
         serializedVersion: 2
-        x: 520
-        y: 24
-        width: 18
-        height: 17
+        x: 480
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,10 +288,10 @@ TextureImporter:
       name: spr_roll_strip10_6
       rect:
         serializedVersion: 2
-        x: 615
-        y: 24
-        width: 20
-        height: 13
+        x: 576
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,10 +310,10 @@ TextureImporter:
       name: spr_roll_strip10_7
       rect:
         serializedVersion: 2
-        x: 710
-        y: 24
-        width: 20
-        height: 15
+        x: 672
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,10 +332,10 @@ TextureImporter:
       name: spr_roll_strip10_8
       rect:
         serializedVersion: 2
-        x: 807
-        y: 24
-        width: 18
-        height: 17
+        x: 768
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -354,10 +354,10 @@ TextureImporter:
       name: spr_roll_strip10_9
       rect:
         serializedVersion: 2
-        x: 902
-        y: 24
-        width: 20
-        height: 18
+        x: 864
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,7 +376,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6c87bee832fd13746bb96d827090bf31
     internalID: 0
     vertices: []
     indices: 
