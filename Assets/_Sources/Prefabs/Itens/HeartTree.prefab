@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3497845774579941843}
   - component: {fileID: 627091650379889996}
   - component: {fileID: 4795600583828459822}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: HeartTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -22649671
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 2082452873430758970, guid: 17d3b74b931a74b4cae4de3358d9773a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
