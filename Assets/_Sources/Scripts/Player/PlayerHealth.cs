@@ -26,14 +26,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(10);
-        }
-    }
-
     public void TakeDamage(float damage)
     {
         if (IsDead || IsInvincible) return;

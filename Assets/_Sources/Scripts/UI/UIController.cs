@@ -57,5 +57,7 @@ public enum PanelType
     Menu,
     Settings,
     Gameplay,
-    Dialogue
+    Dialogue,
+    Defeat,
+    Victory
 }
