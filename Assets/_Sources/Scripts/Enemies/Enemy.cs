@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
             if (EnemyMovement.Patrol.TargetFind.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(damage);
-                EnemyMovement.Dash();
+                // EnemyMovement.Dash();
                 Visual.SetAttack();
 
                 if (damageable.IsDead)

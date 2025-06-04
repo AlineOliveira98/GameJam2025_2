@@ -15,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 dashStartPos;
     public bool IsDashing { get; private set; }
     public EnemyPatrol Patrol { get => patrol; }
+    public Rigidbody2D Rig => rig;
 
     void Start()
     {

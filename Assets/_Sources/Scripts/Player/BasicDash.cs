@@ -16,6 +16,7 @@ public class BasicDash : IDash
     private Vector3? pendingDestination = null;
 
     public bool CanDash => canDash;
+    public bool IsDashing => isDashing;
 
     public BasicDash(Rigidbody2D rb, float dashSpeed, float dashDuration, float dashCooldown, NavMeshAgent agent = null)
     {

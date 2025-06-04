@@ -49,13 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeToAskHelp: 20
-  rateToAskHelp: 3
+  rateToAskHelp: 10
   helpBaloonsPrefab:
   - {fileID: 8496901477487434059, guid: 208e8892623d1fc4dbeae25ba2e1a030, type: 3}
   - {fileID: 8496901477487434059, guid: 3e0c9abf3c20118438ab64f1cf1ef24d, type: 3}
-  animationComponent: {fileID: 0}
-  dieClip: {fileID: 7400000, guid: 73aae11850db0e64b809e4984d2a0094, type: 2}
   dieAnimDuration: 1.5
+  animator: {fileID: 0}
 --- !u!111 &5791801409589664115
 Animation:
   m_ObjectHideFlags: 0
