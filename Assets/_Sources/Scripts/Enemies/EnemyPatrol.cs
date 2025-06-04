@@ -59,14 +59,6 @@ public class EnemyPatrol : MonoBehaviour
         else
         {
             Chase();
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (!dash.CanDash) return;
-
-                Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
-                dash.TryDash(dashDirection);
-            }
         }
 
         MoveToNavMeshTarget();
@@ -94,8 +86,6 @@ public class EnemyPatrol : MonoBehaviour
 
     private async void Chase()
     {
-        if (!dash.CanDash) return;
-
         agent.isStopped = false;
         NavMeshTarget = TargetFind.position;
 
