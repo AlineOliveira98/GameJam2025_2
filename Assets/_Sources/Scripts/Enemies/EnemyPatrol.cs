@@ -24,15 +24,22 @@ public class EnemyPatrol : MonoBehaviour
 
     public bool IsAttacking { get; private set; }
     public Transform TargetFind { get; private set; }
-    
+    public NavMeshAgent Agent => agent;
+
+    public IDash Dash { get; private set; }
+
     void Start()
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        Dash = new BasicDash(enemy.EnemyMovement.Rig, dashSpeed, dashDuration, dashCooldown, agent);
     }
 
     void Update()
     {
+        if (Dash.IsDashing) return;
+
         if (!TargetFind)
         {
             Patrolling();
@@ -87,6 +94,12 @@ public class EnemyPatrol : MonoBehaviour
             await Task.Delay((int)(stoppedTime * 1000));
             agent.isStopped = false;
         }
+
+        if (Dash.CanDash)
+        {
+            Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
+            Dash.TryDash(dashDirection);
+        }
     }
 
     private void LookingForTarget()
@@ -109,7 +122,7 @@ public class EnemyPatrol : MonoBehaviour
     private void MoveToNavMeshTarget()
     {
         if (waitToStartPatrol) return;
-        
+
         visual.SetRunning(!agent.isStopped);
         visual.SetDirection(NavMeshTarget);
 

@@ -24,6 +24,16 @@ public class Enemy : MonoBehaviour
         Attack();
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!EnemyMovement.Patrol.Dash.IsDashing) return;
+
+        if (other.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.TakeDamage(damage);
+        }
+    }
+
     private void Attack()
     {
         if (!patrol.IsAttacking) return;
@@ -39,6 +49,7 @@ public class Enemy : MonoBehaviour
             if (patrol.TargetFind.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(damage);
+                Visual.SetAttack();
 
                 if (damageable.IsDead)
                 {

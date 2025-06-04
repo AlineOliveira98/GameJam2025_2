@@ -53,8 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackRate: 1
-  patrol: {fileID: 4595326926510880819}
-  movement: {fileID: 699242585585254406}
+  visual: {fileID: 5731830777737993568}
+  enemyMovement: {fileID: 699242585585254406}
 --- !u!114 &699242585585254406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,11 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c3232ebe48a1b4f822cabb31aecec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 30
-  dashCooldown: 0
-  dashDuration: 0.833
+  dashDistance: 6.5
+  dashSpeed: 10
+  dashCooldown: 1
   rig: {fileID: 5791667119936366669}
-  visual: {fileID: 5731830777737993568}
+  patrol: {fileID: 4595326926510880819}
 --- !u!114 &5731830777737993568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,14 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512f4ded0b7ff5f4f8aa44a63ee3dfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitToStartPatrol: 0
+  waitToStartPatrol: 1
   rangePatrol: 10
-  rangeToEnterChase: 8
-  rangeToOutChase: 10
-  rangeAttack: 1
+  rangeToEnterChasePlayer: 6.1
+  rangeToEnterChaseAnimals: 4.38
+  rangeToOutChase: 8.05
+  rangeAttack: 1.5
   stoppedTime: 2
+  dashSpeed: 50
+  dashDuration: 0.2
+  dashCooldown: 5
   agent: {fileID: 3427367718935321321}
   visual: {fileID: 5731830777737993568}
+  enemy: {fileID: 1277053147095116436}
 --- !u!195 &3427367718935321321
 NavMeshAgent:
   m_ObjectHideFlags: 0
