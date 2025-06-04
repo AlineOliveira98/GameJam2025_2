@@ -12,10 +12,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     [SerializeField] private float dieAnimDuration = 1.5f;
 
     [SerializeField] private Animator animator;
-
-
-
-
+    [SerializeField] private AnimatorOverrideController overrideController;
 
     private float lastCallHelp = -Mathf.Infinity;
     private Camera cam;
@@ -26,6 +23,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     void Start()
     {
         cam = Camera.main;
+        animator.runtimeAnimatorController = overrideController;
     }
 
     void Update()

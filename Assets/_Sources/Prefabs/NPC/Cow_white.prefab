@@ -55,6 +55,7 @@ MonoBehaviour:
   - {fileID: 8496901477487434059, guid: 3e0c9abf3c20118438ab64f1cf1ef24d, type: 3}
   dieAnimDuration: 1.5
   animator: {fileID: 1902237200412567527}
+  overrideController: {fileID: 22100000, guid: e3a48e488ca52b14cbe39e01c9742a9a, type: 2}
 --- !u!212 &7960993897330362623
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -120,7 +121,7 @@ Animator:
   m_GameObject: {fileID: 7899267992847843668}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 33cf4d1e61ecc38469784a007e15dd00, type: 2}
+  m_Controller: {fileID: 9100000, guid: b7c9ed414073a3f44a10830558afcf4f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

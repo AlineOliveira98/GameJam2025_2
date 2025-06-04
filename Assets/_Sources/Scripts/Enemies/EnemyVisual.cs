@@ -6,10 +6,11 @@ public class EnemyVisual : MonoBehaviour
 {
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private AnimatorOverrideController overrideController;
 
     private Vector2 directionView;
     private Vector2 lastDirection;
-    [SerializeField] private AnimatorOverrideController overrideController;
+    
 
     void Start()
     {
