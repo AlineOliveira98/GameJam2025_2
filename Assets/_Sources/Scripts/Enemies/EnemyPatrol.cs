@@ -35,6 +35,7 @@ public class EnemyPatrol : MonoBehaviour
     public NavMeshAgent Agent => agent;
 
     public IDash Dash { get; private set; }
+    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
 
     void Start()
     {
@@ -46,6 +47,9 @@ public class EnemyPatrol : MonoBehaviour
 
     void Update()
     {
+        visual.SetDashing(Dash.IsDashing);
+
+        if (!CanMove) return;
         if (Dash.IsDashing) return;
 
         if (!TargetFind)
@@ -103,6 +107,7 @@ public class EnemyPatrol : MonoBehaviour
         {
             Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
             Dash.TryDash(dashDirection);
+            visual.TriggerDash();
         }
     }
 
@@ -136,7 +141,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (waitToStartPatrol) return;
 
-        visual.SetRunning(!agent.isStopped);
+        visual.SetRunning(!agent.isStopped && !Dash.IsDashing);
         visual.SetDirection(NavMeshTarget);
 
         agent.SetDestination(NavMeshTarget);

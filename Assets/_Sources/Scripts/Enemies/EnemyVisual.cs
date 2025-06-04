@@ -31,7 +31,17 @@ public class EnemyVisual : MonoBehaviour
 
     public void TriggerDeath()
     {
-        anim.SetTrigger("Deadh");
+        anim.SetTrigger("Death");
+    }
+
+    public void TriggerDash()
+    {
+        anim.SetTrigger("Roll");
+    }
+
+    public void SetDashing(bool isDashing)
+    {
+        anim.SetBool("IsRolling", isDashing);
     }
 
     public void SetAttack()

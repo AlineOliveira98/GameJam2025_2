@@ -105,9 +105,9 @@ MonoBehaviour:
   rangeToOutChase: 10
   rangeAttack: 1
   stoppedTime: 2
-  dashSpeed: 50
-  dashDuration: 0.2
-  dashCooldown: 1
+  dashSpeed: 10
+  dashDuration: 1
+  dashCooldown: 5
   agent: {fileID: 3427367718935321321}
   visual: {fileID: 5731830777737993568}
   enemy: {fileID: 0}

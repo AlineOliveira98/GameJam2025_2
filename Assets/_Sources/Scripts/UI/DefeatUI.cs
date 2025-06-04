@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DefeatUI : MonoBehaviour
 {
@@ -17,5 +18,10 @@ public class DefeatUI : MonoBehaviour
     private void Open()
     {
         UIController.Instance.OpenPanel(PanelType.Defeat);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }

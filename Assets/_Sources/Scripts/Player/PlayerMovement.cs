@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Player player;
     private Camera mainCamera;
     private bool movementLocked;
+    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
 
     private IDash dash;
 
@@ -39,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (movementLocked) return;
+        if (movementLocked || !CanMove) return;
 
         MoveClick();
 
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (movementLocked) return;
+        if (movementLocked || !CanMove) return;
         MoveInput();
     }
 
@@ -88,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
                 agent.SetDestination(target);
                 if (dash is BasicDash basicDash)
                 {
-                    basicDash.SetDestinationAfterDash(target); // garante que o destino será reaplicado depois do dash
+                    basicDash.SetDestinationAfterDash(target); // garante que o destino serï¿½ reaplicado depois do dash
                 }
 
                 lastDirection = ((Vector2)agent.velocity).normalized;
