@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512f4ded0b7ff5f4f8aa44a63ee3dfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitToStartPatrol: 1
+  waitToStartPatrol: 0
   rangePatrol: 10
   rangeToEnterChasePlayer: 6.1
   rangeToEnterChaseAnimals: 4.38

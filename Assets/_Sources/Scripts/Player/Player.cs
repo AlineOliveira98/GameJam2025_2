@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private float rangePushEnemies;
+
     [SerializeField] private TargetIndicator targetIndicator;
     [SerializeField] private PlayerHealth health;
     [SerializeField] private PlayerVisual visual;
 
     private Vector2 lastMoveDir;
-
 
     public Rigidbody2D rb { get; private set; }
     public Vector2 input { get; private set; }
@@ -47,9 +48,27 @@ public class Player : MonoBehaviour
         if (input != Vector2.zero)
             lastMoveDir = input;
 
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (!SkillController.Instance.HasSkill(SkillType.Push)) return;
+            PushEnemies();
+        }
     }
 
+    private void PushEnemies()
+    {
+        var enemiesInRange = Physics2D.OverlapCircleAll(transform.position, rangePushEnemies, 1 << 9);
 
+        if (enemiesInRange.Length <= 0) return;
+
+        for (int i = 0; i < enemiesInRange.Length; i++)
+        {
+            if (enemiesInRange[i].TryGetComponent(out Enemy enemy))
+            {
+                enemy.KnockBack();
+            }
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

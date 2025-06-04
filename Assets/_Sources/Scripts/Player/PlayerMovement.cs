@@ -44,10 +44,9 @@ public class PlayerMovement : MonoBehaviour
 
         MoveClick();
 
-        if (!dash.CanDash) return;
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (!dash.CanDash) return;
             dash.TryDash(lastDirection);
         }
     }
@@ -113,4 +112,6 @@ public class PlayerMovement : MonoBehaviour
         await Task.Delay(TimeSpan.FromSeconds(duration));
         speedMultiplier = 1f;
     }
+
+    
 }

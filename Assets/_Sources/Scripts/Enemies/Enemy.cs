@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
         if (other.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(damage);
+            Debug.Log("Attack By Trigger");
         }
     }
 
@@ -52,6 +53,7 @@ public class Enemy : MonoBehaviour
             if (EnemyMovement.Patrol.TargetFind.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(damage);
+                Debug.Log("Attack By Cooldown");
                 Visual.SetAttack();
 
                 if (damageable.IsDead)
@@ -64,4 +66,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void KnockBack()
+    {
+        
+    }
 }

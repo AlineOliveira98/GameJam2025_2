@@ -10,9 +10,6 @@ public class SkillController : MonoBehaviour
 
     private Dictionary<SkillType, SkillHandler> skillsDic = new();
 
-    public List<SkillHandler> CurrentSkills { get; private set; } = new();
-
-
     void Awake()
     {
         if (Instance == null)
@@ -44,13 +41,14 @@ public class SkillController : MonoBehaviour
         return skillsDic[skillType];
     }
 
+    public bool HasSkill(SkillType skillType)
+    {
+        return GetSkillHandler(skillType).acquired;
+    }
+
     public void ApplySkill(SkillType skillType)
     {
         var skill = GetSkillHandler(skillType);
-
-        if (CurrentSkills.Contains(skill)) return;
-
-        CurrentSkills.Add(skill);
         skill.acquired = true;
     }
 }
