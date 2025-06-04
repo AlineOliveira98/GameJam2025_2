@@ -9,6 +9,14 @@ public class EnemyVisual : MonoBehaviour
 
     private Vector2 directionView;
     private Vector2 lastDirection;
+    [SerializeField] private AnimatorOverrideController overrideController;
+
+    void Start()
+    {
+        anim.runtimeAnimatorController = overrideController;
+
+        InvokeRepeating(nameof(SetAttack), 1, 1);
+    }
 
     void Update()
     {
