@@ -14,8 +14,6 @@ public class EnemyVisual : MonoBehaviour
     void Start()
     {
         anim.runtimeAnimatorController = overrideController;
-
-        InvokeRepeating(nameof(SetAttack), 1, 1);
     }
 
     void Update()
