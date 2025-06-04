@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class VictoryUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
-        
+        GameController.OnSavedAnimalAmountReached += Open;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        
+        GameController.OnSavedAnimalAmountReached -= Open;
+    }
+
+    private void Open()
+    {
+        UIController.Instance.OpenPanel(PanelType.Victory);
     }
 }

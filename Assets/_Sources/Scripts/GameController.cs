@@ -6,6 +6,9 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
 
+    [SerializeField] private int animalsAmoutDiedToDefeat = 5;
+    [SerializeField] private int animalsAmoutSavedToVictory = 7;
+
     private int totalAnimals;
 
     public static bool GameStarted { get; private set; }
@@ -18,6 +21,8 @@ public class GameController : MonoBehaviour
 
     public static Action<NPC> OnAnimalSaved;
     public static Action<NPC> OnAnimalDied;
+    public static Action OnSavedAnimalAmountReached;
+    public static Action OnDeadAnimalLimitReached;
 
     void Awake()
     {
@@ -45,6 +50,12 @@ public class GameController : MonoBehaviour
         AnimalsSaved++;
         AnimalsCurrentNumber--;
         OnAnimalSaved?.Invoke(animal);
+
+        if (AnimalsSaved >= animalsAmoutSavedToVictory)
+        {
+            GameOver();
+            OnSavedAnimalAmountReached?.Invoke();
+        }
     }
 
     public void KillAnimal(NPC animal)
@@ -52,6 +63,12 @@ public class GameController : MonoBehaviour
         AnimalsDied++;
         AnimalsCurrentNumber--;
         OnAnimalDied?.Invoke(animal);
+
+        if (AnimalsDied >= animalsAmoutDiedToDefeat)
+        {
+            GameOver();
+            OnDeadAnimalLimitReached?.Invoke();
+        }
     }
 
     public void StartGameplay()
