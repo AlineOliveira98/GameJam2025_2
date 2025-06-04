@@ -53,8 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackRate: 1
-  patrol: {fileID: 4595326926510880819}
-  movement: {fileID: 699242585585254406}
+  visual: {fileID: 5731830777737993568}
+  enemyMovement: {fileID: 699242585585254406}
 --- !u!114 &699242585585254406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,11 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c3232ebe48a1b4f822cabb31aecec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashDistance: 0
   dashSpeed: 30
   dashCooldown: 0
-  dashDuration: 0.833
   rig: {fileID: 5791667119936366669}
-  visual: {fileID: 5731830777737993568}
+  patrol: {fileID: 0}
 --- !u!114 &5731830777737993568
 MonoBehaviour:
   m_ObjectHideFlags: 0
