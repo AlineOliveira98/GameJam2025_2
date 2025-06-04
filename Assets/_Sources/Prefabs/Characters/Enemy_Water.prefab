@@ -100,12 +100,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitToStartPatrol: 0
   rangePatrol: 10
-  rangeToEnterChase: 8
+  rangeToEnterChasePlayer: 3
+  rangeToEnterChaseAnimals: 2
   rangeToOutChase: 10
   rangeAttack: 1
   stoppedTime: 2
+  dashSpeed: 50
+  dashDuration: 0.2
+  dashCooldown: 1
   agent: {fileID: 3427367718935321321}
   visual: {fileID: 5731830777737993568}
+  enemy: {fileID: 0}
 --- !u!195 &3427367718935321321
 NavMeshAgent:
   m_ObjectHideFlags: 0

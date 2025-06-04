@@ -10,9 +10,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRate;
 
     [Header("References")]
-    [SerializeField] private EnemyPatrol patrol;
+    [SerializeField] private EnemyVisual visual;
+    [SerializeField] protected EnemyMovement enemyMovement;
 
     private float lastAttackTime = -Mathf.Infinity;
+    public EnemyVisual Visual { get => visual; }
+    public EnemyMovement EnemyMovement { get => enemyMovement; }
 
     void Start()
     {
@@ -36,24 +39,24 @@ public class Enemy : MonoBehaviour
 
     private void Attack()
     {
-        if (!patrol.IsAttacking) return;
+        if (!EnemyMovement.Patrol.IsAttacking) return;
 
-        if (patrol.TargetFind == null)
+        if (EnemyMovement.Patrol.TargetFind == null)
         {
-            patrol.StopAttack();
+            EnemyMovement.Patrol.StopAttack();
             return;
         }
 
         if (Time.time >= lastAttackTime + attackRate)
         {
-            if (patrol.TargetFind.TryGetComponent(out IDamageable damageable))
+            if (EnemyMovement.Patrol.TargetFind.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(damage);
                 Visual.SetAttack();
 
                 if (damageable.IsDead)
                 {
-                    patrol.StopAttack();
+                    EnemyMovement.Patrol.StopAttack();
                 }
             }
 

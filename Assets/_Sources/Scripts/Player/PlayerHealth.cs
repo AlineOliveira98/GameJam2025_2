@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth = 0;
+    [SerializeField] private bool receiveDamage = true;
 
     public bool IsDead { get; set; }
     public bool IsInvincible { get; private set; } = false;
@@ -28,6 +29,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        if (!receiveDamage) return;
         if (IsDead || IsInvincible) return;
 
         currentHealth -= damage;

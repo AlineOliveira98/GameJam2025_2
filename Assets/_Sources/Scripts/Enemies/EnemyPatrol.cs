@@ -1,28 +1,36 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-//TODO: Maybe creates a EnemyPatrol if gets too big
 public class EnemyPatrol : MonoBehaviour
 {
     [Header("Patrol")]
     [SerializeField] private bool waitToStartPatrol;
     [SerializeField][Min(3)] private float rangePatrol = 5f;
-    [SerializeField] private float rangeToEnterChase = 3f;
+    [SerializeField] private float rangeToEnterChasePlayer = 3f;
+    [SerializeField] private float rangeToEnterChaseAnimals = 2f;
     [SerializeField] private float rangeToOutChase = 4f;
     [SerializeField] private float rangeAttack = 1f;
     [SerializeField] private float stoppedTime = 2f;
 
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 50f;
+    [SerializeField] private float dashDuration = 0.03f;
+    [SerializeField] private float dashCooldown = 0.5f;
+
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private EnemyVisual visual;
+    [SerializeField] private Enemy enemy;
 
     private Vector2 NavMeshTarget;
-    private bool isWaitingNewTarget = false;
 
     public bool IsAttacking { get; private set; }
+    public bool IsChasing { get; private set; }
+
     public Transform TargetFind { get; private set; }
     public NavMeshAgent Agent => agent;
 
@@ -51,6 +59,14 @@ public class EnemyPatrol : MonoBehaviour
         else
         {
             Chase();
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!dash.CanDash) return;
+
+                Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
+                dash.TryDash(dashDirection);
+            }
         }
 
         MoveToNavMeshTarget();
@@ -59,7 +75,6 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Patrolling()
     {
-        if (waitToStartPatrol) return;
         if (waitToStartPatrol) return;
 
         if (agent.remainingDistance <= agent.stoppingDistance)
@@ -72,16 +87,15 @@ public class EnemyPatrol : MonoBehaviour
     {
         agent.isStopped = true;
 
-        isWaitingNewTarget = true;
         UpdateRandomPoint();
         await Task.Delay((int)(stoppedTime * 1000));
         agent.isStopped = false;
-
-        isWaitingNewTarget = false;
     }
 
     private async void Chase()
     {
+        if (!dash.CanDash) return;
+
         agent.isStopped = false;
         NavMeshTarget = TargetFind.position;
 
@@ -104,19 +118,28 @@ public class EnemyPatrol : MonoBehaviour
 
     private void LookingForTarget()
     {
-        var player = Physics2D.OverlapCircle(transform.position, rangeToEnterChase, 1 << 6);
+        Collider2D player = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 6);
+        Collider2D npc = Physics2D.OverlapCircle(transform.position, rangeToEnterChaseAnimals, 1 << 7);
+
+        float playerDist = float.MaxValue;
+        float npcDist = float.MaxValue;
 
         if (player != null)
+            playerDist = (player.transform.position - transform.position).sqrMagnitude;
+
+        if (npc != null)
+            npcDist = (npc.transform.position - transform.position).sqrMagnitude;
+
+        if (player != null && playerDist <= npcDist)
         {
             TargetFind = player.transform;
             waitToStartPatrol = false;
-            return;
         }
-
-        var npc = Physics2D.OverlapCircle(transform.position, rangeToEnterChase, 1 << 7);
-
-        if (npc != null)
+        else if (npc != null)
+        {
             TargetFind = npc.transform;
+            waitToStartPatrol = false;
+        }
     }
 
     private void MoveToNavMeshTarget()
@@ -172,12 +195,40 @@ public class EnemyPatrol : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, rangeAttack);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, rangeToEnterChase);
+        Gizmos.DrawWireSphere(transform.position, rangeToEnterChasePlayer);
+        Gizmos.DrawWireSphere(transform.position, rangeToEnterChaseAnimals);
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rangeToOutChase);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, rangePatrol);
+
+        #if UNITY_EDITOR
+        Vector3 screenPosDet = HandleUtility.WorldToGUIPoint(transform.position + Vector3.right * rangeToEnterChasePlayer);
+        Vector3 screenPosAni = HandleUtility.WorldToGUIPoint(transform.position + Vector3.right * rangeToEnterChaseAnimals);
+        Vector3 screenPosAtk = HandleUtility.WorldToGUIPoint(transform.position + Vector3.right * rangeToOutChase);
+        Vector3 screenPosAlt = HandleUtility.WorldToGUIPoint(transform.position + Vector3.right * rangeAttack);
+        Vector3 screenPosPatrol = HandleUtility.WorldToGUIPoint(transform.position + Vector3.right * rangePatrol);
+
+        Handles.BeginGUI();
+
+        GUIStyle style = new GUIStyle(GUI.skin.label);
+        style.normal.textColor = Color.black; 
+        style.fontStyle = FontStyle.Bold;
+        style.alignment = TextAnchor.MiddleCenter;
+        style.padding = new RectOffset(4, 4, 2, 2);
+        style.normal.background = Texture2D.whiteTexture; 
+
+        GUI.backgroundColor = new Color(1f, 1f, 1f, 1f);
+
+        GUI.Label(new Rect(screenPosAlt.x - 40, screenPosAlt.y - 10, 80, 20), "Attack", style);
+        GUI.Label(new Rect(screenPosDet.x - 40, screenPosDet.y - 35, 80, 20), "ChasePlayer", style);
+        GUI.Label(new Rect(screenPosAni.x - 40, screenPosAni.y - 55, 100, 20), "ChaseAnimals", style);
+        GUI.Label(new Rect(screenPosAtk.x - 40, screenPosAtk.y - 75, 80, 20), "ToOutChase", style);
+        GUI.Label(new Rect(screenPosPatrol.x - 40, screenPosPatrol.y - 95, 80, 20), "Patrol", style);
+
+        Handles.EndGUI();
+        #endif
     }
 }

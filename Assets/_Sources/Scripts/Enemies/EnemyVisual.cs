@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -28,14 +29,13 @@ public class EnemyVisual : MonoBehaviour
         anim.SetBool("IsRunning", isRunning);
     }
 
-    public void SetDashing(bool isDashing)
-    {
-        anim.SetBool("IsDashing", isDashing);
-    }
-
     public void TriggerDeath()
     {
         anim.SetTrigger("Deadh");
     }
 
+    public void SetAttack()
+    {
+        anim.SetTrigger("Attack");
+    }
 }
