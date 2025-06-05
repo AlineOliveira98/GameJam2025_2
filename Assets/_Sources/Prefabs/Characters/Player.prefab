@@ -53,6 +53,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26642ad7d6910441a939a9d7975108d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rangePushEnemies: 4
+  forcePush: 10
+  durationPush: 1
+  cooldownPush: 2
+  durationInvisible: 8
+  cooldownInvisible: 2
+  durationClone: 5
+  cooldownClone: 2
   targetIndicator: {fileID: 6027024871912877256}
   health: {fileID: 1334123132971509616}
   visual: {fileID: 5678408292184958949}
@@ -69,7 +77,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
-  currentHealth: 0
+  delayToTakeDamage: 0.67
+  delayToDie: 0
+  receiveDamage: 1
 --- !u!114 &5678408292184958949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 2480247367721008574}
+  spriteRenderer: {fileID: 4629800019324925914}
 --- !u!114 &8587394269519104390
 MonoBehaviour:
   m_ObjectHideFlags: 0

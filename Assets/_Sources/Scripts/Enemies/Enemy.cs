@@ -2,7 +2,6 @@ using System.Collections;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -34,16 +33,18 @@ public class Enemy : MonoBehaviour
         if (other.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(damage);
+            Debug.Log("Attack By Trigger");
         }
     }
 
     private void Attack()
     {
-        if (!EnemyMovement.Patrol.IsAttacking) return;
+        if (!EnemyMovement.Patrol.IsAttacking || EnemyMovement.Patrol.IsKnockback) return;
 
         if (EnemyMovement.Patrol.TargetFind == null)
         {
             EnemyMovement.Patrol.StopAttack();
+            Debug.Log("Target not find, stoping attack");
             return;
         }
 
@@ -52,6 +53,7 @@ public class Enemy : MonoBehaviour
             if (EnemyMovement.Patrol.TargetFind.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(damage);
+                Debug.Log("Attack By Cooldown");
                 Visual.SetAttack();
 
                 if (damageable.IsDead)
@@ -64,4 +66,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void KnockBack(Vector3 targetPos, float force, float duration)
+    {
+        EnemyMovement.KnockBack(targetPos, force, duration);
+    }
 }

@@ -23,6 +23,16 @@ public class PlayerMovement : MonoBehaviour
 
     public float speedMultiplier { get; private set; } = 1f;
 
+    private void OnEnable()
+    {
+        WaterWell.OnTeleportActivated += Teleport;
+    }
+
+    private void OnDisable()
+    {
+        WaterWell.OnTeleportActivated -= Teleport;
+    }
+
     private void Start()
     {
         dash = new BasicDash(player.rb, 50f, 0.03f, 0.5f, agent);
@@ -44,10 +54,9 @@ public class PlayerMovement : MonoBehaviour
 
         MoveClick();
 
-        if (!dash.CanDash) return;
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (!dash.CanDash) return;
             dash.TryDash(lastDirection);
         }
     }
@@ -56,6 +65,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementLocked || !CanMove) return;
         MoveInput();
+    }
+
+    private void Teleport(WaterWell well)
+    {
+        agent.isStopped = true;
+        agent.ResetPath();
+        agent.Warp(well.spawnArea.position);
+        agent.isStopped = false;
     }
 
     private void MoveInput()
@@ -113,4 +130,6 @@ public class PlayerMovement : MonoBehaviour
         await Task.Delay(TimeSpan.FromSeconds(duration));
         speedMultiplier = 1f;
     }
+
+    
 }

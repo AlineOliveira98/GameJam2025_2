@@ -68,10 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDistance: 0
-  dashSpeed: 30
-  dashCooldown: 0
   rig: {fileID: 5791667119936366669}
-  patrol: {fileID: 0}
+  patrol: {fileID: 4595326926510880819}
 --- !u!114 &5731830777737993568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,8 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitToStartPatrol: 0
   rangePatrol: 10
-  rangeToEnterChasePlayer: 3
-  rangeToEnterChaseAnimals: 2
+  rangeToEnterChasePlayer: 8
+  rangeToEnterChaseAnimals: 6
   rangeToOutChase: 10
   rangeAttack: 1
   stoppedTime: 2
@@ -111,7 +109,7 @@ MonoBehaviour:
   dashCooldown: 5
   agent: {fileID: 3427367718935321321}
   visual: {fileID: 5731830777737993568}
-  enemy: {fileID: 0}
+  enemy: {fileID: 1277053147095116436}
 --- !u!195 &3427367718935321321
 NavMeshAgent:
   m_ObjectHideFlags: 0

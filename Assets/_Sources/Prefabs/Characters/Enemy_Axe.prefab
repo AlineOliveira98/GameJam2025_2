@@ -68,8 +68,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDistance: 6.5
-  dashSpeed: 10
-  dashCooldown: 1
   rig: {fileID: 5791667119936366669}
   patrol: {fileID: 4595326926510880819}
 --- !u!114 &5731830777737993568
@@ -99,11 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512f4ded0b7ff5f4f8aa44a63ee3dfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitToStartPatrol: 1
+  waitToStartPatrol: 0
   rangePatrol: 10
-  rangeToEnterChasePlayer: 6.1
-  rangeToEnterChaseAnimals: 4.38
-  rangeToOutChase: 8.05
+  rangeToEnterChasePlayer: 8
+  rangeToEnterChaseAnimals: 6
+  rangeToOutChase: 10
   rangeAttack: 1.5
   stoppedTime: 2
   dashSpeed: 10

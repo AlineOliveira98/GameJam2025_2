@@ -27,9 +27,10 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private Enemy enemy;
 
     private Vector2 NavMeshTarget;
+    private Player cachedPlayer;
 
     public bool IsAttacking { get; private set; }
-    public bool IsChasing { get; private set; }
+    public bool IsKnockback { get; set; }
 
     public Transform TargetFind { get; private set; }
     public NavMeshAgent Agent => agent;
@@ -50,6 +51,7 @@ public class EnemyPatrol : MonoBehaviour
         visual.SetDashing(Dash.IsDashing);
 
         if (!CanMove) return;
+        if (IsKnockback) return;
         if (Dash.IsDashing) return;
 
         if (!TargetFind)
@@ -91,9 +93,10 @@ public class EnemyPatrol : MonoBehaviour
     private async void Chase()
     {
         agent.isStopped = false;
+        IsAttacking = false;
         NavMeshTarget = TargetFind.position;
 
-        if (!IsInsideRange(rangeToOutChase))
+        if (!IsInsideRange(rangeToOutChase) || (TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
         {
             agent.isStopped = true;
             TargetFind = null;
@@ -101,9 +104,11 @@ public class EnemyPatrol : MonoBehaviour
 
             await Task.Delay((int)(stoppedTime * 1000));
             agent.isStopped = false;
+
+            return;
         }
 
-        if (Dash.CanDash)
+        if (Dash.CanDash && !IsKnockback)
         {
             Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
             Dash.TryDash(dashDirection);
@@ -113,21 +118,26 @@ public class EnemyPatrol : MonoBehaviour
 
     private void LookingForTarget()
     {
-        Collider2D player = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 6);
+        Collider2D playerCol = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 6);
         Collider2D npc = Physics2D.OverlapCircle(transform.position, rangeToEnterChaseAnimals, 1 << 7);
 
         float playerDist = float.MaxValue;
         float npcDist = float.MaxValue;
 
-        if (player != null)
-            playerDist = (player.transform.position - transform.position).sqrMagnitude;
+        if (playerCol != null)
+        {
+            if (cachedPlayer == null || cachedPlayer.gameObject != playerCol.gameObject)
+                cachedPlayer = playerCol.GetComponent<Player>();
+
+            playerDist = (playerCol.transform.position - transform.position).sqrMagnitude;
+        }
 
         if (npc != null)
             npcDist = (npc.transform.position - transform.position).sqrMagnitude;
 
-        if (player != null && playerDist <= npcDist)
+        if (playerCol != null && playerDist <= npcDist && cachedPlayer != null && !cachedPlayer.IsInvisible)
         {
-            TargetFind = player.transform;
+            TargetFind = playerCol.transform;
             waitToStartPatrol = false;
         }
         else if (npc != null)
@@ -184,7 +194,7 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, rangeAttack);
