@@ -56,6 +56,11 @@ MonoBehaviour:
   rangePushEnemies: 4
   forcePush: 10
   durationPush: 1
+  cooldownPush: 2
+  durationInvisible: 8
+  cooldownInvisible: 2
+  durationClone: 5
+  cooldownClone: 2
   targetIndicator: {fileID: 6027024871912877256}
   health: {fileID: 1334123132971509616}
   visual: {fileID: 5678408292184958949}
@@ -87,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 2480247367721008574}
+  spriteRenderer: {fileID: 4629800019324925914}
 --- !u!114 &8587394269519104390
 MonoBehaviour:
   m_ObjectHideFlags: 0

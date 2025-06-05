@@ -8,13 +8,26 @@ public class Player : MonoBehaviour
     [SerializeField] private float rangePushEnemies;
     [SerializeField] private float forcePush;
     [SerializeField] private float durationPush;
+    [SerializeField] private float cooldownPush;
 
+    [Header("Invisible Settings")]
+    [SerializeField] private float durationInvisible;
+    [SerializeField] private float cooldownInvisible;
+
+    [Header("Clone Settings")]
+    [SerializeField] private float durationClone;
+    [SerializeField] private float cooldownClone;
+
+    [Header("References")]
     [SerializeField] private TargetIndicator targetIndicator;
     [SerializeField] private PlayerHealth health;
     [SerializeField] private PlayerVisual visual;
 
-    private Vector2 lastMoveDir;
+    private bool canPush = true;
+    private bool canStayInvisible = true;
+    private bool canClone = true;
 
+    public bool IsInvisible { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public Vector2 input { get; private set; }
     public PlayerHealth Health => health;
@@ -48,18 +61,29 @@ public class Player : MonoBehaviour
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (input != Vector2.zero)
-            lastMoveDir = input;
-
         if (Input.GetKeyDown(KeyCode.W))
         {
             if (!SkillController.Instance.HasSkill(SkillType.Push)) return;
             PushEnemies();
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!SkillController.Instance.HasSkill(SkillType.Invisible)) return;
+            Invisible();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (!SkillController.Instance.HasSkill(SkillType.Clone)) return;
+            Clone();
+        }
     }
 
-    private void PushEnemies()
+    private async Task PushEnemies()
     {
+        if (!canPush) return;
+
         var enemiesInRange = Physics2D.OverlapCircleAll(transform.position, rangePushEnemies, 1 << 9);
 
         if (enemiesInRange.Length <= 0) return;
@@ -71,6 +95,34 @@ public class Player : MonoBehaviour
                 enemy.KnockBack(transform.position, forcePush, durationPush);
             }
         }
+
+        await Task.Delay(TimeSpan.FromSeconds(cooldownPush));
+        canPush = true;
+    }
+
+    private async Task Invisible()
+    {
+        if (!canStayInvisible) return;
+
+        IsInvisible = true;
+        visual.SetInvisible(true);
+        Health.SetInvincibility(durationInvisible);
+        
+        await Task.Delay(TimeSpan.FromSeconds(durationInvisible));
+
+        IsInvisible = false;
+        visual.SetInvisible(false);
+
+        await Task.Delay(TimeSpan.FromSeconds(cooldownInvisible));
+        canStayInvisible = true;
+    }
+
+    private async Task Clone()
+    {
+        if (!canClone) return;
+        
+        await Task.Delay(TimeSpan.FromSeconds(cooldownClone));
+        canClone = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)

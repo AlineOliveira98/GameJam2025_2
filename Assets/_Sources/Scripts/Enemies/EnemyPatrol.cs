@@ -27,6 +27,7 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private Enemy enemy;
 
     private Vector2 NavMeshTarget;
+    private Player cachedPlayer;
 
     public bool IsAttacking { get; private set; }
     public bool IsKnockback { get; set; }
@@ -95,7 +96,7 @@ public class EnemyPatrol : MonoBehaviour
         IsAttacking = false;
         NavMeshTarget = TargetFind.position;
 
-        if (!IsInsideRange(rangeToOutChase))
+        if (!IsInsideRange(rangeToOutChase) || (TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
         {
             agent.isStopped = true;
             TargetFind = null;
@@ -117,21 +118,26 @@ public class EnemyPatrol : MonoBehaviour
 
     private void LookingForTarget()
     {
-        Collider2D player = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 6);
+        Collider2D playerCol = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 6);
         Collider2D npc = Physics2D.OverlapCircle(transform.position, rangeToEnterChaseAnimals, 1 << 7);
 
         float playerDist = float.MaxValue;
         float npcDist = float.MaxValue;
 
-        if (player != null)
-            playerDist = (player.transform.position - transform.position).sqrMagnitude;
+        if (playerCol != null)
+        {
+            if (cachedPlayer == null || cachedPlayer.gameObject != playerCol.gameObject)
+                cachedPlayer = playerCol.GetComponent<Player>();
+
+            playerDist = (playerCol.transform.position - transform.position).sqrMagnitude;
+        }
 
         if (npc != null)
             npcDist = (npc.transform.position - transform.position).sqrMagnitude;
 
-        if (player != null && playerDist <= npcDist)
+        if (playerCol != null && playerDist <= npcDist && cachedPlayer != null && !cachedPlayer.IsInvisible)
         {
-            TargetFind = player.transform;
+            TargetFind = playerCol.transform;
             waitToStartPatrol = false;
         }
         else if (npc != null)
