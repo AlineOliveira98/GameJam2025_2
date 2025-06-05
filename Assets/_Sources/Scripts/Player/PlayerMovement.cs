@@ -17,9 +17,13 @@ public class PlayerMovement : MonoBehaviour
     private Player player;
     private Camera mainCamera;
     private bool movementLocked;
+
+    [SerializeField] private TrailRenderer trailRenderer;
+
     private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
 
     private IDash dash;
+
 
     public float speedMultiplier { get; private set; } = 1f;
 
@@ -35,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        dash = new BasicDash(player.rb, 50f, 0.03f, 0.5f, agent);
+        dash = new BasicDash(player.rb, 20f, 0.1f, 1f, agent, trailRenderer);
+
     }
 
     private void Awake()

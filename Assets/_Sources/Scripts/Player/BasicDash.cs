@@ -6,22 +6,23 @@ public class BasicDash : IDash
 {
     private readonly Rigidbody2D rb;
     private readonly NavMeshAgent agent;
+    private readonly TrailRenderer trail;
     private readonly float dashSpeed;
     private readonly float dashDuration;
     private readonly float dashCooldown;
 
     private bool isDashing = false;
     private bool canDash = true;
-
     private Vector3? pendingDestination = null;
 
     public bool CanDash => canDash;
     public bool IsDashing => isDashing;
 
-    public BasicDash(Rigidbody2D rb, float dashSpeed, float dashDuration, float dashCooldown, NavMeshAgent agent = null)
+    public BasicDash(Rigidbody2D rb, float dashSpeed, float dashDuration, float dashCooldown, NavMeshAgent agent = null, TrailRenderer trail = null)
     {
         this.rb = rb ?? throw new System.ArgumentNullException(nameof(rb));
         this.agent = agent;
+        this.trail = trail;
         this.dashSpeed = dashSpeed;
         this.dashDuration = dashDuration;
         this.dashCooldown = dashCooldown;
@@ -46,18 +47,28 @@ public class BasicDash : IDash
             agent.enabled = false;
         }
 
+        if (trail != null)
+        {
+            trail.Clear();             // limpa qualquer sobra anterior
+            trail.emitting = true;     // ativa o rastro
+        }
+
         rb.linearVelocity = direction.normalized * dashSpeed;
 
         await Task.Delay((int)(dashDuration * 1000));
 
         rb.linearVelocity = Vector2.zero;
 
+        if (trail != null)
+            trail.emitting = false;
+
         if (agent != null)
         {
             agent.Warp(rb.position);
+            await Task.Yield(); // garante reativação segura
             agent.enabled = true;
+            await Task.Yield();
 
-            // reaplica destino se existir
             if (pendingDestination.HasValue)
             {
                 agent.SetDestination(pendingDestination.Value);
@@ -66,7 +77,6 @@ public class BasicDash : IDash
         }
 
         isDashing = false;
-
         await Task.Delay((int)(dashCooldown * 1000));
         canDash = true;
     }
