@@ -61,6 +61,7 @@ MonoBehaviour:
   cooldownInvisible: 2
   durationClone: 5
   cooldownClone: 2
+  playerClone: {fileID: 0}
   targetIndicator: {fileID: 6027024871912877256}
   health: {fileID: 1334123132971509616}
   visual: {fileID: 5678408292184958949}
@@ -209,7 +210,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!1 &4284612307216952552
 GameObject:
   m_ObjectHideFlags: 0

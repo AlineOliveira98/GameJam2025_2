@@ -96,7 +96,10 @@ public class EnemyPatrol : MonoBehaviour
         IsAttacking = false;
         NavMeshTarget = TargetFind.position;
 
-        if (!IsInsideRange(rangeToOutChase) || (TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
+        if (TargetFind == null
+        || !TargetFind.gameObject.activeInHierarchy
+        || !IsInsideRange(rangeToOutChase)
+        || (TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
         {
             agent.isStopped = true;
             TargetFind = null;
@@ -118,6 +121,15 @@ public class EnemyPatrol : MonoBehaviour
 
     private void LookingForTarget()
     {
+        Collider2D cloneCol = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 10);
+
+        if (cloneCol != null)
+        {
+            TargetFind = cloneCol.transform;
+            waitToStartPatrol = false;
+            return; 
+        }
+
         Collider2D playerCol = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 6);
         Collider2D npc = Physics2D.OverlapCircle(transform.position, rangeToEnterChaseAnimals, 1 << 7);
 

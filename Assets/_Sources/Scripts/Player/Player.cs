@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [Header("Clone Settings")]
     [SerializeField] private float durationClone;
     [SerializeField] private float cooldownClone;
+    [SerializeField] private PlayerClone playerClone;
 
     [Header("References")]
     [SerializeField] private TargetIndicator targetIndicator;
@@ -120,6 +121,13 @@ public class Player : MonoBehaviour
     private async Task Clone()
     {
         if (!canClone) return;
+
+        playerClone.gameObject.SetActive(true);
+        playerClone.Initialize(transform.position);
+
+        await Task.Delay(TimeSpan.FromSeconds(durationClone));
+
+        playerClone.Disable();
         
         await Task.Delay(TimeSpan.FromSeconds(cooldownClone));
         canClone = true;

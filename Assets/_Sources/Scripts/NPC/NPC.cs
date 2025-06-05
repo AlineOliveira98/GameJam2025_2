@@ -28,6 +28,8 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
     void Update()
     {
+        if (!GameController.GameStarted || GameController.GameIsOver) return;
+        
         if (IsDead || IsSaved) return;
         
         CheckAreInDanger();

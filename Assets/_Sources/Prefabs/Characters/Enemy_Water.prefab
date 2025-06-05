@@ -67,7 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c3232ebe48a1b4f822cabb31aecec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDistance: 0
   rig: {fileID: 5791667119936366669}
   patrol: {fileID: 4595326926510880819}
 --- !u!114 &5731830777737993568
@@ -120,7 +119,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
