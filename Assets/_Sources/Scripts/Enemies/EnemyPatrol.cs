@@ -29,7 +29,7 @@ public class EnemyPatrol : MonoBehaviour
     private Vector2 NavMeshTarget;
 
     public bool IsAttacking { get; private set; }
-    public bool IsChasing { get; private set; }
+    public bool IsKnockback { get; set; }
 
     public Transform TargetFind { get; private set; }
     public NavMeshAgent Agent => agent;
@@ -50,6 +50,7 @@ public class EnemyPatrol : MonoBehaviour
         visual.SetDashing(Dash.IsDashing);
 
         if (!CanMove) return;
+        if (IsKnockback) return;
         if (Dash.IsDashing) return;
 
         if (!TargetFind)
@@ -91,6 +92,7 @@ public class EnemyPatrol : MonoBehaviour
     private async void Chase()
     {
         agent.isStopped = false;
+        IsAttacking = false;
         NavMeshTarget = TargetFind.position;
 
         if (!IsInsideRange(rangeToOutChase))
@@ -101,9 +103,11 @@ public class EnemyPatrol : MonoBehaviour
 
             await Task.Delay((int)(stoppedTime * 1000));
             agent.isStopped = false;
+
+            return;
         }
 
-        if (Dash.CanDash)
+        if (Dash.CanDash && !IsKnockback)
         {
             Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
             Dash.TryDash(dashDirection);

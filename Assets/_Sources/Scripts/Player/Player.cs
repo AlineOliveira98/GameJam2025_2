@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Push Settings")]
     [SerializeField] private float rangePushEnemies;
+    [SerializeField] private float forcePush;
+    [SerializeField] private float durationPush;
 
     [SerializeField] private TargetIndicator targetIndicator;
     [SerializeField] private PlayerHealth health;
@@ -65,7 +68,7 @@ public class Player : MonoBehaviour
         {
             if (enemiesInRange[i].TryGetComponent(out Enemy enemy))
             {
-                enemy.KnockBack();
+                enemy.KnockBack(transform.position, forcePush, durationPush);
             }
         }
     }
@@ -76,5 +79,11 @@ public class Player : MonoBehaviour
         {
             collectable.Collect();
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, rangePushEnemies);
     }
 }

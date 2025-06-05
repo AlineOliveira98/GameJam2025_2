@@ -2,7 +2,6 @@ using System.Collections;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -40,11 +39,12 @@ public class Enemy : MonoBehaviour
 
     private void Attack()
     {
-        if (!EnemyMovement.Patrol.IsAttacking) return;
+        if (!EnemyMovement.Patrol.IsAttacking || EnemyMovement.Patrol.IsKnockback) return;
 
         if (EnemyMovement.Patrol.TargetFind == null)
         {
             EnemyMovement.Patrol.StopAttack();
+            Debug.Log("Target not find, stoping attack");
             return;
         }
 
@@ -66,8 +66,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void KnockBack()
+    public void KnockBack(Vector3 targetPos, float force, float duration)
     {
-        
+        EnemyMovement.KnockBack(targetPos, force, duration);
     }
 }
