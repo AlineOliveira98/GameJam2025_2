@@ -267,6 +267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1174370339766146763}
+  - component: {fileID: 5625883364839709804}
   m_Layer: 0
   m_Name: Audio Controller
   m_TagString: Untagged
@@ -291,3 +292,19 @@ Transform:
   - {fileID: 2526651815054338978}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5625883364839709804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8838776108488746958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950d4d07fe69aec4f84d7ab5590db4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceMusic: {fileID: 1911246388797392783}
+  sourceSFX: {fileID: 6863131049209189789}
+  menuMusic: {fileID: 8300000, guid: fc5af015011ea3745b7f78ea1dd1049f, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}

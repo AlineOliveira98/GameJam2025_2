@@ -10,19 +10,19 @@ public class AudioController : MonoBehaviour
 
     private float MusicVolume
     {
-        get { return PlayerPrefs.GetFloat("MusicPref", 0.2f); }
+        get { return PlayerPrefs.GetFloat("MusicPref", 0.05f); }
         set { PlayerPrefs.SetFloat("MusicPref", value); }
     }
 
     private float SFXVolume
     {
-        get { return PlayerPrefs.GetFloat("SFXPref", 0.2f); }
+        get { return PlayerPrefs.GetFloat("SFXPref", 0.05f); }
         set { PlayerPrefs.SetFloat("SFXPref", value); }
     }
 
     void Start()
     {
-        PlayMusic(menuMusic);
+        // PlayMusic(menuMusic);
     }
 
     public void PlaySFX(AudioClip sfx)
