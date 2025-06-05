@@ -87,7 +87,7 @@ public class EnemyPatrol : MonoBehaviour
 
         UpdateRandomPoint();
         await Task.Delay((int)(stoppedTime * 1000));
-        agent.isStopped = false;
+        if(agent != null && agent.enabled) agent.isStopped = false;
     }
 
     private async void Chase()
@@ -97,7 +97,7 @@ public class EnemyPatrol : MonoBehaviour
         NavMeshTarget = TargetFind.position;
 
         if (TargetFind == null
-        || !TargetFind.gameObject.activeInHierarchy
+        || (TargetFind != null && !TargetFind.gameObject.activeInHierarchy)
         || !IsInsideRange(rangeToOutChase)
         || (TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
         {
@@ -106,7 +106,7 @@ public class EnemyPatrol : MonoBehaviour
             UpdateRandomPoint();
 
             await Task.Delay((int)(stoppedTime * 1000));
-            agent.isStopped = false;
+            if(agent != null && agent.enabled) agent.isStopped = false;
 
             return;
         }
@@ -162,6 +162,7 @@ public class EnemyPatrol : MonoBehaviour
     private void MoveToNavMeshTarget()
     {
         if (waitToStartPatrol) return;
+        if (agent == null || !agent.enabled) return;
 
         visual.SetRunning(!agent.isStopped && !Dash.IsDashing);
         visual.SetDirection(NavMeshTarget);

@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private AudioClip gameplayMusic;
 
+    [SerializeField] private SkillType skillTypeWhenSavedAnimals;
+
     private int totalAnimals;
 
     public static bool GameStarted { get; private set; }
@@ -54,6 +56,11 @@ public class GameController : MonoBehaviour
         {
             GameOver();
             OnSavedAnimalAmountReached?.Invoke();
+        }
+
+        if (!SkillController.Instance.HasSkill(skillTypeWhenSavedAnimals))
+        {
+            SkillController.Instance.CollectSkill(skillTypeWhenSavedAnimals);
         }
     }
 
