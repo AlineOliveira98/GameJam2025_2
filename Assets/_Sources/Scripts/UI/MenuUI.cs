@@ -7,4 +7,9 @@ public class MenuUI : MonoBehaviour
         GameController.Instance.StartGameplay();
         UIController.Instance.OpenPanel(PanelType.Gameplay);
     }
+
+    public void OpenSettings()
+    {
+        UIController.Instance.OpenPanel(PanelType.Settings);
+    }
 }

@@ -3,21 +3,27 @@ using UnityEngine.UI;
 
 public class SettingsUI : MonoBehaviour
 {
-    [SerializeField] private Toggle toggleMusic;
-    [SerializeField] private Toggle toggleSFX;
+    [SerializeField] private Slider sliderMusic;
+    [SerializeField] private Slider sliderSFX;
+
+    void Awake()
+    {
+        sliderMusic.value = AudioController.Instance.MusicVolume;
+        sliderSFX.value = AudioController.Instance.SFXVolume;
+    }
 
     public void Close()
     {
-
+        UIController.Instance.OpenPanel(PanelType.Menu);
     }
 
-    public void ToggleMusic()
+    public void SetMusic()
     {
-
+        AudioController.Instance.SetMusicVolume(sliderMusic.value);
     }
 
-    public void ToggleSFX()
+    public void SetSFX()
     {
-        
+        AudioController.Instance.SetSFXVolume(sliderSFX.value);
     }
 }

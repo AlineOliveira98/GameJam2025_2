@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private int animalsAmoutDiedToDefeat = 5;
     [SerializeField] private int animalsAmoutSavedToVictory = 7;
 
+    [SerializeField] private AudioClip gameplayMusic;
+
     private int totalAnimals;
 
     public static bool GameStarted { get; private set; }
@@ -71,6 +73,7 @@ public class GameController : MonoBehaviour
     public void StartGameplay()
     {
         GameStarted = true;
+        AudioController.Instance.PlayMusic(gameplayMusic);
     }
 
     public void GameOver()

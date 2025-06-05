@@ -3,26 +3,38 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour
 {
+    public static AudioController Instance;
+
     [SerializeField] private AudioSource sourceMusic;
     [SerializeField] private AudioSource sourceSFX;
     [SerializeField] private AudioClip menuMusic;
-    [SerializeField] private AudioClip gameplayMusic;
 
-    private float MusicVolume
+    public float MusicVolume
     {
         get { return PlayerPrefs.GetFloat("MusicPref", 0.05f); }
         set { PlayerPrefs.SetFloat("MusicPref", value); }
     }
 
-    private float SFXVolume
+    public float SFXVolume
     {
         get { return PlayerPrefs.GetFloat("SFXPref", 0.05f); }
         set { PlayerPrefs.SetFloat("SFXPref", value); }
     }
 
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        sourceMusic.volume = MusicVolume;
+        sourceSFX.volume = SFXVolume;
+    }
+
     void Start()
     {
-        // PlayMusic(menuMusic);
+        PlayMusic(menuMusic);
     }
 
     public void PlaySFX(AudioClip sfx)
@@ -35,5 +47,17 @@ public class AudioController : MonoBehaviour
         sourceMusic.Stop();
         sourceMusic.clip = music;
         sourceMusic.Play();
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        sourceMusic.volume = volume;
+        MusicVolume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sourceSFX.volume = volume;
+        SFXVolume = volume;
     }
 }
