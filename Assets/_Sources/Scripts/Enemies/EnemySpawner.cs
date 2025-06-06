@@ -4,19 +4,14 @@ using System.Collections.Generic;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
-
-    [Header("Enemy Prefabs")]
     public List<GameObject> enemyPrefabs;
-
     public int maxEnemies = 10;
     public float spawnInterval = 2f;
 
-    [Header("Spawn Area")]
-    public List<Collider2D> spawnAreas;     
-    public List<Collider2D> forbiddenAreas; 
+    [Header("Spawn Boxes")]
+    public List<BoxCollider2D> spawnBoxes;
+    public List<BoxCollider2D> forbiddenBoxes;
 
-
-    [Header("Tracking")]
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private float timer;
 
@@ -24,14 +19,12 @@ public class EnemySpawner : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        // Só tenta spawnar se o intervalo passou e não excedeu o limite
         if (timer >= spawnInterval && spawnedEnemies.Count < maxEnemies)
         {
             TrySpawn();
             timer = 0f;
         }
 
-        // Limpa lista de inimigos destruídos
         spawnedEnemies.RemoveAll(enemy => enemy == null);
     }
 
@@ -41,26 +34,30 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < maxTries; i++)
         {
-            if (spawnAreas.Count == 0 || enemyPrefabs.Count == 0) return;
+            if (spawnBoxes.Count == 0 || enemyPrefabs.Count == 0) return;
 
-            var area = spawnAreas[Random.Range(0, spawnAreas.Count)];
-            Vector2 spawnPos = GetRandomPointInCollider(area);
+            var box = spawnBoxes[Random.Range(0, spawnBoxes.Count)];
+            Vector2 spawnPos = GetRandomPointInBox(box);
 
             bool overlapsForbidden = false;
-            foreach (var forbidden in forbiddenAreas)
+            foreach (var forbidden in forbiddenBoxes)
             {
-                if (forbidden != null && forbidden.OverlapPoint(spawnPos))
+                if (forbidden != null)
                 {
-                    overlapsForbidden = true;
-                    break;
+                    Bounds bounds = forbidden.bounds;
+                    Vector2 size = bounds.size;
+                    Collider2D hit = Physics2D.OverlapBox(spawnPos, size, 0f, LayerMask.GetMask());
+                    if (hit != null && hit == forbidden)
+                    {
+                        overlapsForbidden = true;
+                        break;
+                    }
                 }
             }
 
             if (!overlapsForbidden)
             {
-                // Escolhe um inimigo aleatório
                 GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-
                 GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
                 spawnedEnemies.Add(enemy);
                 return;
@@ -70,11 +67,9 @@ public class EnemySpawner : MonoBehaviour
         Debug.LogWarning("Falha ao encontrar posição válida para spawn após várias tentativas.");
     }
 
-
-
-    private Vector2 GetRandomPointInCollider(Collider2D area)
+    private Vector2 GetRandomPointInBox(BoxCollider2D box)
     {
-        Bounds bounds = area.bounds;
+        Bounds bounds = box.bounds;
 
         while (true)
         {
@@ -83,9 +78,25 @@ public class EnemySpawner : MonoBehaviour
                 Random.Range(bounds.min.y, bounds.max.y)
             );
 
-            if (area.OverlapPoint(point))
+            if (box.OverlapPoint(point))
                 return point;
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        foreach (var box in spawnBoxes)
+        {
+            if (box != null)
+                Gizmos.DrawWireCube(box.bounds.center, box.bounds.size);
+        }
+
+        Gizmos.color = Color.red;
+        foreach (var box in forbiddenBoxes)
+        {
+            if (box != null)
+                Gizmos.DrawWireCube(box.bounds.center, box.bounds.size);
+        }
+    }
 }
