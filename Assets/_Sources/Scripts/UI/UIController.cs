@@ -21,6 +21,18 @@ public class UIController : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (currentPanel == PanelType.Settings)
+                OpenPanel(PanelType.Menu);
+            else
+                OpenPanel(PanelType.Settings);
+        }
+    }
+
+
     void Start()
     {
         panelsDic.Clear();

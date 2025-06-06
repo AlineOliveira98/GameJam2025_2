@@ -12,8 +12,8 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 2f;
 
     [Header("Spawn Area")]
-    public List<Collider2D> spawnAreas;     
-    public List<Collider2D> forbiddenAreas; 
+    public List<Collider2D> spawnAreas;
+    public List<Collider2D> forbiddenAreas;
 
 
     [Header("Tracking")]
