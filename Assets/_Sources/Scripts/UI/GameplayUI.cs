@@ -24,6 +24,8 @@ public class GameplayUI : MonoBehaviour
 
     private void UpdateVictimsCount(NPC animal = null)
     {
-        victimsCount.text = GameController.Instance.AnimalsCurrentNumber.ToString();
+        int amountAnimals = GameController.Instance.AnimalsCurrentNumber;
+        string text = amountAnimals > 0 ? $"{amountAnimals}" : $"GO TO THE END";
+        victimsCount.text = $"{text}";
     }
 }
