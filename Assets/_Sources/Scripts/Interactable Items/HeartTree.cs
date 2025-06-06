@@ -12,6 +12,8 @@ public class HeartTree : Interactable
 
     public override void Interact()
     {
+        base.Interact();
+        
         RecoverHealth();
     }
 

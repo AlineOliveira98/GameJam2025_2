@@ -110,9 +110,12 @@ public class PlayerMovement : MonoBehaviour
             var worldPos = mainCamera.ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
 
-            if (NavMesh.SamplePosition(worldPos, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+            if (hit.collider != null && hit.collider.GetComponent<Interactable>()) return;
+
+            if (NavMesh.SamplePosition(worldPos, out NavMeshHit navHit, 1.0f, NavMesh.AllAreas))
             {
-                target = hit.position;
+                target = navHit.position;
                 agent.SetDestination(target);
 
                 lastDirection = ((Vector2)agent.velocity).normalized;

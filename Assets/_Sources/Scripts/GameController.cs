@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
     public int AnimalsDied { get; private set; }
     public int AnimalsSaved { get; private set; }
     public Player Player { get; private set; }
+    public bool HasAxe { get; private set; }
+    public bool HasFeather { get; set; }
 
     public static Action<NPC> OnAnimalSaved;
     public static Action<NPC> OnAnimalDied;
@@ -86,5 +88,11 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         GameIsOver = true;
+    }
+
+    public void OpenChest()
+    {
+        HasAxe = true;
+        Debug.Log("Chest Opened");
     }
 }

@@ -27,6 +27,7 @@ public class YggDrasil : Interactable
 
     public override void Interact()
     {
+        base.Interact();
         Watering();
     }
 
