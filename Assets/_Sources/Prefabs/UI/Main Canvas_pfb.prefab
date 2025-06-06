@@ -6897,6 +6897,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   victimsCount: {fileID: 3949849590077177207}
+  scaleFactor: 1.2
+  speed: 1
 --- !u!223 &3143267504028522599
 Canvas:
   m_ObjectHideFlags: 0

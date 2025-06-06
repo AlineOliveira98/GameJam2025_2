@@ -1,9 +1,14 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class GameplayUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI victimsCount;
+
+    [Header("Animation")]
+    [SerializeField] private float scaleFactor = 1.5f;
+    [SerializeField] private float speed = 1f;
 
     void OnEnable()
     {
@@ -20,6 +25,8 @@ public class GameplayUI : MonoBehaviour
     void Start()
     {
         UpdateVictimsCount();
+
+        victimsCount.transform.DOScale(Vector2.one * scaleFactor, speed).SetSpeedBased().SetLoops(-1, LoopType.Yoyo);
     }
 
     private void UpdateVictimsCount(NPC animal = null)
