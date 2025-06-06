@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Chicken : NPC
@@ -15,7 +16,7 @@ public class Chicken : NPC
 
         Animator.SetTrigger("Break");
 
-        await Task.Delay(TimeSpan.FromSeconds(delayAnimation));
+        await UniTask.Delay(TimeSpan.FromSeconds(delayAnimation));
         LockedInteraction = false;
     }
 }

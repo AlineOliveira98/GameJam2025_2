@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 public class BasicDash : IDash
 {
@@ -89,7 +90,7 @@ public class BasicDash : IDash
         }
 
         isDashing = false;
-        await Task.Delay((int)(dashCooldown * 1000));
+        await UniTask.Delay((int)(dashCooldown * 1000));
         canDash = true;
     }
 }

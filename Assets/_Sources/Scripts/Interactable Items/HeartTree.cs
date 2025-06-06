@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class HeartTree : Interactable
@@ -24,7 +25,7 @@ public class HeartTree : Interactable
         
         anim.SetTrigger("Drop");
         GameController.Instance.Player.Health.RecoverHealth(1);
-        await Task.Delay((int)(animationDelay * 1000));
+        await UniTask.Delay((int)(animationDelay * 1000));
 
         anim.enabled = false;
         spriteRenderer.sprite = emptyTree;

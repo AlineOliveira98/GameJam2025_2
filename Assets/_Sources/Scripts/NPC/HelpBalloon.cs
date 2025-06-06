@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class HelpBalloon : MonoBehaviour
     {
         player = GameController.Instance.Player.transform;
 
-        await Task.Delay(lifeDuration * 1000);
+        await UniTask.Delay(lifeDuration * 1000);
         DestroyBalloon();
     }
 
@@ -32,7 +33,7 @@ public class HelpBalloon : MonoBehaviour
             anim.SetTrigger("Out");
 
         var duration = anim.GetCurrentAnimatorClipInfo(0).Length;
-        await Task.Delay(duration * 1000);
+        await UniTask.Delay(duration * 1000);
         if(!gameObject.IsDestroyed()) Destroy(this.gameObject);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 
 public class NPC : MonoBehaviour, ICollectable, IDamageable
@@ -104,7 +105,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         if (animator != null)
         {
             animator.SetBool("IsDead", true);
-            await Task.Delay((int)(dieAnimDuration * 1000));
+            await UniTask.Delay((int)(dieAnimDuration * 1000));
         }
 
         gameObject.SetActive(false);

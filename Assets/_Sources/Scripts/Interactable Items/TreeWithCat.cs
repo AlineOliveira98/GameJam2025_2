@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -31,14 +32,14 @@ public class TreeWithCat : Interactable
 
         anim.SetTrigger("Cut");
 
-        await Task.Delay(TimeSpan.FromSeconds(delayToCutTree));
+        await UniTask.Delay(TimeSpan.FromSeconds(delayToCutTree));
 
         cat.transform.DOLocalMoveY(transform.position.y - 2f, 0.5f).SetEase(easeCatFall).OnComplete(() =>
         {
             cat.SetTrigger("InsideBox");
         });
 
-        await Task.Delay(TimeSpan.FromSeconds(delayCatAnimation));
+        await UniTask.Delay(TimeSpan.FromSeconds(delayCatAnimation));
         
         catCollider.enabled = true;
     }

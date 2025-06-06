@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -136,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     public async void SetSpeedMultiplier(float multiplier, float duration)
     {
         speedMultiplier = multiplier;
-        await Task.Delay(TimeSpan.FromSeconds(duration));
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
         speedMultiplier = 1f;
     }
 

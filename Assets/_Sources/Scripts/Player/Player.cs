@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -81,9 +82,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private async Task PushEnemies()
+    private async UniTask PushEnemies()
     {
         if (!canPush) return;
+        canPush = false;
 
         var enemiesInRange = Physics2D.OverlapCircleAll(transform.position, rangePushEnemies, 1 << 9);
 
@@ -97,39 +99,43 @@ public class Player : MonoBehaviour
             }
         }
 
-        await Task.Delay(TimeSpan.FromSeconds(cooldownPush));
+        await UniTask.Delay(TimeSpan.FromSeconds(cooldownPush));
         canPush = true;
     }
 
-    private async Task Invisible()
+    private async UniTask Invisible()
     {
         if (!canStayInvisible) return;
+        canStayInvisible = false;
 
         IsInvisible = true;
         visual.SetInvisible(true);
         Health.SetInvincibility(durationInvisible);
         
-        await Task.Delay(TimeSpan.FromSeconds(durationInvisible));
+        await UniTask.Delay(TimeSpan.FromSeconds(durationInvisible));
 
         IsInvisible = false;
         visual.SetInvisible(false);
 
-        await Task.Delay(TimeSpan.FromSeconds(cooldownInvisible));
+        await UniTask.Delay(TimeSpan.FromSeconds(cooldownInvisible));
         canStayInvisible = true;
     }
 
-    private async Task Clone()
+    private async UniTask Clone()
     {
         if (!canClone) return;
+        canClone = false;
 
         playerClone.gameObject.SetActive(true);
         playerClone.Initialize(transform.position);
+        Debug.Log("Clone Created");
 
-        await Task.Delay(TimeSpan.FromSeconds(durationClone));
+        await UniTask.Delay(TimeSpan.FromSeconds(durationClone));
 
         playerClone.Disable();
+        Debug.Log("Clone Disabled");
         
-        await Task.Delay(TimeSpan.FromSeconds(cooldownClone));
+        await UniTask.Delay(TimeSpan.FromSeconds(cooldownClone));
         canClone = true;
     }
 
