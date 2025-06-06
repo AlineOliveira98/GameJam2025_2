@@ -51,6 +51,8 @@ MonoBehaviour:
   interactionRadius: 2
   highlightTexture: {fileID: 2800000, guid: c68cc204f189ccc41ab860fa6e2db3ae, type: 3}
   clickedTexture: {fileID: 2800000, guid: 7f8aca8e56169664c9f133117dfb08c2, type: 3}
+  OnInteracted:
+    _PersistentCalls: []
   animationDelay: 1.5
   anim: {fileID: 627091650379889996}
   spriteRenderer: {fileID: 3497845774579941843}
@@ -162,11 +164,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.015144348, y: -0.28769302}
+  m_Offset: {x: 0.0146074295, y: -0.9543557}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -176,7 +178,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5766754, y: 1.9703598}
+  m_Size: {x: 1.217886, y: 1.0912886}
   m_EdgeRadius: 0
 --- !u!114 &1380259423918254706
 MonoBehaviour:
