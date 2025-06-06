@@ -53,10 +53,20 @@ public class BasicDash : IDash
             trail.emitting = true;     // ativa o rastro
         }
 
-        rb.linearVelocity = direction.normalized * dashSpeed;
+        float maxDashDistance = dashSpeed * dashDuration;
+        RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, maxDashDistance, LayerMask.GetMask("Wall"));
+        float dashDistance = hit.collider != null ? hit.distance : maxDashDistance;
+        Vector2 dashTarget = rb.position + direction.normalized * dashDistance;
 
-        await Task.Delay((int)(dashDuration * 1000));
-
+        float elapsed = 0f;
+        Vector2 startPos = rb.position;
+        while (elapsed < dashDuration)
+        {
+            rb.MovePosition(Vector2.Lerp(startPos, dashTarget, elapsed / dashDuration));
+            elapsed += Time.fixedDeltaTime;
+            await Task.Yield();
+        }
+        rb.position = dashTarget;
         rb.linearVelocity = Vector2.zero;
 
         if (trail != null)
@@ -67,7 +77,7 @@ public class BasicDash : IDash
             SetDestinationAfterDash(rb.position);
 
             agent.Warp(rb.position);
-            await Task.Yield(); // garante reativa��o segura
+            await Task.Yield();
             agent.enabled = true;
             await Task.Yield();
 
