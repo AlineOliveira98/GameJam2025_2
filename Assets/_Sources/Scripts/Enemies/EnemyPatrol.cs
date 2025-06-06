@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -86,7 +87,7 @@ public class EnemyPatrol : MonoBehaviour
         agent.isStopped = true;
 
         UpdateRandomPoint();
-        await Task.Delay((int)(stoppedTime * 1000));
+        await UniTask.Delay((int)(stoppedTime * 1000));
         if(agent != null && agent.enabled) agent.isStopped = false;
     }
 
@@ -99,13 +100,13 @@ public class EnemyPatrol : MonoBehaviour
         if (TargetFind == null
         || (TargetFind != null && !TargetFind.gameObject.activeInHierarchy)
         || !IsInsideRange(rangeToOutChase)
-        || (TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
+        || (cachedPlayer != null && TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
         {
             agent.isStopped = true;
             TargetFind = null;
             UpdateRandomPoint();
 
-            await Task.Delay((int)(stoppedTime * 1000));
+            await UniTask.Delay((int)(stoppedTime * 1000));
             if(agent != null && agent.enabled) agent.isStopped = false;
 
             return;

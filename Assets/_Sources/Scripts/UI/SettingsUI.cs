@@ -6,7 +6,7 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] private Slider sliderMusic;
     [SerializeField] private Slider sliderSFX;
 
-    void Awake()
+    void Start()
     {
         sliderMusic.value = AudioController.Instance.MusicVolume;
         sliderSFX.value = AudioController.Instance.SFXVolume;

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
@@ -38,13 +39,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        await Task.Delay(TimeSpan.FromSeconds(delayToTakeDamage));
+        await UniTask.Delay(TimeSpan.FromSeconds(delayToTakeDamage));
 
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
 
         if (currentHealth <= 0f)
         {
-            await Task.Delay(TimeSpan.FromSeconds(delayToDie));
+            await UniTask.Delay(TimeSpan.FromSeconds(delayToDie));
 
             IsDead = true;
             GameController.Instance.GameOver();
@@ -55,7 +56,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public async void SetInvincibility(float duration)
     {
         IsInvincible = true;
-        await Task.Delay(TimeSpan.FromSeconds(duration));
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
         IsInvincible = false;
     }
 }

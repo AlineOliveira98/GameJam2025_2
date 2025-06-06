@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -22,7 +23,7 @@ public class EnemyMovement : MonoBehaviour
         Patrol.IsKnockback = true;
         var direction = (transform.position - targetPos).normalized;
         rig.linearVelocity = direction.normalized * force;
-        await Task.Delay(TimeSpan.FromSeconds(duration));
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
         rig.linearVelocity = Vector2.zero;
         Patrol.IsKnockback = false;
     }

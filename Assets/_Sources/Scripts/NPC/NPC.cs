@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 
 public class NPC : MonoBehaviour, ICollectable, IDamageable
@@ -14,16 +15,19 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     [SerializeField] private Animator animator;
     [SerializeField] private AnimatorOverrideController overrideController;
 
-    private float lastCallHelp = -Mathf.Infinity;
+    private float lastCallHelp;
     private Camera cam;
 
     public bool IsDead { get; set; }
     public bool IsSaved { get; set; }
+    public bool LockedInteraction { get; set; }
+
+    public Animator Animator => animator;
 
     void Start()
     {
         cam = Camera.main;
-        animator.runtimeAnimatorController = overrideController;
+        if(overrideController != null) animator.runtimeAnimatorController = overrideController;
     }
 
     void Update()
@@ -84,7 +88,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
     public void Collect()
     {
-        if (IsDead || IsSaved) return;
+        if (IsDead || IsSaved || LockedInteraction) return;
 
         IsSaved = true;
         gameObject.SetActive(false);
@@ -101,7 +105,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         if (animator != null)
         {
             animator.SetBool("IsDead", true);
-            await Task.Delay((int)(dieAnimDuration * 1000));
+            await UniTask.Delay((int)(dieAnimDuration * 1000));
         }
 
         gameObject.SetActive(false);

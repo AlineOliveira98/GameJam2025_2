@@ -593,7 +593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -40.35077}
+  m_AnchoredPosition: {x: 0, y: -40.35083}
   m_SizeDelta: {x: -1179.7246, y: -595.1857}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1438492855080823676
@@ -2545,7 +2545,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 19.72351, y: -161.96}
+  m_AnchoredPosition: {x: 19.723633, y: -161.96002}
   m_SizeDelta: {x: -125.8552, y: 137.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4219767339173767519
@@ -3440,8 +3440,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 609202130690644941}
-        m_TargetAssemblyTypeName: SettingsUI, Assembly-CSharp
+      - m_Target: {fileID: 7691698914401999694}
+        m_TargetAssemblyTypeName: VictoryUI, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -3908,7 +3908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 19.72351, y: -66.881165}
+  m_AnchoredPosition: {x: 19.723633, y: -66.881165}
   m_SizeDelta: {x: -125.8552, y: 52.4969}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2861509919071931296
@@ -6256,7 +6256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -40.35077}
+  m_AnchoredPosition: {x: 0, y: -40.35083}
   m_SizeDelta: {x: -1046.709, y: -508.0723}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7888860463126709183
@@ -6897,6 +6897,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   victimsCount: {fileID: 3949849590077177207}
+  scaleFactor: 1.2
+  speed: 1
 --- !u!223 &3143267504028522599
 Canvas:
   m_ObjectHideFlags: 0
@@ -7493,19 +7495,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 789128398562583540}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 609202130690644941}
-        m_TargetAssemblyTypeName: SettingsUI, Assembly-CSharp
-        m_MethodName: Close
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &9062481140661841115
 GameObject:
   m_ObjectHideFlags: 0

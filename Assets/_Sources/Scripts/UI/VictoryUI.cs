@@ -16,4 +16,9 @@ public class VictoryUI : MonoBehaviour
     {
         UIController.Instance.OpenPanel(PanelType.Victory);
     }
+
+    public void Close()
+    {
+        UIController.Instance.OpenPanel(PanelType.Gameplay);
+    }
 }

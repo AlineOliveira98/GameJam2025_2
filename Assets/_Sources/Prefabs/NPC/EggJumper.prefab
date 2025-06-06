@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8080759342060730759}
+  - component: {fileID: 6761842070210280535}
+  - component: {fileID: 1538031637797642616}
   - component: {fileID: 5238554534005555061}
   - component: {fileID: 2551171171359686531}
   - component: {fileID: 9064639634475274147}
@@ -34,6 +36,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6761842070210280535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608508307841533474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bdbaf13375ee6e4eab031b29b45323d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeToAskHelp: 0
+  rateToAskHelp: 99999
+  helpBaloonsPrefab: []
+  dieAnimDuration: 1.5
+  animator: {fileID: 2551171171359686531}
+  overrideController: {fileID: 0}
+  delayAnimation: 0
+--- !u!114 &1538031637797642616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608508307841533474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c784ede32aa05db4290143b5dfa83698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRadius: 2
+  highlightTexture: {fileID: 2800000, guid: c68cc204f189ccc41ab860fa6e2db3ae, type: 3}
+  clickedTexture: {fileID: 2800000, guid: 7f8aca8e56169664c9f133117dfb08c2, type: 3}
+  OnInteracted:
+    _PersistentCalls:
+    - _Target: {fileID: 6761842070210280535}
+      _MemberName: OnInteract
+      _PersistentArguments: []
 --- !u!212 &5238554534005555061
 SpriteRenderer:
   m_ObjectHideFlags: 0

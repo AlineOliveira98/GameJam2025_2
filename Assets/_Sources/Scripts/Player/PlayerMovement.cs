@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,11 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private bool movementByClick;
     [SerializeField] private float moveSpeed = 5f;
+
+    [Header("Dash Settings")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.1f;
+    [SerializeField] private float dashCooldown = 1f;
 
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
@@ -39,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        dash = new BasicDash(player.rb, 20f, 0.1f, 1f, agent, trailRenderer);
+        dash = new BasicDash(player.rb, dashSpeed, dashDuration, dashCooldown, agent, trailRenderer);
 
     }
 
@@ -97,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveClick()
     {
-        if (!movementByClick || agent == null || !agent.enabled || !dash.CanDash) return;
+        if (!movementByClick || agent == null || !agent.enabled) return;
 
         if (Input.GetMouseButton(0))
         {
@@ -105,14 +111,13 @@ public class PlayerMovement : MonoBehaviour
             var worldPos = mainCamera.ScreenToWorldPoint(mousePos);
             worldPos.z = 0;
 
-            if (NavMesh.SamplePosition(worldPos, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+            if (hit.collider != null && hit.collider.GetComponent<Interactable>()) return;
+
+            if (NavMesh.SamplePosition(worldPos, out NavMeshHit navHit, 1.0f, NavMesh.AllAreas))
             {
-                target = hit.position;
+                target = navHit.position;
                 agent.SetDestination(target);
-                if (dash is BasicDash basicDash)
-                {
-                    basicDash.SetDestinationAfterDash(target); // garante que o destino ser� reaplicado depois do dash
-                }
 
                 lastDirection = ((Vector2)agent.velocity).normalized;
             }
@@ -132,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     public async void SetSpeedMultiplier(float multiplier, float duration)
     {
         speedMultiplier = multiplier;
-        await Task.Delay(TimeSpan.FromSeconds(duration));
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
         speedMultiplier = 1f;
     }
 
