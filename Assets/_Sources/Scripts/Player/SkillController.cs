@@ -6,6 +6,7 @@ public class SkillController : MonoBehaviour
 {
     public static SkillController Instance;
 
+    [SerializeField] private AudioClip collectedAudio;
     [SerializeField] private SkillHandler[] skills;
 
     private Dictionary<SkillType, SkillHandler> skillsDic = new();
@@ -34,6 +35,8 @@ public class SkillController : MonoBehaviour
         {
             ApplySkill(skillType);
         }
+
+        AudioController.PlaySFX(collectedAudio);
     }
 
     private SkillHandler GetSkillHandler(SkillType skillType)

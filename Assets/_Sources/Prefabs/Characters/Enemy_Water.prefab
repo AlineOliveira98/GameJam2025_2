@@ -109,6 +109,7 @@ MonoBehaviour:
   agent: {fileID: 3427367718935321321}
   visual: {fileID: 5731830777737993568}
   enemy: {fileID: 1277053147095116436}
+  dashAudio: {fileID: 8300000, guid: f11db4559b3ffff45b62e9327fc5535d, type: 3}
 --- !u!195 &3427367718935321321
 NavMeshAgent:
   m_ObjectHideFlags: 0

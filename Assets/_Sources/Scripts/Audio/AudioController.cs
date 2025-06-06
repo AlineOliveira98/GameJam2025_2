@@ -37,9 +37,9 @@ public class AudioController : MonoBehaviour
         PlayMusic(menuMusic);
     }
 
-    public void PlaySFX(AudioClip sfx)
+    public static void PlaySFX(AudioClip sfx)
     {
-        sourceSFX.PlayOneShot(sfx);
+        Instance.sourceSFX.PlayOneShot(sfx);
     }
 
     public void PlayMusic(AudioClip music)

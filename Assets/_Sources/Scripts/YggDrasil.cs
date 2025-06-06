@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class YggDrasil : Interactable
 {
+    [Header("Settings")]
     [SerializeField] private TreeStage[] stages;
+    [SerializeField] private AudioClip sfxGrowTree;
 
     private int currentWater;
     private int currentStage;
@@ -55,6 +57,11 @@ public class YggDrasil : Interactable
         stages[currentStage].visual.SetActive(false);
         stages[currentStage + 1].visual.SetActive(true);
         currentStage++;
+
+        if (currentStage >= stages.Length - 1)
+        {
+            AudioController.PlaySFX(sfxGrowTree);
+        }
     }
 }
 

@@ -9,7 +9,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private int animalsAmoutDiedToDefeat = 5;
     [SerializeField] private int animalsAmoutSavedToVictory = 7;
 
+    [Header("Audio")]
     [SerializeField] private AudioClip gameplayMusic;
+    [SerializeField] private AudioClip animalSavedAudio;
 
     [SerializeField] private SkillType skillTypeWhenSavedAnimals;
 
@@ -64,6 +66,8 @@ public class GameController : MonoBehaviour
         {
             SkillController.Instance.CollectSkill(skillTypeWhenSavedAnimals);
         }
+
+        AudioController.PlaySFX(animalSavedAudio);
     }
 
     public void KillAnimal(NPC animal)

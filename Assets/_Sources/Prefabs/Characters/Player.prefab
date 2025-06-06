@@ -114,6 +114,7 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 1
   agent: {fileID: 4304010987872076643}
+  dashAudio: {fileID: 8300000, guid: fd25a15f9797641458336cccfb445343, type: 3}
   trailRenderer: {fileID: 6613780185780823940}
 --- !u!114 &2385255134740781878
 MonoBehaviour:

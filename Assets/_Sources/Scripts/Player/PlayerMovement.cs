@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private AudioClip dashAudio;
 
     private Vector2 target;
     private Vector2 lastDirection = Vector2.down;
@@ -46,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         dash = new BasicDash(player.rb, dashSpeed, dashDuration, dashCooldown, agent, trailRenderer);
-
     }
 
     private void Awake()
@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!dash.CanDash) return;
             dash.TryDash(lastDirection);
+            AudioController.PlaySFX(dashAudio);
         }
     }
 

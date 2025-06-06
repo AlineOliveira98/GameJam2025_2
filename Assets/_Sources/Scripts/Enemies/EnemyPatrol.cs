@@ -26,6 +26,7 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private EnemyVisual visual;
     [SerializeField] private Enemy enemy;
+    [SerializeField] private AudioClip dashAudio;
 
     private Vector2 NavMeshTarget;
     private Player cachedPlayer;
@@ -117,6 +118,7 @@ public class EnemyPatrol : MonoBehaviour
             Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
             Dash.TryDash(dashDirection);
             visual.TriggerDash();
+            AudioController.PlaySFX(dashAudio);
         }
     }
 

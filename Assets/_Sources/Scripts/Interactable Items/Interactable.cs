@@ -12,12 +12,15 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerEnterHandler, 
     [SerializeField] private float interactionRadius = 2f;
     [SerializeField] private Texture2D highlightTexture;
     [SerializeField] private Texture2D clickedTexture;
+    [SerializeField] private AudioClip interactedAudio;
 
+    [Header("Events")]
     public UltEvent OnInteracted;
 
     public virtual void Interact()
     {
         OnInteracted.Invoke();
+        AudioController.PlaySFX(interactedAudio);
     }
 
     public bool PlayerIsClose()

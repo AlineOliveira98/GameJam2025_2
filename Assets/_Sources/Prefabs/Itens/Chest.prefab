@@ -50,6 +50,9 @@ MonoBehaviour:
   interactionRadius: 2
   highlightTexture: {fileID: 2800000, guid: c68cc204f189ccc41ab860fa6e2db3ae, type: 3}
   clickedTexture: {fileID: 2800000, guid: 7f8aca8e56169664c9f133117dfb08c2, type: 3}
+  interactedAudio: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
+  OnInteracted:
+    _PersistentCalls: []
   anim: {fileID: 6821645544311046046}
 --- !u!212 &2556263444388515826
 SpriteRenderer:
