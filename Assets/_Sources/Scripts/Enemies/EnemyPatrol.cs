@@ -99,7 +99,7 @@ public class EnemyPatrol : MonoBehaviour
         if (TargetFind == null
         || (TargetFind != null && !TargetFind.gameObject.activeInHierarchy)
         || !IsInsideRange(rangeToOutChase)
-        || (TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
+        || (cachedPlayer != null && TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
         {
             agent.isStopped = true;
             TargetFind = null;

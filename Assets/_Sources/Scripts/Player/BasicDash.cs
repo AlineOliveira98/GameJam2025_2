@@ -64,8 +64,10 @@ public class BasicDash : IDash
 
         if (agent != null)
         {
+            SetDestinationAfterDash(rb.position);
+
             agent.Warp(rb.position);
-            await Task.Yield(); // garante reativação segura
+            await Task.Yield(); // garante reativaï¿½ï¿½o segura
             agent.enabled = true;
             await Task.Yield();
 

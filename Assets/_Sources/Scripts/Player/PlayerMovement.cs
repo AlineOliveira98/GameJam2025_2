@@ -9,6 +9,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool movementByClick;
     [SerializeField] private float moveSpeed = 5f;
 
+    [Header("Dash Settings")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.1f;
+    [SerializeField] private float dashCooldown = 1f;
+
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
 
@@ -39,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        dash = new BasicDash(player.rb, 20f, 0.1f, 1f, agent, trailRenderer);
+        dash = new BasicDash(player.rb, dashSpeed, dashDuration, dashCooldown, agent, trailRenderer);
 
     }
 
@@ -97,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveClick()
     {
-        if (!movementByClick || agent == null || !agent.enabled || !dash.CanDash) return;
+        if (!movementByClick || agent == null || !agent.enabled) return;
 
         if (Input.GetMouseButton(0))
         {
@@ -109,10 +114,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 target = hit.position;
                 agent.SetDestination(target);
-                if (dash is BasicDash basicDash)
-                {
-                    basicDash.SetDestinationAfterDash(target); // garante que o destino ser� reaplicado depois do dash
-                }
 
                 lastDirection = ((Vector2)agent.velocity).normalized;
             }
