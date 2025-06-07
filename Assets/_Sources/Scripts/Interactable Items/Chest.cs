@@ -10,18 +10,18 @@ public class Chest : Interactable
     {
         base.Interact();
 
-        CanInteract = false;
-
         GameController.Instance.OpenChest();
         anim.SetTrigger("Open");
 
         var player = GameController.Instance.Player;
 
         axe.transform.position = player.transform.position;
-
+        axe.gameObject.SetActive(true);
         axe.transform.DOLocalMoveY(1f, 0.5f).OnComplete(() =>
         {
             axe.gameObject.SetActive(false);
         });
+        
+        LockInteract = true;
     }
 }

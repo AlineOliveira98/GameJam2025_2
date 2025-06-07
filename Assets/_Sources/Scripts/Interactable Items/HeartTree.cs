@@ -20,13 +20,13 @@ public class HeartTree : Interactable
 
     public async void RecoverHealth()
     {
-        CanInteract = false;
-        
         anim.SetTrigger("Drop");
         GameController.Instance.Player.Health.RecoverHealth(1);
         await UniTask.Delay((int)(animationDelay * 1000));
 
         anim.enabled = false;
         spriteRenderer.sprite = emptyTree;
+        
+        LockInteract = false;
     }
 }

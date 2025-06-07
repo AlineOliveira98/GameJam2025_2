@@ -24,6 +24,7 @@ public class PlayerVisual : MonoBehaviour
 
     public void SetAttack()
     {
+        Debug.Log("Set attack");
         anim.SetTrigger("Attack");
     }
 

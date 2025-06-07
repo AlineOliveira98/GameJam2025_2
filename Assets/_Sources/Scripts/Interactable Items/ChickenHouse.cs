@@ -20,8 +20,6 @@ public class ChickenHouse : Interactable
     {
         base.Interact();
 
-        CanInteract = false;
-
         var player = GameController.Instance.Player;
 
         feather.transform.position = player.transform.position;
@@ -33,5 +31,7 @@ public class ChickenHouse : Interactable
             egg.LockedInteraction = true;
             GameController.Instance.HasFeather = true;
         });
+        
+        LockInteract = false;
     }
 }
