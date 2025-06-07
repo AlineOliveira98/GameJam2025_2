@@ -56,9 +56,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangePushEnemies: 4
-  forcePush: 10
+  forcePush: 6
   durationPush: 1
-  cooldownPush: 1
+  cooldownPush: 3
   vfxPush: {fileID: 8430073522558915469, guid: ef2586b5c2f09674392481566a1ca011, type: 3}
   durationInvisible: 2
   cooldownInvisible: 6
@@ -612,7 +612,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1366,7 +1366,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 8
       minScalar: 10
       maxCurve:
         serializedVersion: 2
