@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float forcePush;
     [SerializeField] private float durationPush;
     [SerializeField] private float cooldownPush;
+    [SerializeField] private GameObject vfxPush;
 
     [Header("Invisible Settings")]
     [SerializeField] private float durationInvisible;
@@ -107,8 +108,11 @@ public class Player : MonoBehaviour
             }
         }
 
+        var vfx = Instantiate(vfxPush, transform.position, Quaternion.identity);
+
         await UniTask.Delay(TimeSpan.FromSeconds(cooldownPush));
         canPush = true;
+        Destroy(vfx);
     }
 
     private async UniTask Invisible()

@@ -58,6 +58,7 @@ MonoBehaviour:
   forcePush: 10
   durationPush: 1
   cooldownPush: 1
+  vfxPush: {fileID: 8430073522558915469, guid: ef2586b5c2f09674392481566a1ca011, type: 3}
   durationInvisible: 2
   cooldownInvisible: 6
   durationClone: 4
@@ -80,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 4
   delayAnimTakeDamage: 1
+  invulnerableDurationWhenDamaged: 1
   delayToDie: 2
   receiveDamage: 1
 --- !u!114 &5678408292184958949
