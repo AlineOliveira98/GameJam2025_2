@@ -222,10 +222,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 447
-        width: 25
-        height: 32
+        x: 5
+        y: 448
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,10 +244,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_1
       rect:
         serializedVersion: 2
-        x: 4
-        y: 415
-        width: 25
-        height: 32
+        x: 5
+        y: 416
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,10 +266,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_2
       rect:
         serializedVersion: 2
-        x: 36
-        y: 415
-        width: 25
-        height: 32
+        x: 37
+        y: 416
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,10 +288,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_3
       rect:
         serializedVersion: 2
-        x: 4
-        y: 383
-        width: 27
-        height: 32
+        x: 5
+        y: 384
+        width: 25
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,10 +310,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_4
       rect:
         serializedVersion: 2
-        x: 4
-        y: 351
+        x: 37
+        y: 384
         width: 25
-        height: 32
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,10 +332,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_5
       rect:
         serializedVersion: 2
-        x: 36
-        y: 383
-        width: 27
-        height: 32
+        x: 69
+        y: 384
+        width: 25
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -354,10 +354,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_6
       rect:
         serializedVersion: 2
-        x: 36
-        y: 351
-        width: 25
-        height: 32
+        x: 101
+        y: 384
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,10 +376,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_7
       rect:
         serializedVersion: 2
-        x: 68
-        y: 383
-        width: 27
-        height: 32
+        x: 133
+        y: 384
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -398,10 +398,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_8
       rect:
         serializedVersion: 2
-        x: 68
-        y: 351
-        width: 25
-        height: 32
+        x: 5
+        y: 352
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -420,10 +420,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_9
       rect:
         serializedVersion: 2
-        x: 100
-        y: 383
-        width: 25
-        height: 32
+        x: 37
+        y: 352
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -442,10 +442,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_10
       rect:
         serializedVersion: 2
-        x: 100
-        y: 351
-        width: 25
-        height: 32
+        x: 69
+        y: 352
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -464,10 +464,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_11
       rect:
         serializedVersion: 2
-        x: 132
-        y: 383
-        width: 25
-        height: 32
+        x: 101
+        y: 352
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -486,10 +486,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_12
       rect:
         serializedVersion: 2
-        x: 4
-        y: 319
-        width: 28
-        height: 32
+        x: 5
+        y: 320
+        width: 26
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -508,10 +508,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_13
       rect:
         serializedVersion: 2
-        x: 4
-        y: 287
-        width: 28
-        height: 32
+        x: 37
+        y: 320
+        width: 26
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -530,10 +530,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_14
       rect:
         serializedVersion: 2
-        x: 36
-        y: 319
-        width: 28
-        height: 32
+        x: 5
+        y: 288
+        width: 26
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -552,10 +552,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_15
       rect:
         serializedVersion: 2
-        x: 36
-        y: 287
-        width: 28
-        height: 32
+        x: 37
+        y: 288
+        width: 26
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -574,10 +574,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_16
       rect:
         serializedVersion: 2
-        x: 2
-        y: 255
-        width: 28
-        height: 32
+        x: 3
+        y: 256
+        width: 26
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,10 +596,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_17
       rect:
         serializedVersion: 2
-        x: 2
-        y: 223
+        x: 34
+        y: 256
         width: 28
-        height: 32
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -618,10 +618,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_18
       rect:
         serializedVersion: 2
-        x: 33
-        y: 255
-        width: 30
-        height: 33
+        x: 3
+        y: 224
+        width: 26
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -640,10 +640,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_19
       rect:
         serializedVersion: 2
-        x: 33
-        y: 223
-        width: 30
-        height: 33
+        x: 34
+        y: 224
+        width: 28
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -662,10 +662,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_20
       rect:
         serializedVersion: 2
-        x: 4
-        y: 191
-        width: 25
-        height: 32
+        x: 5
+        y: 192
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -684,10 +684,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_21
       rect:
         serializedVersion: 2
-        x: 4
-        y: 159
-        width: 25
-        height: 32
+        x: 37
+        y: 192
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -706,10 +706,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_22
       rect:
         serializedVersion: 2
-        x: 36
-        y: 191
-        width: 25
-        height: 32
+        x: 5
+        y: 160
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -728,10 +728,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_23
       rect:
         serializedVersion: 2
-        x: 36
-        y: 159
-        width: 25
-        height: 32
+        x: 37
+        y: 160
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -750,10 +750,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_24
       rect:
         serializedVersion: 2
-        x: 4
-        y: 127
-        width: 25
-        height: 32
+        x: 5
+        y: 128
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -772,10 +772,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_25
       rect:
         serializedVersion: 2
-        x: 4
-        y: 95
-        width: 25
-        height: 32
+        x: 37
+        y: 128
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -794,10 +794,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_26
       rect:
         serializedVersion: 2
-        x: 36
-        y: 127
-        width: 25
-        height: 32
+        x: 5
+        y: 96
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -816,10 +816,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_27
       rect:
         serializedVersion: 2
-        x: 36
-        y: 95
-        width: 25
-        height: 32
+        x: 37
+        y: 96
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -838,10 +838,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_28
       rect:
         serializedVersion: 2
-        x: 0
-        y: 31
-        width: 32
-        height: 32
+        x: 5
+        y: 64
+        width: 23
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -860,10 +860,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_29
       rect:
         serializedVersion: 2
-        x: 4
-        y: 63
-        width: 25
-        height: 32
+        x: 1
+        y: 32
+        width: 30
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -882,10 +882,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_30
       rect:
         serializedVersion: 2
-        x: 32
-        y: 31
-        width: 32
-        height: 32
+        x: 33
+        y: 32
+        width: 30
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -904,10 +904,10 @@ TextureImporter:
       name: Teemo Basic emote animations sprite sheet_31
       rect:
         serializedVersion: 2
-        x: 5
+        x: 6
         y: 0
-        width: 26
-        height: 31
+        width: 24
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -926,7 +926,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: acd6f4406a77430409911969e97cec32
     internalID: 0
     vertices: []
     indices: 
