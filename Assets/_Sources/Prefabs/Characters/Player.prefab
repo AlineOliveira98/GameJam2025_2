@@ -61,9 +61,11 @@ MonoBehaviour:
   vfxPush: {fileID: 8430073522558915469, guid: ef2586b5c2f09674392481566a1ca011, type: 3}
   durationInvisible: 2
   cooldownInvisible: 6
+  sfxInvisible: {fileID: 8300000, guid: 63dbc940422941648a9936b21cec4263, type: 3}
   durationClone: 4
   cooldownClone: 7
   playerClone: {fileID: 0}
+  sfxClone: {fileID: 8300000, guid: 78ad99fd0a0a5144280b07bbdba84815, type: 3}
   targetIndicator: {fileID: 6027024871912877256}
   health: {fileID: 1334123132971509616}
   visual: {fileID: 5678408292184958949}

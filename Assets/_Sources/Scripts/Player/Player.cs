@@ -15,11 +15,13 @@ public class Player : MonoBehaviour
     [Header("Invisible Settings")]
     [SerializeField] private float durationInvisible;
     [SerializeField] private float cooldownInvisible;
+    [SerializeField] private AudioClip sfxInvisible;
 
     [Header("Clone Settings")]
     [SerializeField] private float durationClone;
     [SerializeField] private float cooldownClone;
     [SerializeField] private PlayerClone playerClone;
+    [SerializeField] private AudioClip sfxClone;
 
     [Header("References")]
     [SerializeField] private TargetIndicator targetIndicator;
@@ -133,6 +135,7 @@ public class Player : MonoBehaviour
         IsInvisible = true;
         visual.SetInvisible(true);
         Health.SetInvincibility(durationInvisible);
+        AudioController.PlaySFX(sfxInvisible);
         
         await UniTask.Delay(TimeSpan.FromSeconds(durationInvisible));
 
@@ -154,12 +157,11 @@ public class Player : MonoBehaviour
 
         playerClone.gameObject.SetActive(true);
         playerClone.Initialize(transform.position, mouseDirection);
-        Debug.Log("Clone Created");
+        AudioController.PlaySFX(sfxClone);
 
         await UniTask.Delay(TimeSpan.FromSeconds(durationClone));
 
         playerClone.Disable();
-        Debug.Log("Clone Disabled");
         
         await UniTask.Delay(TimeSpan.FromSeconds(cooldownClone));
         canClone = true;
