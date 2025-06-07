@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private SkillType skillTypeWhenSavedAnimals;
 
+    [SerializeField] private GameObject winDialogueObject;
+
     private int totalAnimals;
 
     public static bool GameStarted { get; private set; }
@@ -62,6 +64,18 @@ public class GameController : MonoBehaviour
             OnSavedAnimalAmountReached?.Invoke();
         }
 
+        if (AnimalsSaved == animalsAmoutSavedToVictory)
+        {
+            if (winDialogueObject != null)
+            {
+                winDialogueObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("winDialogueObject não foi atribuído no Inspector!");
+            }
+        }
+
         if (!SkillController.Instance.HasSkill(skillTypeWhenSavedAnimals))
         {
             SkillController.Instance.CollectSkill(skillTypeWhenSavedAnimals);
@@ -69,6 +83,9 @@ public class GameController : MonoBehaviour
 
         AudioController.PlaySFX(animalSavedAudio);
     }
+
+
+
 
     public void KillAnimal(NPC animal)
     {
