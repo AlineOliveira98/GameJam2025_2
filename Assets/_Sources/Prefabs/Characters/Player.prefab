@@ -57,11 +57,11 @@ MonoBehaviour:
   rangePushEnemies: 4
   forcePush: 10
   durationPush: 1
-  cooldownPush: 2
-  durationInvisible: 8
-  cooldownInvisible: 2
+  cooldownPush: 3
+  durationInvisible: 1
+  cooldownInvisible: 3
   durationClone: 5
-  cooldownClone: 2
+  cooldownClone: 10
   playerClone: {fileID: 0}
   targetIndicator: {fileID: 6027024871912877256}
   health: {fileID: 1334123132971509616}
