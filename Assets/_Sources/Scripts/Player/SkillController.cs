@@ -11,6 +11,8 @@ public class SkillController : MonoBehaviour
 
     private Dictionary<SkillType, SkillHandler> skillsDic = new();
 
+    public static Action<SkillType> OnSkillAcquired;
+
     void Awake()
     {
         if (Instance == null)
@@ -53,6 +55,7 @@ public class SkillController : MonoBehaviour
     {
         var skill = GetSkillHandler(skillType);
         skill.acquired = true;
+        OnSkillAcquired?.Invoke(skillType);
     }
 }
 

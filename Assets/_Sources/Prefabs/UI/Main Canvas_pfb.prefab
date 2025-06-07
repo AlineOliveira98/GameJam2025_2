@@ -7619,7 +7619,7 @@ MonoBehaviour:
   heartFull: {fileID: -1171976387717251954, guid: b4812778a25ad8c4dbbd9cdb49677e20, type: 3}
   heartEmpty: {fileID: 5014483942979799762, guid: b4812778a25ad8c4dbbd9cdb49677e20, type: 3}
   skills:
-  - type: 1
+  - type: 0
     skillUI: {fileID: 4456175821192077645}
   - type: 1
     skillUI: {fileID: 1442630866637780074}
@@ -9319,7 +9319,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8604229475744589259}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}

@@ -18,11 +18,15 @@ public class PlayerStatusUI : MonoBehaviour
     void OnEnable()
     {
         PlayerHealth.OnPlayerHealthChanged += UpdateHealth;
+        Player.OnSkillUsed += UseSkill;
+        SkillController.OnSkillAcquired += UnlockSkill;
     }
 
     void OnDisable()
     {
         PlayerHealth.OnPlayerHealthChanged -= UpdateHealth;
+        Player.OnSkillUsed -= UseSkill;
+        SkillController.OnSkillAcquired -= UnlockSkill;
     }
 
     void Start()
@@ -34,6 +38,16 @@ public class PlayerStatusUI : MonoBehaviour
         }
 
         skillsDic[SkillType.Dash].SetVisual(true);
+    }
+
+    private void UseSkill(SkillType type, float cooldown)
+    {
+        skillsDic[type].UseSkill(cooldown);
+    }
+
+    private void UnlockSkill(SkillType type)
+    {
+        skillsDic[type].SetVisual(true);
     }
 
     private void UpdateHealth(float currentHealth, float totalHealth)

@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("winDialogueObject não foi atribuído no Inspector!");
+                Debug.LogWarning("winDialogueObject nï¿½o foi atribuï¿½do no Inspector!");
             }
         }
 
@@ -83,9 +83,6 @@ public class GameController : MonoBehaviour
 
         AudioController.PlaySFX(animalSavedAudio);
     }
-
-
-
 
     public void KillAnimal(NPC animal)
     {
@@ -105,6 +102,7 @@ public class GameController : MonoBehaviour
         GameStarted = true;
         var randomValue = UnityEngine.Random.Range(0, gameplayMusics.Length);
         AudioController.Instance.PlayMusic(gameplayMusics[randomValue]);
+        CameraController.Instance.SetCamera(CameraType.Gameplay);
     }
 
     public void GameOver()

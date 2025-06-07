@@ -62,20 +62,31 @@ public class PlayerMovement : MonoBehaviour
         agent.speed = moveSpeed;
     }
 
+    public bool canDash;
+
     private void Update()
     {
         if (movementLocked || !CanMove || player.Health.IsDead) return;
+
+        canDash = dash.CanDash;
 
         MoveClick();
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (!dash.CanDash) return;
-            dash.TryDash(lastDirection);
-            AudioController.PlaySFX(dashAudio);
+            if (dash.CanDash)
+            {
+                if (!dash.CanDash || lastDirection == Vector2.zero) return;
+
+                dash.CanDash = false;
+
+                dash.TryDash(lastDirection);
+                AudioController.PlaySFX(dashAudio);
+                Player.OnSkillUsed?.Invoke(SkillType.Dash, dashCooldown);
+            }
         }
 
-        UpdateDustEffect(!Agent.isStopped);
+        // UpdateDustEffect(!Agent.isStopped);
     }
 
     private void FixedUpdate()

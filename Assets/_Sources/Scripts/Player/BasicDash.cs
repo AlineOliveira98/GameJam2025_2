@@ -16,7 +16,7 @@ public class BasicDash : IDash
     private bool canDash = true;
     private Vector3? pendingDestination = null;
 
-    public bool CanDash => canDash;
+    public bool CanDash { get { return canDash; } set { canDash = value; } }
     public bool IsDashing => isDashing;
 
     public BasicDash(Rigidbody2D rb, float dashSpeed, float dashDuration, float dashCooldown, NavMeshAgent agent = null, TrailRenderer trail = null)
@@ -36,8 +36,6 @@ public class BasicDash : IDash
 
     public async void TryDash(Vector2 direction)
     {
-        if (!CanDash || direction == Vector2.zero) return;
-
         isDashing = true;
         canDash = false;
 
