@@ -93,12 +93,22 @@ public class Player : MonoBehaviour
 
     private async UniTask PushEnemies()
     {
-        if (!canPush) return;
+        if (!canPush)
+        {
+            Debug.LogError("Not can push!");
+            return;
+        }
+
         canPush = false;
 
         var enemiesInRange = Physics2D.OverlapCircleAll(transform.position, rangePushEnemies, 1 << 9);
 
-        if (enemiesInRange.Length <= 0) return;
+        if (enemiesInRange.Length <= 0)
+        {
+            Debug.LogError("Enemies not find!");
+            canPush = true;
+            return;
+        }
 
         for (int i = 0; i < enemiesInRange.Length; i++)
         {
