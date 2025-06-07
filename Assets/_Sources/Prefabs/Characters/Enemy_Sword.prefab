@@ -99,12 +99,12 @@ MonoBehaviour:
   waitToStartPatrol: 0
   rangePatrol: 10
   rangeToEnterChasePlayer: 8
-  rangeToEnterChaseAnimals: 6
+  rangeToEnterChaseAnimals: 4
   rangeToOutChase: 10
   rangeAttack: 1
   stoppedTime: 2
-  dashSpeed: 10
-  dashDuration: 0.4
+  dashSpeed: 3
+  dashDuration: 2
   dashCooldown: 5
   agent: {fileID: 3427367718935321321}
   visual: {fileID: 5731830777737993568}
