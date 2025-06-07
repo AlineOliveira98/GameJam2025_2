@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
     public PlayerVisual Visual => visual;
     public PlayerMovement Movement { get; private set; }
 
+    public static Action<SkillType, float> OnSkillUsed;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -102,15 +104,9 @@ public class Player : MonoBehaviour
         }
 
         canPush = false;
+        OnSkillUsed?.Invoke(SkillType.Push, cooldownPush);
 
         var enemiesInRange = Physics2D.OverlapCircleAll(transform.position, rangePushEnemies, 1 << 9);
-
-        if (enemiesInRange.Length <= 0)
-        {
-            Debug.LogError("Enemies not find!");
-            canPush = true;
-            return;
-        }
 
         for (int i = 0; i < enemiesInRange.Length; i++)
         {
@@ -131,6 +127,7 @@ public class Player : MonoBehaviour
     {
         if (!canStayInvisible) return;
         canStayInvisible = false;
+        OnSkillUsed?.Invoke(SkillType.Invisible, cooldownInvisible);
 
         IsInvisible = true;
         visual.SetInvisible(true);
@@ -150,6 +147,7 @@ public class Player : MonoBehaviour
     {
         if (!canClone) return;
         canClone = false;
+        OnSkillUsed?.Invoke(SkillType.Clone, cooldownClone);
 
         Vector3 startPos = transform.position;
         Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
