@@ -20,7 +20,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
     public bool IsDead { get; set; }
     public bool IsSaved { get; set; }
-    public bool LockedInteraction { get; set; }
+    public bool LockedInteraction { get; set; } = false;
 
     public Animator Animator => animator;
 
@@ -96,7 +96,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         GameController.Instance.SaveAnimal(this);
     }
 
-    public async void TakeDamage(float damage, float damageDelay)
+    public async void TakeDamage(float damage)
     {
         if (IsDead || IsSaved) return;
 

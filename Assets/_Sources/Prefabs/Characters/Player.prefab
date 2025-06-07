@@ -57,7 +57,7 @@ MonoBehaviour:
   rangePushEnemies: 4
   forcePush: 10
   durationPush: 1
-  cooldownPush: 3
+  cooldownPush: 1
   durationInvisible: 2
   cooldownInvisible: 6
   durationClone: 4
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
-  delayToTakeDamage: 0.67
+  delayAnimTakeDamage: 1
   delayToDie: 2
   receiveDamage: 1
 --- !u!114 &5678408292184958949

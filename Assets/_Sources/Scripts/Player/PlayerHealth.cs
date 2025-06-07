@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth;
-    [SerializeField] private float delayToTakeDamage = 0.5f;
+    [SerializeField] private float delayAnimTakeDamage = 0.5f;
+    [SerializeField] private float invulnerableDurationWhenDamaged = 1f;
     [SerializeField] private float delayToDie = 0.5f;
     [SerializeField] private bool receiveDamage = true;
 
@@ -34,7 +35,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    public async void TakeDamage(float damage, float damageDelay)
+    public async void TakeDamage(float damage)
     {
         if (!receiveDamage) return;
         if (IsDead || IsInvincible) return;
@@ -42,9 +43,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(damageDelay));
-        
+        player.Visual.TakeDamage();
+        SetInvincibility(invulnerableDurationWhenDamaged);
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        await UniTask.Delay(TimeSpan.FromSeconds(delayAnimTakeDamage));
 
         if (currentHealth <= 0f)
         {
