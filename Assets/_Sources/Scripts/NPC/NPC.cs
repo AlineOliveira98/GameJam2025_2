@@ -20,7 +20,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
     public bool IsDead { get; set; }
     public bool IsSaved { get; set; }
-    public bool LockedInteraction { get; set; }
+    public bool LockedInteraction { get; set; } = false;
 
     public Animator Animator => animator;
 
