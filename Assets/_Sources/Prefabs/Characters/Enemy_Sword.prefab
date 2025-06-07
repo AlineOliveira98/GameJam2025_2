@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackRate: 1
-  attackAnimationDuration: 0.6
+  attackAnimationDuration: 0.2
   visual: {fileID: 5731830777737993568}
   enemyMovement: {fileID: 699242585585254406}
 --- !u!114 &699242585585254406
@@ -102,7 +102,7 @@ MonoBehaviour:
   rangeToEnterChasePlayer: 8
   rangeToEnterChaseAnimals: 4
   rangeToOutChase: 10
-  rangeAttack: 1
+  rangeAttack: 1.54
   stoppedTime: 2
   dashSpeed: 3
   dashDuration: 2
