@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private bool canPush = true;
     private bool canStayInvisible = true;
     private bool canClone = true;
+    private Camera cam;
 
     public bool IsInvisible { get; private set; }
     public Rigidbody2D rb { get; private set; }
@@ -46,6 +47,10 @@ public class Player : MonoBehaviour
         Movement = GetComponent<PlayerMovement>();
     }
 
+    void Start()
+    {
+        cam = Camera.main;
+    }
 
     void OnEnable()
     {
@@ -129,8 +134,12 @@ public class Player : MonoBehaviour
         if (!canClone) return;
         canClone = false;
 
+        Vector3 startPos = transform.position;
+        Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mouseDirection = (mouseWorld - (Vector2)startPos).normalized;
+
         playerClone.gameObject.SetActive(true);
-        playerClone.Initialize(transform.position);
+        playerClone.Initialize(transform.position, mouseDirection);
         Debug.Log("Clone Created");
 
         await UniTask.Delay(TimeSpan.FromSeconds(durationClone));

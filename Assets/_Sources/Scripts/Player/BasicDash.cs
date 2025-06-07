@@ -78,9 +78,7 @@ public class BasicDash : IDash
             SetDestinationAfterDash(rb.position);
 
             agent.Warp(rb.position);
-            await Task.Yield();
             agent.enabled = true;
-            await Task.Yield();
 
             if (pendingDestination.HasValue)
             {

@@ -15,11 +15,11 @@ public class PlayerClone : MonoBehaviour
         agent.updateUpAxis = false;
     }
 
-    public void Initialize(Vector3 startPos)
+    public void Initialize(Vector3 startPos, Vector2 mouseDirection)
     {
         agent.Warp(startPos);
         agent.isStopped = false;
-        GetRandomPos();
+        GetRandomPos(mouseDirection);
     }
 
     void Update()
@@ -31,10 +31,11 @@ public class PlayerClone : MonoBehaviour
         visual.SetDirection(direction);
     }
 
-    private void GetRandomPos()
+    private void GetRandomPos(Vector2? preferredDirection = null)
     {
-        var randomDirection = Random.insideUnitCircle.normalized * Random.Range(minDistance, maxDistance);
-        var candidate = (Vector2) transform.position + randomDirection;
+        Vector2 direction = preferredDirection?.normalized ?? Random.insideUnitCircle.normalized;
+        float distance = Random.Range(minDistance, maxDistance);
+        Vector2 candidate = (Vector2)transform.position + direction * distance;
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(candidate, out hit, 2f, NavMesh.AllAreas))
