@@ -18,12 +18,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private AudioClip dashAudio;
+    [SerializeField] private ParticleSystem dustEffect;
 
     private Vector2 target;
     private Vector2 lastDirection = Vector2.down;
     private Player player;
     private Camera mainCamera;
     private bool movementLocked;
+    private bool wasRunning = false;
 
     [SerializeField] private TrailRenderer trailRenderer;
 
@@ -72,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
             dash.TryDash(lastDirection);
             AudioController.PlaySFX(dashAudio);
         }
+
+        UpdateDustEffect(!Agent.isStopped);
     }
 
     private void FixedUpdate()
@@ -149,5 +153,13 @@ public class PlayerMovement : MonoBehaviour
         speedMultiplier = 1f;
     }
 
-    
+    private void UpdateDustEffect(bool isRunning)
+    {
+        if (isRunning && !wasRunning)
+            dustEffect.Play();
+        else if (!isRunning && wasRunning)
+            dustEffect.Stop();
+
+        wasRunning = isRunning;
+    }
 }
