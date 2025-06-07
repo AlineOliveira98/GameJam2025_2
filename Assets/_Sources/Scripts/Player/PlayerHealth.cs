@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float delayAnimTakeDamage = 0.5f;
+    [SerializeField] private float invulnerableDurationWhenDamaged = 1f;
     [SerializeField] private float delayToDie = 0.5f;
     [SerializeField] private bool receiveDamage = true;
 
@@ -43,9 +44,10 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         player.Visual.TakeDamage();
-        await UniTask.Delay(TimeSpan.FromSeconds(delayAnimTakeDamage));
-        
+        SetInvincibility(invulnerableDurationWhenDamaged);
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        await UniTask.Delay(TimeSpan.FromSeconds(delayAnimTakeDamage));
 
         if (currentHealth <= 0f)
         {
