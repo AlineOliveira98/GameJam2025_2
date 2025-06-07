@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
 
     public GameObject settingsPanelObject;
 
+    public GameObject exitGamePanelObject;
+
     private void Awake()
     {
         if (Instance == null)
@@ -31,6 +33,7 @@ public class UIController : MonoBehaviour
                 settingsPanelObject.SetActive(!settingsPanelObject.activeSelf);
         }
     }
+
 
     void Start()
     {
@@ -52,6 +55,24 @@ public class UIController : MonoBehaviour
 
         currentPanel = type;
         panelsDic[currentPanel].enabled = true;
+    }
+
+    public void ToggleExitGamePanel()
+    {
+        if (exitGamePanelObject != null)
+            exitGamePanelObject.SetActive(!exitGamePanelObject.activeSelf);
+    }
+
+    public void CloseExitGamePanel()
+    {
+        if (exitGamePanelObject != null)
+            exitGamePanelObject.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Saindo do jogo...");
+        Application.Quit();             
     }
 }
 
