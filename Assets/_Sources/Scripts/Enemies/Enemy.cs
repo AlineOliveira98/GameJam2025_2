@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
 
         if (other.TryGetComponent(out IDamageable damageable))
         {
-            damageable.TakeDamage(damage, 0f);
+            damageable.TakeDamage(damage);
             Debug.Log("Attack By Trigger");
         }
     }
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
             {
                 if (CheckTargetInRange())
                 {
-                    damageable.TakeDamage(damage, 0f);
+                    damageable.TakeDamage(damage);
 
                     if (damageable.IsDead)
                     {

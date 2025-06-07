@@ -1,5 +1,5 @@
 public interface IDamageable
 {
-    void TakeDamage(float damage, float damageDelay);
+    void TakeDamage(float damage);
     bool IsDead { get; set; }
 }

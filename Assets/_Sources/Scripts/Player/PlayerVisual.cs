@@ -33,6 +33,11 @@ public class PlayerVisual : MonoBehaviour
         anim.SetTrigger("Death");
     }
 
+    public void TakeDamage()
+    {
+        anim.SetTrigger("Damage");
+    }
+
     public void SetInvisible(bool enable)
     {
         spriteRenderer.color = new Color(1f, 1f, 1f, enable ? 0.5f : 1f);
