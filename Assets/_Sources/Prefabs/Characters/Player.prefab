@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 4
   delayToTakeDamage: 0.67
-  delayToDie: 0
+  delayToDie: 1
   receiveDamage: 1
 --- !u!114 &5678408292184958949
 MonoBehaviour:

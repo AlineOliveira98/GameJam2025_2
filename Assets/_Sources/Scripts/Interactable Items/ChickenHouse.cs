@@ -20,6 +20,8 @@ public class ChickenHouse : Interactable
     {
         base.Interact();
 
+        CanInteract = false;
+
         var player = GameController.Instance.Player;
 
         feather.transform.position = player.transform.position;

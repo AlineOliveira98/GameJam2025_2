@@ -22,6 +22,16 @@ public class PlayerVisual : MonoBehaviour
         anim.SetTrigger("IsWatering");
     }
 
+    public void SetAttack()
+    {
+        anim.SetTrigger("Attack");
+    }
+
+    public void SetDeath()
+    {
+        anim.SetTrigger("Death");
+    }
+
     public void SetInvisible(bool enable)
     {
         spriteRenderer.color = new Color(1f, 1f, 1f, enable ? 0.5f : 1f);

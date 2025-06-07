@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] private bool receiveDamage = true;
 
     private float currentHealth = 0;
+    private Player player;
 
     public bool IsDead { get; set; }
     public bool IsInvincible { get; private set; } = false;
@@ -21,6 +22,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     void Start()
     {
         RecoverHealth(1f);
+
+        player = GetComponent<Player>();
     }
 
     public void RecoverHealth(float amount)
@@ -31,7 +34,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    public async void TakeDamage(float damage)
+    public async void TakeDamage(float damage, float damageDelay)
     {
         if (!receiveDamage) return;
         if (IsDead || IsInvincible) return;
@@ -39,12 +42,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(delayToTakeDamage));
-
+        await UniTask.Delay(TimeSpan.FromSeconds(damageDelay));
+        
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
 
         if (currentHealth <= 0f)
         {
+            player.Visual.SetDeath();
+            IsDead = true;
+            player.Movement.Stop();
+            
             await UniTask.Delay(TimeSpan.FromSeconds(delayToDie));
 
             IsDead = true;

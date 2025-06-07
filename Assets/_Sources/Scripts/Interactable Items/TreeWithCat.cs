@@ -30,9 +30,11 @@ public class TreeWithCat : Interactable
             return;
         }
 
-        anim.SetTrigger("Cut");
+        var player = GameController.Instance.Player;
+        player.Visual.SetAttack();
 
         await UniTask.Delay(TimeSpan.FromSeconds(delayToCutTree));
+        anim.SetTrigger("Cut");
 
         cat.transform.DOLocalMoveY(transform.position.y - 2f, 0.5f).SetEase(easeCatFall).OnComplete(() =>
         {

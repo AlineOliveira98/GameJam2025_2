@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public Vector2 input { get; private set; }
     public PlayerHealth Health => health;
     public PlayerVisual Visual => visual;
+    public PlayerMovement Movement { get; private set; }
 
     private void Awake()
     {
@@ -41,6 +42,8 @@ public class Player : MonoBehaviour
 
         if (visual == null)
             visual = GetComponent<PlayerVisual>();
+
+        Movement = GetComponent<PlayerMovement>();
     }
 
 

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackRate: 1
+  attackAnimationDuration: 0.667
   visual: {fileID: 5731830777737993568}
   enemyMovement: {fileID: 699242585585254406}
 --- !u!114 &699242585585254406

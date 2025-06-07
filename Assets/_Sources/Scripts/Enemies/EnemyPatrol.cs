@@ -31,11 +31,11 @@ public class EnemyPatrol : MonoBehaviour
     private Vector2 NavMeshTarget;
     private Player cachedPlayer;
 
-    public bool IsAttacking { get; private set; }
+    public bool IsAttacking { get; set; }
     public bool IsKnockback { get; set; }
-
     public Transform TargetFind { get; private set; }
     public NavMeshAgent Agent => agent;
+    public float RangeAttack => rangeAttack;
 
     public IDash Dash { get; private set; }
     private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
@@ -60,7 +60,7 @@ public class EnemyPatrol : MonoBehaviour
         {
             Patrolling();
         }
-        else if (IsInsideRange(rangeAttack))
+        else if (IsInsideRange(rangeAttack) || enemy.IsAttackCoroutineRunning)
         {
             AttackTarget();
         }
@@ -115,10 +115,18 @@ public class EnemyPatrol : MonoBehaviour
 
         if (Dash.CanDash && !IsKnockback)
         {
-            Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
-            Dash.TryDash(dashDirection);
-            visual.TriggerDash();
-            AudioController.PlaySFX(dashAudio);
+            var randomDash = Random.Range(0, 2);
+            if (randomDash == 0)
+            {
+                Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
+                Dash.TryDash(dashDirection);
+                visual.TriggerDash();
+                AudioController.PlaySFX(dashAudio);
+            }
+            else
+            {
+                Dash.CooldownDash();
+            }
         }
     }
 

@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
 
     private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
+    public NavMeshAgent Agent => agent;
 
     private IDash dash;
 
@@ -61,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (movementLocked || !CanMove) return;
+        if (movementLocked || !CanMove || player.Health.IsDead) return;
 
         MoveClick();
 
@@ -75,8 +76,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (movementLocked || !CanMove) return;
+        if (movementLocked || !CanMove || player.Health.IsDead) return;
         MoveInput();
+    }
+
+    public void Stop()
+    {
+        Agent.isStopped = true;
+        agent.ResetPath();
     }
 
     private void Teleport(WaterWell well)

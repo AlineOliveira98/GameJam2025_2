@@ -93,4 +93,11 @@ public class BasicDash : IDash
         await UniTask.Delay((int)(dashCooldown * 1000));
         canDash = true;
     }
+
+    public async void CooldownDash()
+    {
+        canDash = false;
+        await UniTask.Delay((int)(dashCooldown * 1000));
+        canDash = true;
+    }
 }

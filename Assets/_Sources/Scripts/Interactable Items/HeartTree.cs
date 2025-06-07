@@ -20,8 +20,7 @@ public class HeartTree : Interactable
 
     public async void RecoverHealth()
     {
-        if (collected) return;
-        collected = true;
+        CanInteract = false;
         
         anim.SetTrigger("Drop");
         GameController.Instance.Player.Health.RecoverHealth(1);

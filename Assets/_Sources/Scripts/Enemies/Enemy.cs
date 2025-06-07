@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float damage;
     [SerializeField] private float attackRate;
+    [SerializeField] private float attackAnimationDuration;
 
     [Header("References")]
     [SerializeField] private EnemyVisual visual;
@@ -32,38 +33,66 @@ public class Enemy : MonoBehaviour
 
         if (other.TryGetComponent(out IDamageable damageable))
         {
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(damage, 0f);
             Debug.Log("Attack By Trigger");
         }
     }
 
-    private void Attack()
+    public bool IsAttackCoroutineRunning { get; set; }
+
+    private async Task Attack()
     {
         if (!EnemyMovement.Patrol.IsAttacking || EnemyMovement.Patrol.IsKnockback) return;
+        if (IsAttackCoroutineRunning) return;
 
         if (EnemyMovement.Patrol.TargetFind == null)
         {
             EnemyMovement.Patrol.StopAttack();
-            Debug.Log("Target not find, stoping attack");
             return;
         }
 
         if (Time.time >= lastAttackTime + attackRate)
         {
+            IsAttackCoroutineRunning = true;
+            Visual.SetAttack();
+            await Task.Delay((int)(attackAnimationDuration * 1000));
+
             if (EnemyMovement.Patrol.TargetFind.TryGetComponent(out IDamageable damageable))
             {
-                damageable.TakeDamage(damage);
-                Debug.Log("Attack By Cooldown");
-                Visual.SetAttack();
-
-                if (damageable.IsDead)
+                if (CheckTargetInRange())
                 {
-                    EnemyMovement.Patrol.StopAttack();
+                    damageable.TakeDamage(damage, 0f);
+
+                    if (damageable.IsDead)
+                    {
+                        EnemyMovement.Patrol.StopAttack();
+                    }
                 }
             }
 
             lastAttackTime = Time.time;
+            
+            EnemyMovement.Patrol.IsAttacking = false;
+            IsAttackCoroutineRunning = false;
         }
+    }
+
+    private bool CheckTargetInRange()
+    {
+        // Verifica se o alvo ainda está no raio de ataque
+        bool stillInRange = false;
+
+        if (EnemyMovement.Patrol.TargetFind != null)
+        {
+            float dist = Vector2.Distance(
+                EnemyMovement.Patrol.TargetFind.position,
+                transform.position
+            );
+
+            stillInRange = dist <= EnemyMovement.Patrol.RangeAttack; // ajuste para seu campo de range
+        }
+
+        return stillInRange;
     }
 
     public void KnockBack(Vector3 targetPos, float force, float duration)

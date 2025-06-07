@@ -14,11 +14,15 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerEnterHandler, 
     [SerializeField] private Texture2D clickedTexture;
     [SerializeField] private AudioClip interactedAudio;
 
+    protected bool CanInteract = false;
+
     [Header("Events")]
     public UltEvent OnInteracted;
 
     public virtual void Interact()
     {
+        if (!CanInteract) return;
+        
         OnInteracted.Invoke();
         AudioController.PlaySFX(interactedAudio);
     }

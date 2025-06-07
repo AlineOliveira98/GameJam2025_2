@@ -96,7 +96,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         GameController.Instance.SaveAnimal(this);
     }
 
-    public async void TakeDamage(float damage)
+    public async void TakeDamage(float damage, float damageDelay)
     {
         if (IsDead || IsSaved) return;
 
