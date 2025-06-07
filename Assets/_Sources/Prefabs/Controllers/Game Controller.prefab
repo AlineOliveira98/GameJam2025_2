@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bef0cef2ded0f0645ad90c6e5bdd4965, type: 3}
   animalSavedAudio: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
   skillTypeWhenSavedAnimals: 2
+  winDialogueObject: {fileID: 0}
 --- !u!114 &8283348019124355285
 MonoBehaviour:
   m_ObjectHideFlags: 0

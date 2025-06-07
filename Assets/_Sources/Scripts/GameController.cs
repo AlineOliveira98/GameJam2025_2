@@ -64,18 +64,6 @@ public class GameController : MonoBehaviour
             OnSavedAnimalAmountReached?.Invoke();
         }
 
-        if (AnimalsSaved == animalsAmoutSavedToVictory)
-        {
-            if (winDialogueObject != null)
-            {
-                winDialogueObject.SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("winDialogueObject n�o foi atribu�do no Inspector!");
-            }
-        }
-
         if (!SkillController.Instance.HasSkill(skillTypeWhenSavedAnimals))
         {
             SkillController.Instance.CollectSkill(skillTypeWhenSavedAnimals);
