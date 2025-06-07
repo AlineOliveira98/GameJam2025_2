@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int animalsAmoutSavedToVictory = 7;
 
     [Header("Audio")]
-    [SerializeField] private AudioClip gameplayMusic;
+    [SerializeField] private AudioClip[] gameplayMusics;
     [SerializeField] private AudioClip animalSavedAudio;
 
     [SerializeField] private SkillType skillTypeWhenSavedAnimals;
@@ -86,7 +86,8 @@ public class GameController : MonoBehaviour
     public void StartGameplay()
     {
         GameStarted = true;
-        AudioController.Instance.PlayMusic(gameplayMusic);
+        var randomValue = UnityEngine.Random.Range(0, gameplayMusics.Length);
+        AudioController.Instance.PlayMusic(gameplayMusics[randomValue]);
     }
 
     public void GameOver()
