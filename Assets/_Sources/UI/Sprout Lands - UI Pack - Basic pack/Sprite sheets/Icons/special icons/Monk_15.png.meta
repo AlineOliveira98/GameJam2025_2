@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Monk_15_0: 5744432974941648858
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
