@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
 
     private PanelType currentPanel;
 
+    public GameObject settingsPanelObject;
+
     private void Awake()
     {
         if (Instance == null)
@@ -25,13 +27,10 @@ public class UIController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (currentPanel == PanelType.Settings)
-                OpenPanel(PanelType.Menu);
-            else
-                OpenPanel(PanelType.Settings);
+            if (settingsPanelObject != null)
+                settingsPanelObject.SetActive(!settingsPanelObject.activeSelf);
         }
     }
-
 
     void Start()
     {
