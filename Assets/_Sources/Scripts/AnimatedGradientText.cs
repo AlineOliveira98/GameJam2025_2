@@ -34,17 +34,18 @@ public class PerCharacterGradient : MonoBehaviour
 
             var vertices = textInfo.meshInfo[materialIndex].colors32;
 
+            // Gera cor com base na posição da letra + tempo
             float hue = Mathf.Repeat(time + (i * 0.05f), 1f);
             Color32 c = Color.HSVToRGB(hue, saturation, brightness);
 
-
+            // Aplica a cor nos 4 vértices da letra
             vertices[vertexIndex + 0] = c;
             vertices[vertexIndex + 1] = c;
             vertices[vertexIndex + 2] = c;
             vertices[vertexIndex + 3] = c;
         }
 
-
+        // Atualiza a malha
         for (int i = 0; i < textInfo.meshInfo.Length; i++)
         {
             textInfo.meshInfo[i].mesh.colors32 = textInfo.meshInfo[i].colors32;
