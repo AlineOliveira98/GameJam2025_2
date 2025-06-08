@@ -104,8 +104,8 @@ MonoBehaviour:
   rangeToOutChase: 10
   rangeAttack: 1.71
   stoppedTime: 2
-  dashSpeed: 3
-  dashDuration: 2
+  dashSpeed: 2
+  dashDuration: 1.5
   dashCooldown: 5
   agent: {fileID: 3427367718935321321}
   visual: {fileID: 5731830777737993568}
@@ -121,7 +121,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

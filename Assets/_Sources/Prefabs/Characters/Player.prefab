@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26642ad7d6910441a939a9d7975108d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangePushEnemies: 4
+  rangePushEnemies: 7.05
   forcePush: 6
   durationPush: 1
   cooldownPush: 3
@@ -122,6 +122,7 @@ MonoBehaviour:
   dashAudio: {fileID: 8300000, guid: fd25a15f9797641458336cccfb445343, type: 3}
   dustEffect: {fileID: 590442271702246849}
   trailRenderer: {fileID: 6613780185780823940}
+  canDash: 0
 --- !u!114 &2385255134740781878
 MonoBehaviour:
   m_ObjectHideFlags: 0
