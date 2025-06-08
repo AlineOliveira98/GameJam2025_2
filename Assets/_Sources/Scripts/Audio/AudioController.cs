@@ -49,6 +49,11 @@ public class AudioController : MonoBehaviour
         sourceMusic.Play();
     }
 
+    public void StopMusic()
+    {
+        sourceMusic.Stop();
+    }
+
     public void SetMusicVolume(float volume)
     {
         sourceMusic.volume = volume;

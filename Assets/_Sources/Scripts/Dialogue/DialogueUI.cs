@@ -78,8 +78,8 @@ public class DialogueUI : MonoBehaviour
 
     private void SelectOption(int option)
     {
-        UIController.Instance.OpenPanel(PanelType.Gameplay);
-        DialogueService.FinishDialogue();
+        currentDialogue.OnOptionSelected?.Invoke(option);
+        CloseDialogue();
     }
 
     public void NextLine()
@@ -90,7 +90,7 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogue()
     {
-        UIController.Instance.OpenPanel(PanelType.Gameplay);
+        GameController.Instance.Ending();
         DialogueService.FinishDialogue();
     }
 }

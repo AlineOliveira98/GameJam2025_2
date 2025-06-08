@@ -1,16 +1,16 @@
+using TMPro;
 using UnityEngine;
 
 public class VictoryUI : MonoBehaviour
 {
-
     void OnEnable()
     {
-        YggDrasil.OnTreeGrew += LastAnimalWarning;
+        YggDrasil.OnTreeCanGrow += LastAnimalWarning;
     }
 
     void OnDisable()
     {
-        YggDrasil.OnTreeGrew -= LastAnimalWarning;
+        YggDrasil.OnTreeCanGrow -= LastAnimalWarning;
     }
 
     private void LastAnimalWarning()

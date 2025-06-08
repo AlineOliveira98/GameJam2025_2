@@ -11,9 +11,10 @@ public class YggDrasil : Interactable
     private int currentStage;
 
     private int waterCollected => GameController.Instance.AnimalsSaved;
+    private bool IsLastStage => currentWater == stages[stages.Length - 1].amountToGrow - 1;
 
     public static Action OnTreeWatered;
-    public static Action OnTreeGrew;
+    public static Action OnTreeCanGrow;
 
     void Start()
     {
@@ -34,11 +35,17 @@ public class YggDrasil : Interactable
         Watering();
     }
 
-    private void Watering()
+    public void Watering()
     {
         if (currentWater >= waterCollected)
         {
             Debug.Log("No Water enught");
+            return;
+        }
+
+        if (IsLastStage)
+        {
+            OnTreeCanGrow?.Invoke();
             return;
         }
 
@@ -62,7 +69,6 @@ public class YggDrasil : Interactable
         if (currentStage >= stages.Length - 1)
         {
             AudioController.PlaySFX(sfxGrowTree);
-            OnTreeGrew.Invoke();
         }
     }
 }

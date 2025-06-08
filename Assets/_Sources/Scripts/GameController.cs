@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     [Space(10)]
     [SerializeField] private SkillType skillTypeWhenSavedAnimals;
     [SerializeField] private GameObject lastAnimal;
+    [SerializeField] private DialogueSO DialogueLastAnimal;
 
     private int totalAnimals;
 
@@ -34,8 +35,8 @@ public class GameController : MonoBehaviour
 
     public static Action<NPC> OnAnimalSaved;
     public static Action<NPC> OnAnimalDied;
-    public static Action OnSavedAnimalAmountReached;
     public static Action OnDeadAnimalLimitReached;
+    public static Action OnGameEnding;
 
     void Awake()
     {
@@ -56,6 +57,51 @@ public class GameController : MonoBehaviour
         GameIsPaused = false;
     }
 
+    void OnEnable()
+    {
+        DialogueLastAnimal.OnOptionSelected += DialogueAnswer;
+    }
+
+    void OnDisable()
+    {
+        DialogueLastAnimal.OnOptionSelected -= DialogueAnswer;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            var animals = FindObjectsByType<NPC>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            var YggDrasil = FindAnyObjectByType<YggDrasil>();
+
+            foreach (var item in animals)
+            {
+                item.Collect();
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                YggDrasil.Watering();
+            }
+
+            HasAxe = true;
+        }
+    }
+
+    private void DialogueAnswer(int option)
+    {
+        if (option == 0)
+        {
+            Debug.Log("First Ending");
+        }
+        else
+        {
+            Debug.Log("Second Ending");
+        }
+
+        CameraController.Instance.SetCamera(CameraType.EndGame);
+    }
+
     void Start()
     {
         lastAnimal.SetActive(false);
@@ -66,12 +112,6 @@ public class GameController : MonoBehaviour
         AnimalsSaved++;
         AnimalsCurrentNumber--;
         OnAnimalSaved?.Invoke(animal);
-
-        if (AnimalsSaved >= animalsAmoutSavedToVictory)
-        {
-            // PauseGame(true);
-            OnSavedAnimalAmountReached?.Invoke();
-        }
 
         if (!SkillController.Instance.HasSkill(skillTypeWhenSavedAnimals))
         {
@@ -84,7 +124,7 @@ public class GameController : MonoBehaviour
         {
             GameOver();
             await UniTask.Delay(TimeSpan.FromSeconds(1f));
-            CameraController.Instance.SetCamera(CameraType.EndGame);
+            DialogueService.StartDialogue(DialogueLastAnimal);
         }
     }
 
@@ -130,5 +170,12 @@ public class GameController : MonoBehaviour
     {
         HasAxe = true;
         Debug.Log("Chest Opened");
+    }
+
+    public void Ending()
+    {
+        UIController.Instance.OpenPanel(PanelType.Ending);
+        AudioController.Instance.StopMusic();
+        OnGameEnding?.Invoke();
     }
 }

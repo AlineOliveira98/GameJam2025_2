@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e1207b9e39abe4b986851fb00cc39b, type: 3}
   m_Name: Character Chicken
   m_EditorClassIdentifier: 
-  characterName: Chicken
+  characterName: Cat
   characterIcon: {fileID: 8560451000399327191, guid: b72aba221d430cf4ea8bdafafe96bd7a, type: 3}

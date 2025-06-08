@@ -32,7 +32,7 @@ public class GameplayUI : MonoBehaviour
     private void UpdateVictimsCount(NPC animal = null)
     {
         int amountAnimals = GameController.Instance.AnimalsCurrentNumber;
-        string text = amountAnimals > 1 ? $"{amountAnimals}" : $"GO TO THE TREE";
+        string text = amountAnimals > 1 ? $"{amountAnimals}" : $"WATER THE TREE";
         victimsCount.text = $"{text}";
     }
 }

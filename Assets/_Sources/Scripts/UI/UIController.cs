@@ -90,5 +90,6 @@ public enum PanelType
     Gameplay,
     Dialogue,
     Defeat,
-    Victory
+    Victory,
+    Ending
 }

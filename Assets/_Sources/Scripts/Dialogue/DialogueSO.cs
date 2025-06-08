@@ -6,6 +6,8 @@ using UnityEngine;
 public class DialogueSO : ScriptableObject
 {
     public DialogueItem[] dialogue;
+
+    public Action<int> OnOptionSelected;
 }
 
 [Serializable]
