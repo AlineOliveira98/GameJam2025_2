@@ -39,6 +39,15 @@ public class SkillController : MonoBehaviour
         }
 
         AudioController.PlaySFX(collectedAudio);
+
+        if (skillType == SkillType.Clone)
+        {
+            InventoryUI.Instance.GetBlueFlower(skillsDic[skillType].currentAmount);
+        }
+        else if (skillType == SkillType.Push)
+        {
+            InventoryUI.Instance.GetPinkFlower();
+        }
     }
 
     private SkillHandler GetSkillHandler(SkillType skillType)
