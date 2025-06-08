@@ -117,10 +117,10 @@ public class Player : MonoBehaviour
         }
 
         var vfx = Instantiate(vfxPush, transform.position, Quaternion.identity);
+        Destroy(vfx, 0.667f);
 
         await UniTask.Delay(TimeSpan.FromSeconds(cooldownPush));
         canPush = true;
-        Destroy(vfx);
     }
 
     private async UniTask Invisible()
@@ -139,7 +139,10 @@ public class Player : MonoBehaviour
         IsInvisible = false;
         visual.SetInvisible(false);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(cooldownInvisible));
+        float restante = cooldownInvisible - durationInvisible;
+        if (restante > 0)
+            await UniTask.Delay(TimeSpan.FromSeconds(restante));
+
         canStayInvisible = true;
     }
 
@@ -161,7 +164,10 @@ public class Player : MonoBehaviour
 
         playerClone.Disable();
         
-        await UniTask.Delay(TimeSpan.FromSeconds(cooldownClone));
+        float restante = cooldownClone - durationClone;
+        if (restante > 0)
+            await UniTask.Delay(TimeSpan.FromSeconds(restante));
+
         canClone = true;
     }
 

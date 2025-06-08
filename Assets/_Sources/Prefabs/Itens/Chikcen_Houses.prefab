@@ -227,6 +227,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5289043426362024821, guid: 6c6d0b6d7b9879942809bf388c8da131, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289043426362024821, guid: 6c6d0b6d7b9879942809bf388c8da131, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -22649671
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -254,6 +262,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: EggJumper
       objectReference: {fileID: 0}
+    - target: {fileID: 5238554534005555061, guid: 1e5e48c600363e946bef3928b2e79c7e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761842070210280535, guid: 1e5e48c600363e946bef3928b2e79c7e, type: 3}
+      propertyPath: helpBaloonsPrefab.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761842070210280535, guid: 1e5e48c600363e946bef3928b2e79c7e, type: 3}
+      propertyPath: 'helpBaloonsPrefab.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8496901477487434059, guid: 208e8892623d1fc4dbeae25ba2e1a030, type: 3}
+    - target: {fileID: 6761842070210280535, guid: 1e5e48c600363e946bef3928b2e79c7e, type: 3}
+      propertyPath: 'helpBaloonsPrefab.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8496901477487434059, guid: 3e0c9abf3c20118438ab64f1cf1ef24d, type: 3}
     - target: {fileID: 8080759342060730759, guid: 1e5e48c600363e946bef3928b2e79c7e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.0600014
