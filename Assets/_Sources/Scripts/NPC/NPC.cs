@@ -15,6 +15,10 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     [SerializeField] private Animator animator;
     [SerializeField] private AnimatorOverrideController overrideController;
 
+    [SerializeField] private AudioClip deathSFX;
+    [SerializeField] private AudioSource audioSource;
+
+
     private float lastCallHelp;
     private Camera cam;
 
@@ -103,6 +107,9 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
         IsDead = true;
 
+        if (deathSFX != null && audioSource != null)
+            audioSource.PlayOneShot(deathSFX);
+
         if (animator != null)
         {
             animator.SetBool("IsDead", true);
@@ -112,6 +119,9 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         gameObject.SetActive(false);
         GameController.Instance.KillAnimal(this);
     }
+
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
