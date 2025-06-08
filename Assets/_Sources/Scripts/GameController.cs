@@ -17,8 +17,9 @@ public class GameController : MonoBehaviour
 
     [Space(10)]
     [SerializeField] private SkillType skillTypeWhenSavedAnimals;
-    [SerializeField] private GameObject lastAnimal;
     [SerializeField] private DialogueSO DialogueLastAnimal;
+    [SerializeField] private GameObject lastAnimal;
+    [SerializeField] private InventoryUI inventory;
 
     private int totalAnimals;
 
