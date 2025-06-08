@@ -59,7 +59,7 @@ MonoBehaviour:
   forcePush: 6
   durationPush: 1
   cooldownPush: 3
-  vfxPush: {fileID: 8430073522558915469, guid: ef2586b5c2f09674392481566a1ca011, type: 3}
+  vfxPush: {fileID: 3220928790860949140, guid: a1a7ad39e336fcb4590a4aa51cb30006, type: 3}
   durationInvisible: 2
   cooldownInvisible: 6
   sfxInvisible: {fileID: 8300000, guid: 63dbc940422941648a9936b21cec4263, type: 3}
