@@ -85,9 +85,8 @@ public class PlayerMovement : MonoBehaviour
                 Player.OnSkillUsed?.Invoke(SkillType.Dash, dashCooldown);
             }
         }
-
-        // UpdateDustEffect(!Agent.isStopped);
     }
+
 
     private void FixedUpdate()
     {
@@ -155,6 +154,8 @@ public class PlayerMovement : MonoBehaviour
 
         player.Visual?.SetDirection(dir);
         player.Visual?.SetRunning(isRunning);
+
+        UpdateDustEffect(isRunning);
     }
 
     public async void SetSpeedMultiplier(float multiplier, float duration)
@@ -166,6 +167,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateDustEffect(bool isRunning)
     {
+        if (dustEffect == null) return;
+
         if (isRunning && !wasRunning)
             dustEffect.Play();
         else if (!isRunning && wasRunning)
@@ -173,4 +176,5 @@ public class PlayerMovement : MonoBehaviour
 
         wasRunning = isRunning;
     }
+
 }
