@@ -33,7 +33,7 @@ public class ChickenHouse : Interactable
             feather.gameObject.SetActive(false);
             NPCCollider.enabled = true;
             egg.LockedInteraction = true;
-            GameController.Instance.HasFeather = true;
+            GameController.Instance.GetFeather();
         });
         
         

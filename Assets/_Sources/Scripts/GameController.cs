@@ -170,7 +170,14 @@ public class GameController : MonoBehaviour
     public void OpenChest()
     {
         HasAxe = true;
+        InventoryUI.Instance.GetAxe();
         Debug.Log("Chest Opened");
+    }
+
+    public void GetFeather()
+    {
+        HasFeather = true;
+        InventoryUI.Instance.GetFeather();
     }
 
     public void Ending()
