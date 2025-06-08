@@ -4,10 +4,7 @@ using System.Collections.Generic;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
-
-    [Header("Enemy Prefabs")]
     public List<GameObject> enemyPrefabs;
-
     public int maxEnemies = 10;
     public float spawnInterval = 2f;
 
@@ -15,23 +12,29 @@ public class EnemySpawner : MonoBehaviour
     public List<Collider2D> spawnAreas;
     public List<Collider2D> forbiddenAreas;
 
-
     [Header("Tracking")]
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private float timer;
+    private bool isActive = false;
+
+
+    public void StartSpawning()
+    {
+        isActive = true;
+    }
 
     private void Update()
     {
+        if (!isActive) return;
+
         timer += Time.deltaTime;
 
-        // Só tenta spawnar se o intervalo passou e não excedeu o limite
         if (timer >= spawnInterval && spawnedEnemies.Count < maxEnemies)
         {
             TrySpawn();
             timer = 0f;
         }
 
-        // Limpa lista de inimigos destruídos
         spawnedEnemies.RemoveAll(enemy => enemy == null);
     }
 
@@ -58,19 +61,13 @@ public class EnemySpawner : MonoBehaviour
 
             if (!overlapsForbidden)
             {
-                // Escolhe um inimigo aleatório
                 GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-
                 GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
                 spawnedEnemies.Add(enemy);
                 return;
             }
         }
-
-        Debug.LogWarning("Falha ao encontrar posição válida para spawn após várias tentativas.");
     }
-
-
 
     private Vector2 GetRandomPointInCollider(Collider2D area)
     {
@@ -87,5 +84,4 @@ public class EnemySpawner : MonoBehaviour
                 return point;
         }
     }
-
 }
