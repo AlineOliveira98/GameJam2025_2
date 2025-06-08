@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c887843ce8f52fb4e9ddbf9e1e068b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalsAmoutDiedToDefeat: 5
+  animalsAmoutDiedToDefeat: 1
   animalsAmoutSavedToVictory: 7
   gameplayMusics:
   - {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}

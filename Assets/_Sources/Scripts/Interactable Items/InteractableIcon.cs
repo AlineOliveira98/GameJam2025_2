@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class InteractableIcon : MonoBehaviour
 {
-    [SerializeField] private float scaleFactor = 1.2f;
-    [SerializeField] private float speed = 0.5f;
-    [SerializeField] private float shakeDuration = 0.2f;
-    [SerializeField] private float shakeStrength = 0.2f;
+    [SerializeField] private float scaleFactor = 1.5f;
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private float shakeDuration = 0.8f;
+    [SerializeField] private float shakeStrength = 0.5f;
 
     void Start()
     {
