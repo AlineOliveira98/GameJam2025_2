@@ -15,11 +15,13 @@ public class Player : MonoBehaviour
     [Header("Invisible Settings")]
     [SerializeField] private float durationInvisible;
     [SerializeField] private float cooldownInvisible;
+    [SerializeField] private AudioClip sfxInvisible;
 
     [Header("Clone Settings")]
     [SerializeField] private float durationClone;
     [SerializeField] private float cooldownClone;
     [SerializeField] private PlayerClone playerClone;
+    [SerializeField] private AudioClip sfxClone;
 
     [Header("References")]
     [SerializeField] private TargetIndicator targetIndicator;
@@ -37,6 +39,8 @@ public class Player : MonoBehaviour
     public PlayerHealth Health => health;
     public PlayerVisual Visual => visual;
     public PlayerMovement Movement { get; private set; }
+
+    public static Action<SkillType, float> OnSkillUsed;
 
     private void Awake()
     {
@@ -93,12 +97,16 @@ public class Player : MonoBehaviour
 
     private async UniTask PushEnemies()
     {
-        if (!canPush) return;
+        if (!canPush)
+        {
+            Debug.LogError("Not can push!");
+            return;
+        }
+
         canPush = false;
+        OnSkillUsed?.Invoke(SkillType.Push, cooldownPush);
 
         var enemiesInRange = Physics2D.OverlapCircleAll(transform.position, rangePushEnemies, 1 << 9);
-
-        if (enemiesInRange.Length <= 0) return;
 
         for (int i = 0; i < enemiesInRange.Length; i++)
         {
@@ -119,10 +127,12 @@ public class Player : MonoBehaviour
     {
         if (!canStayInvisible) return;
         canStayInvisible = false;
+        OnSkillUsed?.Invoke(SkillType.Invisible, cooldownInvisible);
 
         IsInvisible = true;
         visual.SetInvisible(true);
         Health.SetInvincibility(durationInvisible);
+        AudioController.PlaySFX(sfxInvisible);
         
         await UniTask.Delay(TimeSpan.FromSeconds(durationInvisible));
 
@@ -137,6 +147,7 @@ public class Player : MonoBehaviour
     {
         if (!canClone) return;
         canClone = false;
+        OnSkillUsed?.Invoke(SkillType.Clone, cooldownClone);
 
         Vector3 startPos = transform.position;
         Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -144,12 +155,11 @@ public class Player : MonoBehaviour
 
         playerClone.gameObject.SetActive(true);
         playerClone.Initialize(transform.position, mouseDirection);
-        Debug.Log("Clone Created");
+        AudioController.PlaySFX(sfxClone);
 
         await UniTask.Delay(TimeSpan.FromSeconds(durationClone));
 
         playerClone.Disable();
-        Debug.Log("Clone Disabled");
         
         await UniTask.Delay(TimeSpan.FromSeconds(cooldownClone));
         canClone = true;

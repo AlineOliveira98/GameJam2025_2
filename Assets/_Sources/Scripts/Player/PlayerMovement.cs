@@ -18,16 +18,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private AudioClip dashAudio;
+    [SerializeField] private ParticleSystem dustEffect;
 
     private Vector2 target;
     private Vector2 lastDirection = Vector2.down;
     private Player player;
     private Camera mainCamera;
     private bool movementLocked;
+    private bool wasRunning = false;
 
     [SerializeField] private TrailRenderer trailRenderer;
 
-    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
+    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver && !GameController.GameIsPaused;
     public NavMeshAgent Agent => agent;
 
     private IDash dash;
@@ -60,18 +62,31 @@ public class PlayerMovement : MonoBehaviour
         agent.speed = moveSpeed;
     }
 
+    public bool canDash;
+
     private void Update()
     {
         if (movementLocked || !CanMove || player.Health.IsDead) return;
+
+        canDash = dash.CanDash;
 
         MoveClick();
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (!dash.CanDash) return;
-            dash.TryDash(lastDirection);
-            AudioController.PlaySFX(dashAudio);
+            if (dash.CanDash)
+            {
+                if (!dash.CanDash || lastDirection == Vector2.zero) return;
+
+                dash.CanDash = false;
+
+                dash.TryDash(lastDirection);
+                AudioController.PlaySFX(dashAudio);
+                Player.OnSkillUsed?.Invoke(SkillType.Dash, dashCooldown);
+            }
         }
+
+        // UpdateDustEffect(!Agent.isStopped);
     }
 
     private void FixedUpdate()
@@ -149,5 +164,13 @@ public class PlayerMovement : MonoBehaviour
         speedMultiplier = 1f;
     }
 
-    
+    private void UpdateDustEffect(bool isRunning)
+    {
+        if (isRunning && !wasRunning)
+            dustEffect.Play();
+        else if (!isRunning && wasRunning)
+            dustEffect.Stop();
+
+        wasRunning = isRunning;
+    }
 }

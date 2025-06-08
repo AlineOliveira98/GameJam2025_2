@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -13,14 +15,15 @@ public class GameController : MonoBehaviour
     [SerializeField] private AudioClip[] gameplayMusics;
     [SerializeField] private AudioClip animalSavedAudio;
 
+    [Space(10)]
     [SerializeField] private SkillType skillTypeWhenSavedAnimals;
-
-    [SerializeField] private GameObject winDialogueObject;
+    [SerializeField] private GameObject lastAnimal;
 
     private int totalAnimals;
 
     public static bool GameStarted { get; private set; }
     public static bool GameIsOver { get; private set; }
+    public static bool GameIsPaused { get; private set; }
 
     public int AnimalsCurrentNumber { get; private set; }
     public int AnimalsDied { get; private set; }
@@ -50,9 +53,15 @@ public class GameController : MonoBehaviour
 
         GameStarted = false;
         GameIsOver = false;
+        GameIsPaused = false;
     }
 
-    public void SaveAnimal(NPC animal)
+    void Start()
+    {
+        lastAnimal.SetActive(false);
+    }
+
+    public async void SaveAnimal(NPC animal)
     {
         AnimalsSaved++;
         AnimalsCurrentNumber--;
@@ -60,20 +69,8 @@ public class GameController : MonoBehaviour
 
         if (AnimalsSaved >= animalsAmoutSavedToVictory)
         {
-            GameOver();
+            // PauseGame(true);
             OnSavedAnimalAmountReached?.Invoke();
-        }
-
-        if (AnimalsSaved == animalsAmoutSavedToVictory)
-        {
-            if (winDialogueObject != null)
-            {
-                winDialogueObject.SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("winDialogueObject não foi atribuído no Inspector!");
-            }
         }
 
         if (!SkillController.Instance.HasSkill(skillTypeWhenSavedAnimals))
@@ -82,10 +79,19 @@ public class GameController : MonoBehaviour
         }
 
         AudioController.PlaySFX(animalSavedAudio);
+
+        if (AnimalsSaved >= totalAnimals)
+        {
+            GameOver();
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            CameraController.Instance.SetCamera(CameraType.EndGame);
+        }
     }
 
-
-
+    public void EnableLastAnimal()
+    {
+        lastAnimal.SetActive(true);
+    }
 
     public void KillAnimal(NPC animal)
     {
@@ -98,6 +104,8 @@ public class GameController : MonoBehaviour
             GameOver();
             OnDeadAnimalLimitReached?.Invoke();
         }
+
+        Debug.Log($"Animal Died: {animal.gameObject.name}");
     }
 
     public void StartGameplay()
@@ -105,6 +113,12 @@ public class GameController : MonoBehaviour
         GameStarted = true;
         var randomValue = UnityEngine.Random.Range(0, gameplayMusics.Length);
         AudioController.Instance.PlayMusic(gameplayMusics[randomValue]);
+        CameraController.Instance.SetCamera(CameraType.Gameplay);
+    }
+
+    public void PauseGame(bool isPaused)
+    {
+        GameIsPaused = isPaused;
     }
 
     public void GameOver()

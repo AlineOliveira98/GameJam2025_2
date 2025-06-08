@@ -13,6 +13,7 @@ public class YggDrasil : Interactable
     private int waterCollected => GameController.Instance.AnimalsSaved;
 
     public static Action OnTreeWatered;
+    public static Action OnTreeGrew;
 
     void Start()
     {
@@ -61,6 +62,7 @@ public class YggDrasil : Interactable
         if (currentStage >= stages.Length - 1)
         {
             AudioController.PlaySFX(sfxGrowTree);
+            OnTreeGrew.Invoke();
         }
     }
 }
