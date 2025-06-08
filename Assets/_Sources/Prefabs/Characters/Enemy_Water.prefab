@@ -100,7 +100,7 @@ MonoBehaviour:
   waitToStartPatrol: 0
   rangePatrol: 10
   rangeToEnterChasePlayer: 8
-  rangeToEnterChaseAnimals: 4
+  rangeToEnterChaseAnimals: 3
   rangeToOutChase: 10
   rangeAttack: 1
   stoppedTime: 2

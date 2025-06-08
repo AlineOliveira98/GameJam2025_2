@@ -137,6 +137,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &5173537780088862712
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,41 +330,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7997124752097949558}
     m_Modifications:
-    - target: {fileID: 716188700453210339, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 28.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 716188700453210339, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -45.97
-      objectReference: {fileID: 0}
     - target: {fileID: 4057682029146663727, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
       propertyPath: m_Name
       value: Rain Effect
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703862444377105218, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: lengthInSec
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703862444377105218, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: simulationSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703862444377105218, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703862444377105218, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703862444377105218, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703862444377105218, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6879963040809439681, guid: cac0f4f6478cc544b8279913cf50e0cc, type: 3}
       propertyPath: m_LocalPosition.x
