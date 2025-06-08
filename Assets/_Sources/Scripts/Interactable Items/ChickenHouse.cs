@@ -18,6 +18,10 @@ public class ChickenHouse : Interactable
 
     public override void Interact()
     {
+        if (LockInteract) return;
+
+        LockInteract = true;
+
         base.Interact();
 
         var player = GameController.Instance.Player;
@@ -32,6 +36,6 @@ public class ChickenHouse : Interactable
             GameController.Instance.HasFeather = true;
         });
         
-        LockInteract = false;
+        
     }
 }

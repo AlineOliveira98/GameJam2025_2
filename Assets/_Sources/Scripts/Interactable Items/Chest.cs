@@ -8,6 +8,9 @@ public class Chest : Interactable
 
     public override void Interact()
     {
+        if (LockInteract) return;
+        LockInteract = true;
+        
         base.Interact();
 
         GameController.Instance.OpenChest();
