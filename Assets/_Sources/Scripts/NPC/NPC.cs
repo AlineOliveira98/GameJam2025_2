@@ -32,7 +32,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
 
     void Update()
     {
-        if (!GameController.GameStarted || GameController.GameIsOver) return;
+        if (!GameController.GameStarted || GameController.GameIsOver || GameController.GameIsPaused) return;
         
         if (IsDead || IsSaved) return;
         
@@ -86,6 +86,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         return viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1 && viewportPos.z > 0;
     }
 
+    [ContextMenu("Collect animal")]
     public void Collect()
     {
         if (IsDead || IsSaved || LockedInteraction) return;

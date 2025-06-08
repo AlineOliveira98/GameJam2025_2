@@ -38,7 +38,7 @@ public class EnemyPatrol : MonoBehaviour
     public float RangeAttack => rangeAttack;
 
     public IDash Dash { get; private set; }
-    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
+    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver && !GameController.GameIsPaused;
 
     void Start()
     {

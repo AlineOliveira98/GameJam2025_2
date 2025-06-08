@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private TrailRenderer trailRenderer;
 
-    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver;
+    private bool CanMove => GameController.GameStarted && !GameController.GameIsOver && !GameController.GameIsPaused;
     public NavMeshAgent Agent => agent;
 
     private IDash dash;
