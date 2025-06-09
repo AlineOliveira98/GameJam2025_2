@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
 
-    [SerializeField] private int animalsAmoutDiedToDefeat = 5;
     [SerializeField] private int animalsAmoutSavedToVictory = 7;
 
     [Header("Audio")]
@@ -142,12 +141,6 @@ public class GameController : MonoBehaviour
         AnimalsDied++;
         AnimalsCurrentNumber--;
         OnAnimalDied?.Invoke(animal);
-
-        if (AnimalsDied >= animalsAmoutDiedToDefeat)
-        {
-            GameOver();
-            OnDeadAnimalLimitReached?.Invoke();
-        }
 
         Debug.Log($"Animal Died: {animal.gameObject.name}");
     }
