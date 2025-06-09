@@ -53,5 +53,6 @@ public enum CameraType
 {
     Menu,
     Gameplay,
-    EndGame
+    GoodEndGame,
+    BadEndGame
 }
