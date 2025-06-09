@@ -97,7 +97,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     }
 
     [ContextMenu("Collect animal")]
-    public void Collect()
+    public virtual void Collect()
     {
         if (IsDead || IsSaved || LockedInteraction) return;
 
