@@ -18,6 +18,7 @@ public class BasicDash : IDash
 
     public bool CanDash { get { return canDash; } set { canDash = value; } }
     public bool IsDashing => isDashing;
+    public bool LockDash;
 
     public BasicDash(Rigidbody2D rb, float dashSpeed, float dashDuration, float dashCooldown, NavMeshAgent agent = null, TrailRenderer trail = null)
     {
@@ -61,7 +62,7 @@ public class BasicDash : IDash
         Vector2 startPos = rb.position;
         while (elapsed < dashDuration)
         {
-            rb.MovePosition(Vector2.Lerp(startPos, dashTarget, elapsed / dashDuration));
+            if(!LockDash) rb.MovePosition(Vector2.Lerp(startPos, dashTarget, elapsed / dashDuration));
             elapsed += Time.fixedDeltaTime;
             await Task.Yield();
         }

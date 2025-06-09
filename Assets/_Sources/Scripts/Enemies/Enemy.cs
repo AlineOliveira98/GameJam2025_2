@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     private float lastAttackTime = -Mathf.Infinity;
     public EnemyVisual Visual { get => visual; }
     public EnemyMovement EnemyMovement { get => enemyMovement; }
+    public float Damage => damage;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        Attack();
+        // Attack();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -47,7 +48,7 @@ public class Enemy : MonoBehaviour
 
         if (EnemyMovement.Patrol.TargetFind == null)
         {
-            EnemyMovement.Patrol.StopAttack();
+            // EnemyMovement.Patrol.StopAttack();
             return;
         }
 
@@ -65,7 +66,7 @@ public class Enemy : MonoBehaviour
 
                     if (damageable.IsDead)
                     {
-                        EnemyMovement.Patrol.StopAttack();
+                        // EnemyMovement.Patrol.StopAttack();
                     }
                 }
             }

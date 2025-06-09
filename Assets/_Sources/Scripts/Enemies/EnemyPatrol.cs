@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
@@ -8,6 +9,8 @@ using UnityEngine.AI;
 
 public class EnemyPatrol : MonoBehaviour
 {
+    [SerializeField] private float atkAnimationDuration = 0.2f;
+
     [Header("Patrol")]
     [SerializeField] private bool waitToStartPatrol;
     [SerializeField][Min(3)] private float rangePatrol = 5f;
@@ -30,6 +33,12 @@ public class EnemyPatrol : MonoBehaviour
 
     private Vector2 NavMeshTarget;
     private Player cachedPlayer;
+    private Transform player;
+    private Transform clone;
+    private float checkCooldown = 0.3f;
+    private float checkTimer;
+    private float sqrRangeToEnterPlayer;
+    private float sqrRangeToExit;
 
     public bool IsAttacking { get; set; }
     public bool IsKnockback { get; set; }
@@ -37,168 +46,208 @@ public class EnemyPatrol : MonoBehaviour
     public NavMeshAgent Agent => agent;
     public float RangeAttack => rangeAttack;
 
+    private static List<NPC> allAnimals = new();
+    private float waitTimer;
+    
+
     public IDash Dash { get; private set; }
     private bool CanMove => GameController.GameStarted && !GameController.GameIsOver && !GameController.GameIsPaused;
 
     void Start()
     {
+        if (allAnimals.Count <= 0) allAnimals = GameController.Instance.AllAnimals;
+        
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
         Dash = new BasicDash(enemy.EnemyMovement.Rig, dashSpeed, dashDuration, dashCooldown, agent);
+
+        player = GameObject.FindWithTag("Player")?.transform;
+        clone = GameObject.FindAnyObjectByType<PlayerClone>(FindObjectsInactive.Include)?.transform;
+
+        sqrRangeToEnterPlayer = rangeToEnterChasePlayer * rangeToEnterChasePlayer;
+        sqrRangeToExit = rangeToOutChase * rangeToOutChase;
     }
 
     void Update()
     {
         visual.SetDashing(Dash.IsDashing);
+        if(agent != null) visual.SetRunning(agent.velocity != Vector3.zero);
 
-        if (!CanMove) return;
-        if (IsKnockback) return;
-        if (Dash.IsDashing) return;
+        (Dash as BasicDash).LockDash = IsKnockback;
 
-        if (!TargetFind)
+        if (!CanMove || Dash.IsDashing || IsAttacking || IsKnockback)
         {
-            Patrolling();
-        }
-        else if (IsInsideRange(rangeAttack) || enemy.IsAttackCoroutineRunning)
-        {
-            AttackTarget();
-        }
-        else
-        {
-            Chase();
-        }
-
-        MoveToNavMeshTarget();
-        LookingForTarget();
-    }
-
-    private void Patrolling()
-    {
-        if (waitToStartPatrol) return;
-
-        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            WaitAndSetNewPatrolPoint();
-        }
-    }
-
-    private async void WaitAndSetNewPatrolPoint()
-    {
-        agent.isStopped = true;
-
-        UpdateRandomPoint();
-        await UniTask.Delay((int)(stoppedTime * 1000));
-        if(agent != null && agent.enabled) agent.isStopped = false;
-    }
-
-    private async void Chase()
-    {
-        agent.isStopped = false;
-        IsAttacking = false;
-        NavMeshTarget = TargetFind.position;
-
-        if (TargetFind == null
-        || (TargetFind != null && !TargetFind.gameObject.activeInHierarchy)
-        || !IsInsideRange(rangeToOutChase)
-        || (cachedPlayer != null && TargetFind == cachedPlayer.transform && cachedPlayer.IsInvisible))
-        {
-            agent.isStopped = true;
-            TargetFind = null;
-            UpdateRandomPoint();
-
-            await UniTask.Delay((int)(stoppedTime * 1000));
-            if(agent != null && agent.enabled) agent.isStopped = false;
-
+            if (agent != null) agent.SetDestination(transform.position);
             return;
         }
 
-        if (Dash.CanDash && !IsKnockback)
+        if (TargetFind == player)
         {
-            var randomDash = Random.Range(0, 2);
-            if (randomDash == 0)
+            if (cachedPlayer == null)
+                cachedPlayer = player.GetComponent<Player>();
+
+            if (cachedPlayer.IsInvisible)
             {
-                Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
-                Dash.TryDash(dashDirection);
-                visual.TriggerDash();
-                AudioController.PlaySFX(dashAudio);
-            }
-            else
-            {
-                Dash.CooldownDash();
+                TargetFind = null;
+                waitToStartPatrol = true;
+                if(agent != null) agent.SetDestination(transform.position);
+                return;
             }
         }
+
+        checkTimer += Time.deltaTime;
+        if (checkTimer >= checkCooldown)
+        {
+            checkTimer = 0f;
+            UpdateTarget();
+        }
+
+        if (TargetFind != null)
+        {
+            if (Dash.CanDash && !IsKnockback && !IsAttacking)
+            {
+                var randomDash = Random.Range(0, 2);
+                if (randomDash == 0)
+                {
+                    Vector2 dashDirection = (TargetFind.position - transform.position).normalized;
+                    Dash.TryDash(dashDirection);
+                    visual.TriggerDash();
+                    AudioController.PlaySFX(dashAudio);
+                }
+                else
+                {
+                    Dash.CooldownDash();
+                }
+            }
+        }
+
+        if (TargetFind != null)
+        {
+            agent.SetDestination(TargetFind.position);
+            visual.SetDirection(TargetFind.position);
+
+            float distanceToTarget = Vector3.Distance(transform.position, TargetFind.position);
+            if (distanceToTarget < rangeAttack && !IsAttacking)
+            {
+                AttackRoutine();
+            }
+        }
+        else if (!waitToStartPatrol)
+        {
+            Patrol();
+        }
     }
 
-    private void LookingForTarget()
+    private async UniTask AttackRoutine()
     {
-        Collider2D cloneCol = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 10);
-
-        if (cloneCol != null)
-        {
-            TargetFind = cloneCol.transform;
-            waitToStartPatrol = false;
-            return; 
-        }
-
-        Collider2D playerCol = Physics2D.OverlapCircle(transform.position, rangeToEnterChasePlayer, 1 << 6);
-        Collider2D npc = Physics2D.OverlapCircle(transform.position, rangeToEnterChaseAnimals, 1 << 7);
-
-        float playerDist = float.MaxValue;
-        float npcDist = float.MaxValue;
-
-        if (playerCol != null)
-        {
-            if (cachedPlayer == null || cachedPlayer.gameObject != playerCol.gameObject)
-                cachedPlayer = playerCol.GetComponent<Player>();
-
-            playerDist = (playerCol.transform.position - transform.position).sqrMagnitude;
-        }
-
-        if (npc != null)
-            npcDist = (npc.transform.position - transform.position).sqrMagnitude;
-
-        if (playerCol != null && playerDist <= npcDist && cachedPlayer != null && !cachedPlayer.IsInvisible)
-        {
-            TargetFind = playerCol.transform;
-            waitToStartPatrol = false;
-        }
-        else if (npc != null)
-        {
-            TargetFind = npc.transform;
-            waitToStartPatrol = false;
-        }
-    }
-
-    private void MoveToNavMeshTarget()
-    {
-        if (waitToStartPatrol) return;
-        if (agent == null || !agent.enabled) return;
-
-        visual.SetRunning(!agent.isStopped && !Dash.IsDashing);
-        visual.SetDirection(NavMeshTarget);
-
-        agent.SetDestination(NavMeshTarget);
-    }
-
-    private void AttackTarget()
-    {
-        if (!agent.isStopped) agent.isStopped = true;
         IsAttacking = true;
-    }
+        agent.SetDestination(transform.position);
+        visual.SetAttack();
 
-    public void StopAttack()
-    {
-        TargetFind = null;
-        agent.isStopped = false;
+        await Task.Delay((int)(atkAnimationDuration * 1000));
+
+        if (TargetFind.TryGetComponent(out IDamageable damageable))
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, TargetFind.position);
+            if (distanceToTarget < rangeAttack)
+            {
+                damageable.TakeDamage(enemy.Damage);
+
+                if (damageable.IsDead)
+                {
+                    IsAttacking = false;
+                }
+            }
+        }
+
         IsAttacking = false;
     }
 
-    private bool IsInsideRange(float range)
+    private void Patrol()
     {
-        var srqDist = (transform.position - TargetFind.position).sqrMagnitude;
+        if (!agent.hasPath || agent.remainingDistance <= agent.stoppingDistance)
+        {
+            waitTimer += Time.deltaTime;
+            if (waitTimer >= stoppedTime)
+            {
+                UpdateRandomPoint();
+                agent.SetDestination(NavMeshTarget);
+                visual.SetDirection(NavMeshTarget);
+                waitTimer = 0f;
+            }
+        }
+    }
 
-        return srqDist <= range * range;
+    private void UpdateTarget()
+    {
+        // Verifica Clone (prioridade máxima)
+        if (clone != null && clone.gameObject.activeInHierarchy &&
+            (clone.position - transform.position).sqrMagnitude <= sqrRangeToEnterPlayer)
+        {
+            if (TargetFind != clone)
+            {
+                TargetFind = clone;
+                waitToStartPatrol = false;
+            }
+            return;
+        }
+
+        // Verifica Player
+        if (player != null)
+        {
+            cachedPlayer = player.GetComponent<Player>();
+            if (!cachedPlayer.IsInvisible &&
+                (player.position - transform.position).sqrMagnitude <= sqrRangeToEnterPlayer)
+            {
+                if (TargetFind != player)
+                {
+                    TargetFind = player;
+                    waitToStartPatrol = false;
+                }
+                return;
+            }
+        }
+
+        // Verifica Animal
+        Transform animalTarget = GetClosestAnimal();
+        if (animalTarget != null)
+        {
+            if (TargetFind != animalTarget)
+            {
+                TargetFind = animalTarget;
+                waitToStartPatrol = false;
+            }
+            return;
+        }
+
+        // Checa se deve sair da perseguição
+        if (TargetFind != null && (TargetFind.position - transform.position).sqrMagnitude > sqrRangeToExit)
+        {
+            TargetFind = null;
+            waitToStartPatrol = true;
+        }
+    }
+
+    private Transform GetClosestAnimal()
+    {
+        float sqrRange = rangeToEnterChaseAnimals * rangeToEnterChaseAnimals;
+        Transform closest = null;
+        float closestDist = float.MaxValue;
+
+        foreach (var npc in allAnimals)
+        {
+            if (npc == null) continue;
+
+            float sqrDist = (npc.transform.position - transform.position).sqrMagnitude;
+            if (sqrDist <= sqrRange && sqrDist < closestDist)
+            {
+                closest = npc.transform;
+                closestDist = sqrDist;
+            }
+        }
+
+        return closest;
     }
 
     private void UpdateRandomPoint()
