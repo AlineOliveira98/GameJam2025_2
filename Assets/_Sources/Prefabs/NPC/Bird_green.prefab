@@ -162,6 +162,11 @@ MonoBehaviour:
   dieAnimDuration: 1.5
   animator: {fileID: 618307479508560233}
   overrideController: {fileID: 22100000, guid: cb3a9dfea2136624b836c61b3e655814, type: 2}
+  deathSFX: {fileID: 0}
+  audioSource: {fileID: 0}
+  uiIndex: 4
+  animalType: 0
+  soulObjectToActivate: {fileID: 0}
 --- !u!212 &828393940799859459
 SpriteRenderer:
   m_ObjectHideFlags: 0

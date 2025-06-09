@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndingUI : MonoBehaviour
 {
@@ -20,11 +21,16 @@ public class EndingUI : MonoBehaviour
 
     private void AnimEndGame()
     {
-        // monologueAudio.Play();
+        monologueAudio.Play();
         textMonologue.DOAnchorPosY(finalPosY, duration).SetEase(Ease.Linear);
     }
 
     void Update()
     {
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }
