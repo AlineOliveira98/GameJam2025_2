@@ -43,7 +43,7 @@ public class YggDrasil : Interactable
             return;
         }
 
-        if (IsLastStage && !GameController.Instance.LastAnimalSaved)
+        if (IsLastStage)
         {
             OnTreeCanGrow?.Invoke();
             return;

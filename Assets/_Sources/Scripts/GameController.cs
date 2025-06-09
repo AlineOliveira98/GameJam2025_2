@@ -33,7 +33,6 @@ public class GameController : MonoBehaviour
     public Player Player { get; private set; }
     public bool HasAxe { get; private set; }
     public bool HasFeather { get; set; }
-    public bool LastAnimalSaved { get; set; }
     public List<NPC> AllAnimals { get; private set; } = new();
 
     public static Action<NPC> OnAnimalSaved;
@@ -80,7 +79,6 @@ public class GameController : MonoBehaviour
 
             foreach (var item in animals)
             {
-                if (item.animalType == AnimalType.Cat) continue;
                 item.Collect();
             }
 
@@ -106,7 +104,7 @@ public class GameController : MonoBehaviour
             CameraController.Instance.SetCamera(CameraType.GoodEndGame);
         }
 
-        // CameraController.Instance.SetCamera(CameraType.EndGame);
+        CameraController.Instance.SetCamera(CameraType.EndGame);
     }
 
     void Start()
@@ -126,13 +124,13 @@ public class GameController : MonoBehaviour
         }
 
         AudioController.PlaySFX(animalSavedAudio);
-    }
 
-    public async Task OpenDialogue()
-    {
-        PauseGame(true);
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-        DialogueService.StartDialogue(DialogueLastAnimal);
+        if (AnimalsSaved >= totalAnimals)
+        {
+            GameOver();
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            DialogueService.StartDialogue(DialogueLastAnimal);
+        }
     }
 
     public void EnableLastAnimal()
