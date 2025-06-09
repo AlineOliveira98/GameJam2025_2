@@ -7,8 +7,11 @@ public class Cat : NPC
         if (IsDead || IsSaved || LockedInteraction) return;
 
         IsSaved = true;
-        // gameObject.SetActive(false);
+        GameController.Instance.OpenDialogue();
+    }
 
+    public void CollectReal()
+    {
         AnimalsUI.Instance.SetSaved(animalType);
         GameController.Instance.SaveAnimal(this);
     }
