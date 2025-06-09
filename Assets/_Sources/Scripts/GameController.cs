@@ -108,6 +108,7 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("Second Ending");
             CameraController.Instance.SetCamera(CameraType.GoodEndGame);
+            GoodEnding();
         }
     }
 
