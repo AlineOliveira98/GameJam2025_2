@@ -12,6 +12,7 @@ public class SoulInteractable : Interactable
 
     [Header("Vida Visual (em cena)")]
     [SerializeField] private Transform heartIconWorldObject;
+    [SerializeField] private GameObject heartVisualPrefab; 
     [SerializeField] private float moveSpeed = 4f;
 
     private bool isHelped = false;
@@ -30,33 +31,34 @@ public class SoulInteractable : Interactable
         playerHealth.TakeDamage(1f);
         isHelped = true;
 
-        AnimateWorldHeartToSoul().Forget(); 
+        AnimateSpawnedHeartToSoul().Forget();
     }
 
-    private async UniTaskVoid AnimateWorldHeartToSoul()
+    private async UniTaskVoid AnimateSpawnedHeartToSoul()
     {
-        if (heartIconWorldObject == null)
+        if (heartIconWorldObject == null || heartVisualPrefab == null)
         {
             FinalizeHealing();
             return;
         }
 
-        heartIconWorldObject.gameObject.SetActive(true);
+        GameObject heartInstance = Instantiate(heartVisualPrefab, heartIconWorldObject.position, Quaternion.identity);
+        Transform heartTransform = heartInstance.transform;
 
-        Vector3 start = heartIconWorldObject.position;
+        Vector3 start = heartTransform.position;
         Vector3 target = transform.position;
 
         float t = 0f;
         while (t < 1f)
         {
             t += Time.deltaTime * moveSpeed;
-            heartIconWorldObject.position = Vector3.Lerp(start, target, EaseOutQuad(t));
+            heartTransform.position = Vector3.Lerp(start, target, EaseOutQuad(t));
             await UniTask.Yield();
         }
 
         await UniTask.Delay(200);
+        Destroy(heartInstance);
 
-        heartIconWorldObject.gameObject.SetActive(false);
         FinalizeHealing();
     }
 
