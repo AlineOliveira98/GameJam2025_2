@@ -132,6 +132,23 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         gameObject.SetActive(false);
     }
 
+    public void ReactivateAfterHealing()
+    {
+
+        gameObject.SetActive(true);
+
+
+        var col = GetComponent<Collider2D>();
+        if (col != null)
+            col.enabled = true;
+
+
+        IsDead = false;
+        IsSaved = false;
+        LockedInteraction = false;
+
+        Debug.Log("NPC reativado sem delay.");
+    }
 
 
     private void OnDrawGizmosSelected()
