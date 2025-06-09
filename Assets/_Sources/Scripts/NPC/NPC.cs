@@ -18,6 +18,9 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     [SerializeField] private AudioClip deathSFX;
     [SerializeField] private AudioSource audioSource;
 
+    public int uiIndex;
+    public AnimalType animalType;
+
 
     private float lastCallHelp;
     private Camera cam;
@@ -98,6 +101,7 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         IsSaved = true;
         gameObject.SetActive(false);
 
+        AnimalsUI.Instance.SetSaved(animalType);
         GameController.Instance.SaveAnimal(this);
     }
 
@@ -117,9 +121,9 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
         }
 
         gameObject.SetActive(false);
+        AnimalsUI.Instance.SetDied(animalType);
         GameController.Instance.KillAnimal(this);
     }
-
 
 
     private void OnDrawGizmosSelected()
