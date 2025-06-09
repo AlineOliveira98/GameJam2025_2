@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Character Chicken
   m_EditorClassIdentifier: 
   characterName: Cat
-  characterIcon: {fileID: 8560451000399327191, guid: b72aba221d430cf4ea8bdafafe96bd7a, type: 3}
+  characterIcon: {fileID: 2528960788681728815, guid: 8929259c5ed50904f9abda791e0650ce, type: 3}

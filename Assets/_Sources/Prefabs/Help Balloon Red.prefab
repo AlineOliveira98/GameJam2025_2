@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -22649671
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 8821705291729858671, guid: 22b75a1ca7ad6e940aad827dd62c75b2, type: 3}
+  m_Sprite: {fileID: -9147967502172440019, guid: 22b75a1ca7ad6e940aad827dd62c75b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Muu
+  m_text: tweet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d916d3c2e7312014c801881339d74183, type: 2}
   m_sharedMaterial: {fileID: -1381604977772475325, guid: d916d3c2e7312014c801881339d74183, type: 2}
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.75
+  m_fontSize: 4.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
