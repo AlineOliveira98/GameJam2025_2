@@ -3,6 +3,10 @@ using UnityEngine;
 public class Soul : MonoBehaviour
 {
     [SerializeField] private GameObject objectToEnableAfterHelp;
+    [Header("Som ao doar vida")]
+    [SerializeField] private AudioClip healingSFX;
+    [SerializeField] private AudioSource audioSource;
+
     private bool isHelped = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -17,11 +21,18 @@ public class Soul : MonoBehaviour
                 playerHealth.TakeDamage(1f);
 
                 if (objectToEnableAfterHelp != null)
-                    objectToEnableAfterHelp.SetActive(true); 
+                    objectToEnableAfterHelp.SetActive(true);
 
-                gameObject.SetActive(false); 
+                if (healingSFX != null)
+                {
+                    if (audioSource != null)
+                        audioSource.PlayOneShot(healingSFX);
+                    else
+                        AudioSource.PlayClipAtPoint(healingSFX, transform.position);
+                }
+
+                gameObject.SetActive(false);
                 isHelped = true;
-
             }
         }
     }
