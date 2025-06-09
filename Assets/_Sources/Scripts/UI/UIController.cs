@@ -91,5 +91,6 @@ public enum PanelType
     Dialogue,
     Defeat,
     Victory,
-    Ending
+    GoodEnding,
+    BadEnding
 }
