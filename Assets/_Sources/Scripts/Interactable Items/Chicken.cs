@@ -6,7 +6,8 @@ using UnityEngine;
 public class Chicken : NPC
 {
     [SerializeField] private float delayAnimation;
-    public async void OnInteract()
+
+    public override async void Collect()
     {
         if (!GameController.Instance.HasFeather)
         {
@@ -18,5 +19,8 @@ public class Chicken : NPC
 
         await UniTask.Delay(TimeSpan.FromSeconds(delayAnimation));
         LockedInteraction = false;
+
+        AnimalsUI.Instance.SetSaved(animalType);
+        GameController.Instance.SaveAnimal(this);
     }
 }
