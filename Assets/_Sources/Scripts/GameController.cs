@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour
 
     private void DialogueAnswer(int option)
     {
-        if (option == 0)
+        if (option == 1)
         {
             Debug.Log("First Ending");
             CameraController.Instance.SetCamera(CameraType.BadEndGame);
