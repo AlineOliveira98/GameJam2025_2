@@ -90,7 +90,9 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogue()
     {
-        GameController.Instance.Ending();
+        GameController.Instance.PauseGame(false);
+        FindAnyObjectByType<Cat>().CollectReal();
+        UIController.Instance.OpenPanel(PanelType.Gameplay);
         DialogueService.FinishDialogue();
     }
 }
