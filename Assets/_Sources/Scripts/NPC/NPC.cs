@@ -21,6 +21,9 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
     public int uiIndex;
     public AnimalType animalType;
 
+    [SerializeField] private GameObject soulObjectToActivate;
+
+
 
     private float lastCallHelp;
     private Camera cam;
@@ -120,10 +123,15 @@ public class NPC : MonoBehaviour, ICollectable, IDamageable
             await UniTask.Delay((int)(dieAnimDuration * 1000));
         }
 
-        gameObject.SetActive(false);
         AnimalsUI.Instance.SetDied(animalType);
         GameController.Instance.KillAnimal(this);
+
+        if (soulObjectToActivate != null)
+            soulObjectToActivate.SetActive(true);
+
+        gameObject.SetActive(false);
     }
+
 
 
     private void OnDrawGizmosSelected()
