@@ -165,7 +165,7 @@ MonoBehaviour:
   deathSFX: {fileID: 0}
   audioSource: {fileID: 0}
   uiIndex: 4
-  animalType: 0
+  animalType: 5
   soulObjectToActivate: {fileID: 0}
 --- !u!212 &828393940799859459
 SpriteRenderer:

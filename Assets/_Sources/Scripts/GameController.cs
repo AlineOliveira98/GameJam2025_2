@@ -98,10 +98,12 @@ public class GameController : MonoBehaviour
         if (option == 0)
         {
             Debug.Log("First Ending");
+            CameraController.Instance.SetCamera(CameraType.BadEndGame);
         }
         else
         {
             Debug.Log("Second Ending");
+            CameraController.Instance.SetCamera(CameraType.GoodEndGame);
         }
 
         // CameraController.Instance.SetCamera(CameraType.EndGame);
@@ -180,7 +182,7 @@ public class GameController : MonoBehaviour
 
     public void Ending()
     {
-        UIController.Instance.OpenPanel(PanelType.Ending);
+        UIController.Instance.OpenPanel(PanelType.GoodEnding);
         AudioController.Instance.StopMusic();
         OnGameEnding?.Invoke();
     }
