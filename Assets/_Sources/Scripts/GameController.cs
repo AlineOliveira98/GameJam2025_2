@@ -21,6 +21,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject lastAnimal;
     [SerializeField] private InventoryUI inventory;
 
+    public EndingUI goodEndgame;
+    public BadEnding badEndgame;
+
     private int totalAnimals;
 
     public static bool GameStarted { get; private set; }
@@ -93,12 +96,15 @@ public class GameController : MonoBehaviour
 
     private void DialogueAnswer(int option)
     {
-        if (option == 1)
+        Debug.Log("option " + option);
+
+        if (option == 0)
         {
             Debug.Log("First Ending");
             CameraController.Instance.SetCamera(CameraType.BadEndGame);
+            BadEnding();
         }
-        else
+        else if (option == 1)
         {
             Debug.Log("Second Ending");
             CameraController.Instance.SetCamera(CameraType.GoodEndGame);
@@ -176,10 +182,19 @@ public class GameController : MonoBehaviour
         InventoryUI.Instance.GetFeather();
     }
 
-    public void Ending()
+    public void GoodEnding()
     {
         UIController.Instance.OpenPanel(PanelType.GoodEnding);
+        Debug.Log("Good Ending");
         AudioController.Instance.StopMusic();
-        OnGameEnding?.Invoke();
+        goodEndgame.AnimEndGame();
+    }
+
+    public void BadEnding()
+    {
+        UIController.Instance.OpenPanel(PanelType.BadEnding);
+        Debug.Log("Bad Ending");
+        AudioController.Instance.StopMusic();
+        badEndgame.AnimEndGame();
     }
 }

@@ -19,7 +19,7 @@ public class EndingUI : MonoBehaviour
         GameController.OnGameEnding -= AnimEndGame;
     }
 
-    private void AnimEndGame()
+    public void AnimEndGame()
     {
         monologueAudio.Play();
         textMonologue.DOAnchorPosY(finalPosY, duration).SetEase(Ease.Linear);

@@ -27,6 +27,6 @@ public class VictoryUI : MonoBehaviour
 
     public void ChooseSadEnding()
     {
-        CameraController.Instance.SetCamera(CameraType.GoodEndGame);
+        CameraController.Instance.SetCamera(CameraType.BadEndGame);
     }
 }

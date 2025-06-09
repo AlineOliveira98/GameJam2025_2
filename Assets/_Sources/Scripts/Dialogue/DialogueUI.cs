@@ -71,12 +71,11 @@ public class DialogueUI : MonoBehaviour
                 optionsText[i].text = line.options[i];
                 var optionButton = optionsText[i].GetComponentInParent<Button>();
                 optionButton.onClick.RemoveAllListeners();
-                optionButton.onClick.AddListener(() => SelectOption(i));
             }
         }
     }
 
-    private void SelectOption(int option)
+    public void SelectOption(int option)
     {
         currentDialogue.OnOptionSelected?.Invoke(option);
         CloseDialogue();
@@ -90,7 +89,6 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogue()
     {
-        GameController.Instance.Ending();
         DialogueService.FinishDialogue();
     }
 }

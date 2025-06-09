@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410fb2a69bef7024da9e776caf6323c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monologueAudio: {fileID: 1573875869269142345}
 --- !u!223 &6282317588588231274
 Canvas:
   m_ObjectHideFlags: 0
@@ -102,8 +103,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: db722a10855cd554387332cb5efc236b, type: 3}
-  m_Resource: {fileID: 8300000, guid: db722a10855cd554387332cb5efc236b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ff1d5d567a1bc3d438f0b261603fd116, type: 3}
+  m_Resource: {fileID: 8300000, guid: ff1d5d567a1bc3d438f0b261603fd116, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.05
   m_Pitch: 1
@@ -1070,6 +1071,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 37488453048509099}
+        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+        m_MethodName: SelectOption
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9392,6 +9405,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UltEvents.UltEventHolder, Kybernetik.UltEvents
         m_MethodName: Invoke
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 37488453048509099}
+        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+        m_MethodName: SelectOption
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
