@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c887843ce8f52fb4e9ddbf9e1e068b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalsAmoutDiedToDefeat: 1
+  animalsAmoutDiedToDefeat: 7
   animalsAmoutSavedToVictory: 7
   gameplayMusics:
   - {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
@@ -53,8 +53,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bef0cef2ded0f0645ad90c6e5bdd4965, type: 3}
   animalSavedAudio: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
   skillTypeWhenSavedAnimals: 2
-  lastAnimal: {fileID: 0}
   DialogueLastAnimal: {fileID: 11400000, guid: 4d7bf36abea1a4343a568e3959a4d5e5, type: 2}
+  lastAnimal: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &8283348019124355285
 MonoBehaviour:
   m_ObjectHideFlags: 0
