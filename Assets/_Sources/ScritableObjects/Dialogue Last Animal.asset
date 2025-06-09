@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - character: {fileID: 11400000, guid: 610bb9b6ef1ff10428bd84b2a2537720, type: 2}
-    dialogue: '"I''m badly hurt, I need energy to be able to walk."'
+    dialogue: I'm badly hurt, I need energy to be able to walk.
     options: []
   - character: {fileID: 11400000, guid: f0adad0b03bb93a468b5fc1001eb144a, type: 2}
-    dialogue: '"Could you give me some of your vital energy?"'
+    dialogue: Could you give me some of your vital energy?
     options:
-    - '"You''re on your own!"         '
-    - '"Take my vital energy."'
+    - 'You''re on your own!   '
+    - Take my vital energy.
