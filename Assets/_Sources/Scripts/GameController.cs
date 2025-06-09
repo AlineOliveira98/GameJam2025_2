@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -33,6 +34,7 @@ public class GameController : MonoBehaviour
     public Player Player { get; private set; }
     public bool HasAxe { get; private set; }
     public bool HasFeather { get; set; }
+    public List<NPC> AllAnimals { get; private set; } = new();
 
     public static Action<NPC> OnAnimalSaved;
     public static Action<NPC> OnAnimalDied;
@@ -47,7 +49,8 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
 
         Player = FindAnyObjectByType<Player>();
-        totalAnimals = FindObjectsByType<NPC>(FindObjectsSortMode.None).Count();
+        AllAnimals = FindObjectsByType<NPC>(FindObjectsSortMode.None).ToList();
+        totalAnimals = AllAnimals.Count();
 
         AnimalsDied = 0;
         AnimalsSaved = 0;

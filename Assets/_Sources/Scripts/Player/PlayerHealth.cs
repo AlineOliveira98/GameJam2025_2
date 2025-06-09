@@ -40,14 +40,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public async void TakeDamage(float damage)
     {
-        if (!receiveDamage) return;
         if (IsDead || IsInvincible) return;
 
-        currentHealth -= damage;
+        if (receiveDamage) currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         player.Visual.TakeDamage();
-        SetInvincibility(invulnerableDurationWhenDamaged);
+        if (receiveDamage) SetInvincibility(invulnerableDurationWhenDamaged);
         OnPlayerHealthChanged?.Invoke(currentHealth, maxHealth);
 
         await UniTask.Delay(TimeSpan.FromSeconds(delayAnimTakeDamage));
