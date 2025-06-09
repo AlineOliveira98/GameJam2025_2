@@ -24,6 +24,8 @@ public class SafeArea : MonoBehaviour
 
     private void SetAnimalPosition(NPC animal)
     {
+        if (animal as Cat) return;
+        
         int randomIndex = Random.Range(0, availablePoints.Count);
         Transform pointTransform = availablePoints[randomIndex];
 

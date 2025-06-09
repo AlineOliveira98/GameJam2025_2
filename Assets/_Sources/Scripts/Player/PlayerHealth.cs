@@ -14,6 +14,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private float currentHealth = 0;
     private Player player;
 
+    public float CurrentHealth => currentHealth;
+
+
     public bool IsDead { get; set; }
     public bool IsInvincible { get; private set; } = false;
 

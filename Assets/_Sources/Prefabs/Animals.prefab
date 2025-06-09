@@ -436,14 +436,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cat
       objectReference: {fileID: 0}
-    - target: {fileID: 8070499294965001804, guid: 893a38f9f1bdad241a1df0005db2b368, type: 3}
-      propertyPath: uiIndex
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8070499294965001804, guid: 893a38f9f1bdad241a1df0005db2b368, type: 3}
-      propertyPath: animalType
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -78,7 +78,7 @@ public class EnemyPatrol : MonoBehaviour
 
         if (!CanMove || Dash.IsDashing || IsAttacking || IsKnockback)
         {
-            if (agent != null) agent.SetDestination(transform.position);
+            if (agent != null && agent.enabled) agent.SetDestination(transform.position);
             return;
         }
 
@@ -91,7 +91,7 @@ public class EnemyPatrol : MonoBehaviour
             {
                 TargetFind = null;
                 waitToStartPatrol = true;
-                if(agent != null) agent.SetDestination(transform.position);
+                if(agent != null && agent.enabled) agent.SetDestination(transform.position);
                 return;
             }
         }
